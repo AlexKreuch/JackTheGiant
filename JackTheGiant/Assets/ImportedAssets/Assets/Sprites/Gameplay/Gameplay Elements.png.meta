@@ -1,7 +1,52 @@
 fileFormatVersion: 2
 guid: 0110e217a125b9d4fb16a336f826339c
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4815254528902312000
+    second: Gameplay Elements_0
+  - first:
+      213: -6607178875853909384
+    second: Gameplay Elements_1
+  - first:
+      213: 7628800268639793799
+    second: Gameplay Elements_2
+  - first:
+      213: -4504691372432430140
+    second: Gameplay Elements_3
+  - first:
+      213: 7598859861329351719
+    second: Gameplay Elements_4
+  - first:
+      213: -1040884793168151050
+    second: Gameplay Elements_5
+  - first:
+      213: -5855533656667214535
+    second: Gameplay Elements_6
+  - first:
+      213: 8809548645194950162
+    second: Gameplay Elements_7
+  - first:
+      213: -2395938884929929944
+    second: Gameplay Elements_8
+  - first:
+      213: -9025154192369482263
+    second: Gameplay Elements_9
+  - first:
+      213: 3608698807706474634
+    second: Gameplay Elements_10
+  - first:
+      213: -6908688868913861527
+    second: Gameplay Elements_11
+  - first:
+      213: 5567274761461643289
+    second: Gameplay Elements_12
+  - first:
+      213: 4781976052634120432
+    second: Gameplay Elements_13
+  - first:
+      213: -8130023994961416096
+    second: Gameplay Elements_14
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,9 +85,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -69,9 +114,368 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Gameplay Elements_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 240
+        width: 193
+        height: 77
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 38}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f064a772f39ed94690248242c49af03
+      internalID: 4815254528902312000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_1
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 259
+        width: 43
+        height: 52
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 415cbf5558d5ee744aff5867be26e132
+      internalID: -6607178875853909384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 241
+        width: 192
+        height: 37
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab656a7cc858e354cba4092416edf822
+      internalID: 7628800268639793799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_3
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 212
+        width: 41
+        height: 41
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3517622c83527640968c3482995d19d
+      internalID: -4504691372432430140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_4
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 193
+        width: 170
+        height: 43
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eecbfd4786c62f42ab9a2987d96b57e
+      internalID: 7598859861329351719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_5
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 148
+        width: 172
+        height: 43
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5410b783bea400b48be9bd1d29fb4d21
+      internalID: -1040884793168151050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_6
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 147
+        width: 40
+        height: 40
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b94baa3b55fb5464e8363c87c9d02472
+      internalID: -5855533656667214535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_7
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 102
+        width: 172
+        height: 43
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4abcc5aa61e6874aa9694f42d322c8c
+      internalID: 8809548645194950162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_8
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 44
+        width: 118
+        height: 49
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bff4bd750eda0b48be3d7f5944860a7
+      internalID: -2395938884929929944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_9
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 53
+        width: 84
+        height: 27
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7ee5f5319dfb1941987f86428e406ec
+      internalID: -9025154192369482263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_10
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 0
+        width: 30
+        height: 42
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b93284253098b6479eaa18e3dc5f622
+      internalID: 3608698807706474634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_11
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 0
+        width: 32
+        height: 42
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cea79da03af06154ba2a538c9fcd8325
+      internalID: -6908688868913861527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_12
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 0
+        width: 35
+        height: 42
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaefd331e3be75143bbb99e141673103
+      internalID: 5567274761461643289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_13
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 28
+        height: 41
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cf1964b4eb83f244a77bd792a0775eb
+      internalID: 4781976052634120432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gameplay Elements_14
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 29
+        height: 41
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cdaab39a1ec1b54d8658d15036e8c52
+      internalID: -8130023994961416096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
