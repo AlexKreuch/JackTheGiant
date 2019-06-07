@@ -11,6 +11,7 @@ public class tester : MonoBehaviour
     void Start()
     {
         animator = (Animator)thePlayer.GetComponent(typeof(Animator));
+        
     }
 
     // Update is called once per frame
@@ -20,7 +21,7 @@ public class tester : MonoBehaviour
     }
 
     public void PushButton() {
-        CheckForComponent();
+        ToggleWalk();
     }
     private void CheckForComponent() {
         string name = input.text;
@@ -35,5 +36,9 @@ public class tester : MonoBehaviour
             Debug.Log("exception thrown on " + name);
         }
     }
-    
+    private void ToggleWalk() {
+        const string name = "walking";
+        var x = animator.GetBool(name);
+        animator.SetBool(name,!x);
+    }
 }
