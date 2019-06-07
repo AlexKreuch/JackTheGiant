@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class tester : MonoBehaviour
 {
+    public Sprite sprite;
     public GameObject thePlayer;
     public InputField input;
     private Animator animator;
@@ -11,13 +12,13 @@ public class tester : MonoBehaviour
     void Start()
     {
         animator = (Animator)thePlayer.GetComponent(typeof(Animator));
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void PushButton() {
@@ -39,6 +40,10 @@ public class tester : MonoBehaviour
     private void ToggleWalk() {
         const string name = "walking";
         var x = animator.GetBool(name);
-        animator.SetBool(name,!x);
+        animator.SetBool(name, !x);
     }
+    private void SpriteTest() {
+       
+       }
+    
 }
