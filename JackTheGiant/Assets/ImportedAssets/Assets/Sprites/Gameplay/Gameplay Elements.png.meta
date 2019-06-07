@@ -4,37 +4,37 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 4815254528902312000
-    second: Gameplay Elements_0
+    second: Resume_button
   - first:
       213: -6607178875853909384
-    second: Gameplay Elements_1
+    second: Life
   - first:
       213: 7628800268639793799
-    second: Gameplay Elements_2
+    second: Quit_button
   - first:
       213: -4504691372432430140
-    second: Gameplay Elements_3
+    second: Coin
   - first:
       213: 7598859861329351719
-    second: Gameplay Elements_4
+    second: cloud_0
   - first:
       213: -1040884793168151050
-    second: Gameplay Elements_5
+    second: cloud_1
   - first:
       213: -5855533656667214535
-    second: Gameplay Elements_6
+    second: Pause
   - first:
       213: 8809548645194950162
-    second: Gameplay Elements_7
+    second: cloud_2
   - first:
       213: -2395938884929929944
-    second: Gameplay Elements_8
+    second: dark_cloud
   - first:
       213: -9025154192369482263
-    second: Gameplay Elements_9
+    second: Score_sign
   - first:
       213: 3608698807706474634
-    second: Gameplay Elements_10
+    second: Ready_sign
   - first:
       213: -6908688868913861527
     second: Gameplay Elements_11
@@ -162,13 +162,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gameplay Elements_0
+      name: Resume_button
       rect:
         serializedVersion: 2
         x: 0
-        y: 240
+        y: 279
         width: 193
-        height: 77
+        height: 38
       alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 38}
@@ -183,7 +183,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_1
+      name: Life
       rect:
         serializedVersion: 2
         x: 203
@@ -204,7 +204,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_2
+      name: Quit_button
       rect:
         serializedVersion: 2
         x: 0
@@ -225,7 +225,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_3
+      name: Coin
       rect:
         serializedVersion: 2
         x: 204
@@ -246,7 +246,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_4
+      name: cloud_0
       rect:
         serializedVersion: 2
         x: 7
@@ -267,7 +267,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_5
+      name: cloud_1
       rect:
         serializedVersion: 2
         x: 11
@@ -288,7 +288,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_6
+      name: Pause
       rect:
         serializedVersion: 2
         x: 203
@@ -309,7 +309,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_7
+      name: cloud_2
       rect:
         serializedVersion: 2
         x: 8
@@ -330,7 +330,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_8
+      name: dark_cloud
       rect:
         serializedVersion: 2
         x: 6
@@ -351,7 +351,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_9
+      name: Score_sign
       rect:
         serializedVersion: 2
         x: 152
@@ -372,12 +372,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gameplay Elements_10
+      name: Ready_sign
       rect:
         serializedVersion: 2
-        x: 7
+        x: 0
         y: 0
-        width: 30
+        width: 169
         height: 42
       alignment: 9
       pivot: {x: 0, y: 0}
@@ -388,90 +388,6 @@ TextureImporter:
       bones: []
       spriteID: 7b93284253098b6479eaa18e3dc5f622
       internalID: 3608698807706474634
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gameplay Elements_11
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 0
-        width: 32
-        height: 42
-      alignment: 9
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cea79da03af06154ba2a538c9fcd8325
-      internalID: -6908688868913861527
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gameplay Elements_12
-      rect:
-        serializedVersion: 2
-        x: 71
-        y: 0
-        width: 35
-        height: 42
-      alignment: 9
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aaefd331e3be75143bbb99e141673103
-      internalID: 5567274761461643289
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gameplay Elements_13
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 0
-        width: 28
-        height: 41
-      alignment: 9
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5cf1964b4eb83f244a77bd792a0775eb
-      internalID: 4781976052634120432
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gameplay Elements_14
-      rect:
-        serializedVersion: 2
-        x: 138
-        y: 0
-        width: 29
-        height: 41
-      alignment: 9
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7cdaab39a1ec1b54d8658d15036e8c52
-      internalID: -8130023994961416096
       vertices: []
       indices: 
       edges: []
