@@ -628,6 +628,7 @@ GameObject:
   m_Component:
   - component: {fileID: 973532479}
   - component: {fileID: 973532478}
+  - component: {fileID: 973532480}
   m_Layer: 0
   m_Name: dark_cloud
   m_TagString: Untagged
@@ -698,6 +699,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &973532480
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973532477}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 1.18, y: 0.49}
+    newSize: {x: 1.18, y: 0.49}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.0032790005, y: 0.2046135}
+      - {x: 0.49145675, y: 0.42775273}
+      - {x: 0.5811387, y: 0.4632225}
+      - {x: 1.1619638, y: 0.22664845}
+      - {x: 0.79959416, y: 0.014309943}
+      - {x: 0.41799122, y: 0.017307281}
 --- !u!1 &1182619282
 GameObject:
   m_ObjectHideFlags: 0
