@@ -80,11 +80,30 @@ public class tester : MonoBehaviour
     }
     private void Adjuster() {
         string data = input.text;
-        var b = int.TryParse(data, out int v);
-        if (b)
+        if (data == "") return;
+        string[] tokens = data.Split('=');
+        if (tokens.Length > 2) { Debug.Log("too many \'=\''s"); return; }
+        bool speedOption = false;
+        switch (tokens[0])
         {
-            playerRemote.speed = v;
-            playerRemote.jumpPower = v;
+            case "speed": speedOption = true; break;
+            case "jumpPower": break;
+            default: Debug.Log("not-recognized"); return;
+        }
+        if (tokens.Length == 1)
+        {
+            var value = speedOption ? playerRemote.speed : playerRemote.jumpPower;
+            Debug.Log(string.Format("{0} has value : {1}", tokens[0], value));
+        }
+        else
+        {
+            bool b = float.TryParse(tokens[1],out float value);
+            if (b)
+            {
+                if (speedOption) playerRemote.speed = value; else playerRemote.jumpPower = value;
+                Debug.Log(string.Format("{0} has been set to : {1}", tokens[0], value));
+            }
+            else Debug.Log("invalid number");
         }
     }
     
