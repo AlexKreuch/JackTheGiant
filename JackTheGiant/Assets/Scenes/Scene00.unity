@@ -832,6 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a5f16fa5d29554d8f2daadf90f7e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayText: {fileID: 1406166748}
   sprite: {fileID: -2311659948842064771, guid: 2842093ccd805d74b8d5866a95453f11, type: 3}
   thePlayer: {fileID: 68946960}
   input: {fileID: 1401601628}

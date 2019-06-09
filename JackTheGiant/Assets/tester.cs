@@ -45,6 +45,7 @@ public class tester : MonoBehaviour
                rigidbody2D.AddForce(new Vector2(0,jumpPower));
         }
     }
+    public Text displayText;
     public PlayerRemote playerRemote;
     public Sprite sprite;
     public GameObject thePlayer;
