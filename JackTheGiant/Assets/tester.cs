@@ -11,7 +11,7 @@ public class tester : MonoBehaviour
         private Rigidbody2D rigidbody2D;
         private Vector2 init_pos;
         public float speed = 5;
-        public float jumpPower = 5;
+        public float jumpPower = 300;
         public PlayerRemote() { player = null; rigidbody2D = null; init_pos = new Vector2(); }
         public PlayerRemote(GameObject x)
         {
@@ -62,6 +62,7 @@ public class tester : MonoBehaviour
     void Update()
     {
         playerRemote.Mover();
+        Show_speed();
     }
 
     public void PushButton() {
@@ -117,6 +118,12 @@ public class tester : MonoBehaviour
             }
             else Debug.Log("invalid number");
         }
+    }
+    private void Show_speed() {
+        var v = ((Rigidbody2D)thePlayer.GetComponent(typeof(Rigidbody2D))).velocity.magnitude;
+        string message = string.Format("speed=={0}",v);
+        displayText.text = message;
+       
     }
     
 }
