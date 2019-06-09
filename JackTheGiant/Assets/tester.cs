@@ -7,6 +7,8 @@ public class tester : MonoBehaviour
     
     public class PlayerRemote
     {
+        [SerializeField]
+        private int asdf=0;
         private GameObject player;
         private Rigidbody2D rigidbody2D;
         private Vector2 init_pos;
