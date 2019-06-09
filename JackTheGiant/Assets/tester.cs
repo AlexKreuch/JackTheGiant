@@ -9,15 +9,21 @@ public class tester : MonoBehaviour
     {
         private GameObject player;
         private Rigidbody2D rigidbody2D;
+        private Vector2 init_pos;
         public float speed = 5;
         public float jumpPower = 5;
-        public PlayerRemote() { player = null; rigidbody2D = null; }
+        public PlayerRemote() { player = null; rigidbody2D = null; init_pos = new Vector2(); }
         public PlayerRemote(GameObject x)
         {
             player = x;
             rigidbody2D = (Rigidbody2D)player.GetComponent(typeof(Rigidbody2D));
+            init_pos = x.transform.position;
         }
 
+        public void ResetPosition()
+        {
+            player.transform.position = init_pos;
+        }
         public void Mover()
         {
             MoverHelperWalk(KeyCode.A, -1);
@@ -81,6 +87,11 @@ public class tester : MonoBehaviour
     private void Adjuster() {
         string data = input.text;
         if (data == "") return;
+        if (data == "reset")
+        {
+            playerRemote.ResetPosition();
+            return;
+        }
         string[] tokens = data.Split('=');
         if (tokens.Length > 2) { Debug.Log("too many \'=\''s"); return; }
         bool speedOption = false;
