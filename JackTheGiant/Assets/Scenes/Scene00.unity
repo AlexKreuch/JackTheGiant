@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c159380864ba7764a822e12b7b872148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 20
   maxVelocity: 100
 --- !u!1 &391369131
 GameObject:
@@ -1383,6 +1383,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2781517449716071591, guid: 75fd9bdd76dfd52408d97e6388e77387,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2781517449716071591, guid: 75fd9bdd76dfd52408d97e6388e77387,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2781517449716071591, guid: 75fd9bdd76dfd52408d97e6388e77387,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2781517449716071585, guid: 75fd9bdd76dfd52408d97e6388e77387,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[8].x
+      value: 0.009128571
+      objectReference: {fileID: 0}
+    - target: {fileID: 2781517449716071585, guid: 75fd9bdd76dfd52408d97e6388e77387,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[8].y
+      value: 0.4693385
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75fd9bdd76dfd52408d97e6388e77387, type: 3}

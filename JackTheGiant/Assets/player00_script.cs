@@ -19,6 +19,7 @@ public class player00_script : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<Sprite>();
         animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
