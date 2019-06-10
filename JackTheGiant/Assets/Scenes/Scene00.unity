@@ -262,7 +262,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 20
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -282,8 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c159380864ba7764a822e12b7b872148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  maxVelocity: 100
+  speed: 40
+  maxVelocity: 10
 --- !u!1 &391369131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,12 +1194,12 @@ PrefabInstance:
     - target: {fileID: 488857399229851176, guid: e8d114ade5068214c9c09f4495625666,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.4
+      value: 3.94
       objectReference: {fileID: 0}
     - target: {fileID: 488857399229851176, guid: e8d114ade5068214c9c09f4495625666,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.45
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 488857399229851176, guid: e8d114ade5068214c9c09f4495625666,
         type: 3}

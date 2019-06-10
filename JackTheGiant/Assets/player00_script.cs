@@ -27,6 +27,8 @@ public class player00_script : MonoBehaviour
     {
         FaceRightWay();
         Move();
+    }
+    void Update() {
         WalkingAnimation();
     }
 
