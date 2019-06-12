@@ -6,12 +6,10 @@ public class Tester00 : MonoBehaviour
 {
    
     private InputField input;
-    public BackGroundScaler scaler;
     public void Start() {
         input = (InputField)gameObject.GetComponentInChildren(typeof(InputField));
     }
     public void ButtonPress() {
-        if (scaler == null) return;
-        scaler.Test(input.text);
+        Debug.Log("button-pressed");
     }
 }
