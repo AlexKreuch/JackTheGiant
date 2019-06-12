@@ -28,6 +28,7 @@ public class BackGroundScaler : MonoBehaviour
     }
 
     private void Adjust() {
+        
         float screenWidth= ( Camera.main.orthographicSize / Screen.height ) * 2 * Screen.width * Camera.main.rect.width;
         float bgWidth = spriteRenderer.bounds.size.x;
         float xfactor = screenWidth / bgWidth;
