@@ -6,7 +6,7 @@ public class BackGroundCycler : MonoBehaviour
 {
     private float deltaY = 40;
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter2D(Collider2D other) {
         Debug.Log("COLLISION");
         Vector2 vector = other.transform.position;
         vector.y -= deltaY;
