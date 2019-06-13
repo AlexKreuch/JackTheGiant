@@ -83,12 +83,28 @@ public class CloudSpawner : MonoBehaviour
     private GameObject darkCloud;
 
     private Queue<CloudPlan> cloudPlans;
+    private float camLeftBound = 0f, camWidth = 0f;
+    private void ComputeWidthAndBound() {
+        /*
+         trueH = 2 * camOrthSize
+         pixSize = trueH / sc.h
+         W.pixC = sc.W * cam.rect.W
+         trueW = W.pixC * pixSize
+               = (sc.W * cam.rect.W) * (trueH / sc.h)
+               = (sc.W * cam.rect.W) * (2 * camOrthSize / sc.h)
+               =  (2 * sc.W * cam.rect.W * camOrthSize) / sc.h
+         */
+        camWidth = (2f * Screen.width * Camera.main.rect.width * Camera.main.orthographicSize) / (Screen.height);
+        camLeftBound = Camera.main.transform.position.x - camWidth / 2;
+        camWidth -= 2f; // account for width of clouds
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         cloudManager = transform.GetComponentInParent<CloudManager>();
         cloudPlans = new Queue<CloudPlan>();
+        ComputeWidthAndBound();
     }
 
     // Update is called once per frame
@@ -96,6 +112,7 @@ public class CloudSpawner : MonoBehaviour
     {
         MaintainClouds();
     }
+    
     private void MaintainClouds() {
         const int qtarget = 30;
         while (cloudPlans.Count < qtarget)
@@ -103,7 +120,8 @@ public class CloudSpawner : MonoBehaviour
         while (cloudManager.CloudCount < cloudCountTarget)
         {
             if (cloudPlans.Count == 0) break;
-            MakeCloud_tool(cloudPlans.Dequeue() , 0, 5);
+            MakeCloud_tool(cloudPlans.Dequeue() , camLeftBound, camWidth);
         }
     }
+  
 }
