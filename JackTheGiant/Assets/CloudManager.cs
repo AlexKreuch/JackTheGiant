@@ -11,10 +11,7 @@ public class CloudManager : MonoBehaviour
     {
         cloudSpawner = GetComponentInChildren<CloudSpawner>();
         cloudCollector = GetComponentInChildren<CloudCollector>();
-        int c = 0;
-        if (cloudCollector != null) c++;
-        if (cloudSpawner != null) c += 2;
-        Debug.Log("s/c code == " + c);
+       
     }
 
     // Update is called once per frame
