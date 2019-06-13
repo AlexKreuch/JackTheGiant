@@ -592,11 +592,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &585759247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2075429022599189283, guid: 22c24039250e46b4f84c5cbe0bf1c432,
+    type: 3}
+  m_PrefabInstance: {fileID: 2075429023837806543}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &774259006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2781517449716071590, guid: 75fd9bdd76dfd52408d97e6388e77387,
+    type: 3}
+  m_PrefabInstance: {fileID: 2781517450684738100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &948259516 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9124618184544545411, guid: 73ea6c48baf1d5c4baa57df6e19ba03d,
     type: 3}
   m_PrefabInstance: {fileID: 9124618185479321815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1013178338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 488857399229851178, guid: e8d114ade5068214c9c09f4495625666,
+    type: 3}
+  m_PrefabInstance: {fileID: 488857398793751319}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1031810295
 GameObject:
@@ -668,6 +686,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78ee8403f2ca9f4cb1f901b836736d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cloudCountTarget: 5
+  clouds:
+  - {fileID: 948259516}
+  - {fileID: 774259006}
+  - {fileID: 585759247}
+  darkCloud: {fileID: 1013178338}
 --- !u!1 &1084630840
 GameObject:
   m_ObjectHideFlags: 0

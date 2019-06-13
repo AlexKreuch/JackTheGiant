@@ -6,6 +6,14 @@ public class CloudManager : MonoBehaviour
 {
     private CloudCollector cloudCollector;
     private CloudSpawner cloudSpawner;
+    private int cloudCount = 0;
+    [SerializeField]
+    
+
+    public int CloudCount { get { return cloudCount; } }
+
+    public void ReportClouds(int delta) { cloudCount += delta; }
+
     // Start is called before the first frame update
     void Start()
     {
