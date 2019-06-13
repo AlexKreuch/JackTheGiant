@@ -33,7 +33,7 @@ public class CloudSpawner : MonoBehaviour
         public static void SetSection(int s) { currentSection = s % 4; }
         public static void SetDeltaY(float d) { deltaY = d; }
         public static void SetLuck(float l) { luckFactor = l; }
-
+        public static float DeltaY { get { return deltaY; } }
         public static void PlanCloud(Queue<CloudPlan> cloudPlans) {
             float xf = Random.Range(0f, 1f);
             float yp = currentY;
@@ -84,6 +84,7 @@ public class CloudSpawner : MonoBehaviour
 
     private Queue<CloudPlan> cloudPlans;
     private float camLeftBound = 0f, camWidth = 0f;
+    private float cloudWidth = 2f; // (approx)
     private void ComputeWidthAndBound() {
         /*
          trueH = 2 * camOrthSize
@@ -96,7 +97,40 @@ public class CloudSpawner : MonoBehaviour
          */
         camWidth = (2f * Screen.width * Camera.main.rect.width * Camera.main.orthographicSize) / (Screen.height);
         camLeftBound = Camera.main.transform.position.x - camWidth / 2;
-        camWidth -= 2f; // account for width of clouds
+        camWidth -= cloudWidth; // account for width of clouds
+    }
+    private void PlaceFirstCloudUnderPlayer() {
+        // this should only be called AFTER ComputeWidthAndBound has been called
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        // compute initial cloud info
+        float xpos = 0, ypos = 0; int sec = 0;
+        {
+            // compute initial cloud info
+            float w = camWidth / 2;
+            float b = camLeftBound;
+            if (player.transform.position.x >= w + b)
+            {
+                sec += 2; b += w;
+            }
+            w /= 2;
+            if (player.transform.position.x >= w + b)
+            {
+                sec += 1;
+            }
+            xpos = player.transform.position.x - cloudWidth / 2;
+            ypos = player.transform.position.y - 3;
+        }
+
+        // create and add cloud
+        {
+            GameObject cloud = Instantiate(clouds[0]);
+            cloud.transform.position = new Vector2(xpos,ypos);
+        }
+
+        // reset the cloud-planner
+        CloudPlanner.SetY(ypos - CloudPlanner.DeltaY);
+        CloudPlanner.SetSection( (sec+1)%4 );
     }
 
     // Start is called before the first frame update
@@ -105,6 +139,7 @@ public class CloudSpawner : MonoBehaviour
         cloudManager = transform.GetComponentInParent<CloudManager>();
         cloudPlans = new Queue<CloudPlan>();
         ComputeWidthAndBound();
+        PlaceFirstCloudUnderPlayer();
     }
 
     // Update is called once per frame
