@@ -15,8 +15,10 @@ public class CloudCollector : MonoBehaviour
     {
         if (other.tag == "cloud" || other.tag == "cloud_dark")
         {
-            GameObject.Destroy(other);
+            GameObject.Destroy(other.gameObject);
             cloudManager.ReportClouds(-1);
+            other.name = "asdf";
+            Debug.Log("cloud-collected");
         }
     }
 }

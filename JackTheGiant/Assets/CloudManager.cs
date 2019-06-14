@@ -7,7 +7,6 @@ public class CloudManager : MonoBehaviour
     private CloudCollector cloudCollector;
     private CloudSpawner cloudSpawner;
     private int cloudCount = 0;
-    [SerializeField]
     
 
     public int CloudCount { get { return cloudCount; } }

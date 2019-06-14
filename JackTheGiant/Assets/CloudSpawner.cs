@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CloudSpawner : MonoBehaviour
 {
+    private int count=0;
     private class CloudPlan {
         public float Y_pos { get; private set; }
         public float X_frac { get; private set; }
@@ -68,6 +69,9 @@ public class CloudSpawner : MonoBehaviour
             int i = Random.Range(0,clouds.Length-1);
             cloud = Instantiate(clouds[i]);
         }
+
+        cloud.name = string.Format("cld({0})", count++);
+
         cloud.transform.position = new Vector2(xpos,ypos);
         cloudManager.ReportClouds(1);
     }
