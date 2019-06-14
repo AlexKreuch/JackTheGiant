@@ -18,12 +18,20 @@ public class CloudManager : MonoBehaviour
     {
         cloudSpawner = GetComponentInChildren<CloudSpawner>();
         cloudCollector = GetComponentInChildren<CloudCollector>();
-       
+        AdjustScales();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+    private void AdjustScales() {
+        var x = 2 * Camera.main.rect.width * Screen.width * (Camera.main.orthographicSize / Screen.height);
+        Vector3 v = cloudCollector.transform.localScale;
+        v.x = x;
+        cloudCollector.transform.localScale = v;
+        cloudSpawner.transform.localScale = v;
+
     }
 }

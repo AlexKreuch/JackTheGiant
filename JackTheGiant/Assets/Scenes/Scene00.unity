@@ -239,6 +239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1634c33102b305d4cb3480ed154b5802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &179368514 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8087052189054117663, guid: 9370fe7180c814147bcd8fd074aa0b62,
+    type: 3}
+  m_PrefabInstance: {fileID: 8087052189119392527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &343125615
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,9 +581,9 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.39
+    x: 0
     y: 0
-    width: 0.22
+    width: 1
     height: 1
   near clip plane: 0
   far clip plane: 0.01
@@ -1312,6 +1318,11 @@ PrefabInstance:
       propertyPath: cloud
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 455603098738746316, guid: 8eac811129b16fd448e58e2f012de4c1,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 179368514}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8eac811129b16fd448e58e2f012de4c1, type: 3}
 --- !u!1001 &8087052189119392527
@@ -1384,7 +1395,7 @@ PrefabInstance:
     - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
         type: 3}
       propertyPath: m_LinearDrag
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9370fe7180c814147bcd8fd074aa0b62, type: 3}
