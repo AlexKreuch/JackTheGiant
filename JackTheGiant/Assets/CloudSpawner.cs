@@ -88,7 +88,7 @@ public class CloudSpawner : MonoBehaviour
 
     private Queue<CloudPlan> cloudPlans;
     private float camLeftBound = 0f, camWidth = 0f;
-    private float cloudWidth = 2f; // (approx)
+    private float cloudWidth = 0f;
     private void ComputeWidthAndBound() {
         /*
          trueH = 2 * camOrthSize
@@ -99,6 +99,16 @@ public class CloudSpawner : MonoBehaviour
                = (sc.W * cam.rect.W) * (2 * camOrthSize / sc.h)
                =  (2 * sc.W * cam.rect.W * camOrthSize) / sc.h
          */
+        float computeCloudWidth() {
+            float getWidth(int i) {
+                GameObject obj = i < 0 ? darkCloud : clouds[i];
+                return obj.GetComponent<SpriteRenderer>().sprite.bounds.extents.x * 2;
+            }
+            float sum = 0f;
+            for (int i = -1; i < clouds.Length; i++) sum += getWidth(i);
+            return sum/(clouds.Length+1);
+        }
+        cloudWidth = computeCloudWidth();
         camWidth = (2f * Screen.width * Camera.main.rect.width * Camera.main.orthographicSize) / (Screen.height);
         camLeftBound = Camera.main.transform.position.x - camWidth / 2;
         camWidth -= cloudWidth; // account for width of clouds
@@ -144,6 +154,8 @@ public class CloudSpawner : MonoBehaviour
         cloudPlans = new Queue<CloudPlan>();
         ComputeWidthAndBound();
         PlaceFirstCloudUnderPlayer();
+
+        Test();
     }
 
     // Update is called once per frame
@@ -162,5 +174,26 @@ public class CloudSpawner : MonoBehaviour
             MakeCloud_tool(cloudPlans.Dequeue() , camLeftBound, camWidth);
         }
     }
-  
+    private void Test() {
+        IEnumerable<GameObject> allClouds() {
+            yield return darkCloud;
+            foreach (GameObject cld in clouds) yield return cld;
+        }
+        float sum=0, cur=0;
+        int c=0;
+        foreach (GameObject cld in allClouds())
+        {
+            c++;
+            cur = ComputeWidth(cld);
+            Debug.Log(string.Format("({0}:{1})",cld.name,cur));
+            sum += cur;
+        }
+        Debug.Log(string.Format("ave={0}",sum/c));
+    }
+    private float ComputeWidth(GameObject obj)
+    {
+        Sprite sprite = obj.GetComponent<SpriteRenderer>().sprite;
+        return 2*sprite.bounds.extents.x;
+        
+    }
 }
