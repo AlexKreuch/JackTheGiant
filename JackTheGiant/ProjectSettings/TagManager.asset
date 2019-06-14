@@ -6,6 +6,7 @@ TagManager:
   tags:
   - cldCollector
   - cldSpawner
+  - b_gnd
   layers:
   - Default
   - TransparentFX

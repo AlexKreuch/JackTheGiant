@@ -7,10 +7,15 @@ public class BackGroundCycler : MonoBehaviour
     private float deltaY = 40;
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("COLLISION");
-        Vector2 vector = other.transform.position;
-        vector.y -= deltaY;
-        other.transform.position = vector;
+
+        if (other.tag == "b_gnd")
+        {
+            Vector2 vector = other.transform.position;
+            vector.y -= deltaY;
+            other.transform.position = vector;
+        }
     }
+
+  
 
 }
