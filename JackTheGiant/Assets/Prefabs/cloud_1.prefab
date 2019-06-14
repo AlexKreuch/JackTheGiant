@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2781517449716071585}
   m_Layer: 9
   m_Name: cloud_1
-  m_TagString: Untagged
+  m_TagString: cloud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

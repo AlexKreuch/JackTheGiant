@@ -11,9 +11,12 @@ public class CloudCollector : MonoBehaviour
         cloudManager = transform.GetComponentInParent<CloudManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.tag == "cloud" || other.tag == "cloud_dark")
+        {
+            GameObject.Destroy(other);
+            cloudManager.ReportClouds(-1);
+        }
     }
 }
