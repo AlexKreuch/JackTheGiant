@@ -94,22 +94,22 @@ public class Tester00 : MonoBehaviour
                 break;
             case 1:
                 f0 = Random.Range((int)g1.data, (int)g2.data);
-                obj = f0; t0 = 'f'; m0 = "f=RR(i,i)"; m0 = makeMessage(obj, g1, g2, "fii");
+                obj = f0; t0 = 'f'; m0 = makeMessage(obj, g1, g2, "fii");
                 break;
             case 2: return new GenType(t0,obj,"i=RR(f,i) ==> invalid");
             case 3: 
                 f0 = Random.Range((float)g1.data, (int)g2.data);
-                obj = f0; t0 = 'f'; m0 = "f=RR(f,i)"; m0 = makeMessage(obj, g1, g2, "ffi");
+                obj = f0; t0 = 'f'; m0 = makeMessage(obj, g1, g2, "ffi");
                 break;
             case 4: return new GenType(t0, obj, "i=RR(i,f) ==> invalid");
             case 5:
                 f0 = Random.Range((int)g1.data, (float)g2.data);
-                obj = f0; t0 = 'f'; m0 = "f=RR(i,f)"; m0 = makeMessage(obj, g1, g2, "fif");
+                obj = f0; t0 = 'f'; m0 = makeMessage(obj, g1, g2, "fif");
                 break;
             case 6: return new GenType(t0, obj, "i=RR(f,f) ==> invalid");
             case 7:
                 f0 = Random.Range((float)g1.data, (float)g2.data);
-                obj = f0; t0 = 'f'; m0 = "f=RR(f,f)"; m0 = makeMessage(obj, g1, g2, "fff");
+                obj = f0; t0 = 'f'; m0 = makeMessage(obj, g1, g2, "fff");
                 break;
             default: return new GenType(t0, obj, "invalid senario-code");
         }
