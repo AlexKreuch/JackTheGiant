@@ -1,0 +1,305 @@
+* [33mcommit ec4102d8162fe1a9abe4da109b6ffe59a0caaa9a[m[33m ([m[1;36mHEAD -> [m[1;32m051[m[33m, [m[1;32m050[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 17 14:39:53 2019 -0700
+[31m|[m 
+[31m|[m     added icons to cloud-collector and spawner
+[31m|[m 
+* [33mcommit 210d2a8b9d88c2fd6d2564743684543005c3ce9b[m[33m ([m[1;32m049[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 17 14:21:33 2019 -0700
+[31m|[m 
+[31m|[m     save-point
+[31m|[m 
+* [33mcommit cb46b09028143c108a1b2068595f7b96a24ab0b3[m[33m ([m[1;32m048[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 20:11:15 2019 -0700
+[31m|[m 
+[31m|[m     added code to adjust the cloud collector and spawner sizes
+[31m|[m 
+* [33mcommit b7543d92871a3d3b9deec95b1f63a733d86010fc[m[33m ([m[1;32m047[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 19:37:19 2019 -0700
+[31m|[m 
+[31m|[m     adjusted cameral-view size
+[31m|[m 
+* [33mcommit 7cf48144f5d885d92246600abc40e023f2a4a045[m[33m ([m[1;32m046[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 19:28:35 2019 -0700
+[31m|[m 
+[31m|[m     adjusted cloud sizes
+[31m|[m 
+* [33mcommit 6cc3aa891d95fc22b88ebc77dc46175474ee19d3[m[33m ([m[1;32m045[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 18:41:35 2019 -0700
+[31m|[m 
+[31m|[m     fixed cloud-collector
+[31m|[m 
+* [33mcommit 97b2290bd2e0add665863280da3ca709983830aa[m[33m ([m[1;32m044[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 18:27:19 2019 -0700
+[31m|[m 
+[31m|[m     got the cloud-collector working
+[31m|[m 
+* [33mcommit 107d481583a9dce760c6d50e8e4ee0e864815063[m[33m ([m[1;32m043[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 18:17:31 2019 -0700
+[31m|[m 
+[31m|[m     made the background-cycle only effect the background sprites
+[31m|[m 
+* [33mcommit d4dbd3a6bb1c053609a26af9e65b36a156397948[m[33m ([m[1;32m042[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 16:25:18 2019 -0700
+[31m|[m 
+[31m|[m     got the background cycler working by adding a rigid-body
+[31m|[m 
+* [33mcommit 300b527ba5c46247aa313bb71c664b4739ea4604[m[33m ([m[1;32m041[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 16:16:50 2019 -0700
+[31m|[m 
+[31m|[m     tried adding a script to cycle the backgrounds
+[31m|[m 
+* [33mcommit b04b7df4db7cb2ba305598d7b82861febd6e391b[m[33m ([m[1;32m040[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 15:54:11 2019 -0700
+[31m|[m 
+[31m|[m     added camera-mover script
+[31m|[m 
+* [33mcommit 81d242c18e358c82f9df6453daea8254f5c438af[m[33m ([m[1;32m039[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 15:46:55 2019 -0700
+[31m|[m 
+[31m|[m     added code to place the first cloud under the player
+[31m|[m 
+* [33mcommit 6981c748370e9df765809d9b7e6616a5d1ddb7f2[m[33m ([m[1;32m038[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 15:25:21 2019 -0700
+[31m|[m 
+[31m|[m     made it so there are no clouds in the game at the start
+[31m|[m 
+* [33mcommit f841542f32152d9a02eab00a3abd10319ff4add2[m[33m ([m[1;32m037[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 15:21:25 2019 -0700
+[31m|[m 
+[31m|[m     worked on cloud-spawner
+[31m|[m 
+* [33mcommit da5f4c9f31b91f47dc9636b77dfda206da2bef58[m[33m ([m[1;32m036[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 14:45:20 2019 -0700
+[31m|[m 
+[31m|[m     added utility code to cloud Collector, Spawner and Manager
+[31m|[m 
+* [33mcommit 99fa3381134f454f20e43319ffe74f64449f8f83[m[33m ([m[1;32m035[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 12:33:23 2019 -0700
+[31m|[m 
+[31m|[m     created 'clouds'-layer and added all clouds to it
+[31m|[m 
+* [33mcommit a0e304b6aff5fd056ed89d1008ab5db19233e80b[m[33m ([m[1;32m034[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 13 12:28:32 2019 -0700
+[31m|[m 
+[31m|[m     added scripts for cloud-collector and cloud-spawner (and for cloud-manager)
+[31m|[m 
+* [33mcommit bc668e3f504d2196adfed8d5f9d36e2248e96e53[m[33m ([m[1;32m033[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Tue Jun 11 20:55:42 2019 -0700
+[31m|[m 
+[31m|[m     added cloud-Collector and cloud-Spawner
+[31m|[m 
+* [33mcommit 32f4db16a50e1f1c109c20b7d51734126cafeb32[m[33m ([m[1;32m032[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Tue Jun 11 18:34:53 2019 -0700
+[31m|[m 
+[31m|[m     unstretched cloud_1
+[31m|[m 
+* [33mcommit f1035a875dddb4fd1eef4d3bdbad4de2ca667a31[m[33m ([m[1;32m031[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Tue Jun 11 18:31:07 2019 -0700
+[31m|[m 
+[31m|[m     going to work on game-controls
+[31m|[m 
+* [33mcommit 96ac2a5986c71a28bce24854151049edbff55f69[m[33m ([m[1;32m030[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Tue Jun 11 17:13:33 2019 -0700
+[31m|[m 
+[31m|[m     removed some of the expiremental features
+[31m|[m 
+* [33mcommit 45edc1dee4bd8cdc449c1736ed98840a35db6379[m[33m ([m[1;32m029[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Tue Jun 11 17:03:14 2019 -0700
+[31m|[m 
+[31m|[m     expiremented ; got background scaler-script working
+[31m|[m 
+* [33mcommit 8bdfc0b4b3e4b2a57df9410fa9bb3f549776f01f[m[33m ([m[1;32m028[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Tue Jun 11 12:44:45 2019 -0700
+[31m|[m 
+[31m|[m     removed Background scaler-script from background container-object and put it in each of the background 'panels'
+[31m|[m 
+* [33mcommit 89503d6737ed6d11304997dcfed7dea62c19a024[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 16:59:15 2019 -0700
+[31m|[m 
+[31m|[m     added background-scaler-script
+[31m|[m 
+* [33mcommit 5ff66b69fb5e1bda5b683368b14427d4874a4dbf[m[33m ([m[1;32m027[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 16:57:34 2019 -0700
+[31m|[m 
+[31m|[m     added BG layer for background, and then changed the Physics2D settings so that items in the BG layer can only collide with each other
+[31m|[m 
+* [33mcommit 222ce027742d2eedc04cfa41ef88638a941bed85[m[33m ([m[1;32m026[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 16:23:07 2019 -0700
+[31m|[m 
+[31m|[m     added more background and adjusted camera
+[31m|[m 
+* [33mcommit 81e3c85f06ca29e0ce968814247809252c5bea3a[m[33m ([m[1;32m025[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 16:03:38 2019 -0700
+[31m|[m 
+[31m|[m     added background and adjusted layers
+[31m|[m 
+* [33mcommit 03a476656d9c8ad9708856d1e483673d52e16c55[m[33m ([m[1;32m024[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 15:45:41 2019 -0700
+[31m|[m 
+[31m|[m     made canvas prefab and changed name to 'Debug_tool' ; removed item from scene
+[31m|[m 
+* [33mcommit dbdef0502afb2c8d085aa3f3eaa1b744cc5f0c6e[m[33m ([m[1;32m021[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 15:42:09 2019 -0700
+[31m|[m 
+[31m|[m     created player prefab
+[31m|[m 
+* [33mcommit 003c1aee0ab8aa83e2a0796716ba0f622af88bb0[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 15:02:56 2019 -0700
+[31m|[m 
+[31m|[m     adjusted player variables to make movement more smooth
+[31m|[m 
+* [33mcommit e1310615bb4081a63be7ec75c0796b7d57cc2e33[m[33m ([m[1;32m020[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 14:48:36 2019 -0700
+[31m|[m 
+[31m|[m     adjusted clouds for better testing
+[31m|[m 
+* [33mcommit 6bcc7254b3fbd9e904f65496f595f3d769162f4f[m[33m ([m[1;32m019[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 14:46:16 2019 -0700
+[31m|[m 
+[31m|[m     fixed cloud_1 collider so the player won't get stuck
+[31m|[m 
+* [33mcommit de75c39f368fcd0c72d3155a9182242722c879f2[m[33m ([m[1;32m018[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Mon Jun 10 14:32:23 2019 -0700
+[31m|[m 
+[31m|[m     added controls to player-script
+[31m|[m 
+* [33mcommit 3f8c07cb166f74a5b337011aa9e0a5a0d19bd32a[m[33m ([m[1;32m017[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Sun Jun 9 15:57:44 2019 -0700
+[31m|[m 
+[31m|[m     added player-script
+[31m|[m 
+* [33mcommit c58948bfe93b200041e1bd499656cf91e848afcf[m[33m ([m[1;32m016[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Sun Jun 9 15:51:51 2019 -0700
+[31m|[m 
+[31m|[m     various expirements
+[31m|[m 
+* [33mcommit bc6c6a88d25df3e01d6a4ee33e9e39cb90ac9f80[m[33m ([m[1;32m015[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Sun Jun 9 11:56:42 2019 -0700
+[31m|[m 
+[31m|[m     added code to display the player's speed
+[31m|[m 
+* [33mcommit 2936a6c44b312cbdd6ff362d2ded65d97fa82eba[m[33m ([m[1;32m014[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Sun Jun 9 11:25:26 2019 -0700
+[31m|[m 
+[31m|[m     added the 'display-text' to the 'tester'-script
+[31m|[m 
+* [33mcommit e7342e86686cbd37256ee64cc30dce6b1bccd90f[m[33m ([m[1;32m013[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Sun Jun 9 11:22:27 2019 -0700
+[31m|[m 
+[31m|[m     added text to the canvas, and put canvas-items into 'debugging-tools' object
+[31m|[m 
+* [33mcommit b4cdbf9700adde14136703057789e170685d1f4d[m[33m ([m[1;32m012[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Fri Jun 7 21:16:10 2019 -0700
+[31m|[m 
+[31m|[m     made prefabs
+[31m|[m 
+* [33mcommit cde688f61bc2c875cf8d767164147997dd7ee161[m[33m ([m[1;32m011[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Fri Jun 7 20:34:42 2019 -0700
+[31m|[m 
+[31m|[m     added collider to dark_cloud
+[31m|[m 
+* [33mcommit e13fe3c423f136e5e209f7c7f50d7f64ced83856[m[33m ([m[1;32m010[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Fri Jun 7 20:29:17 2019 -0700
+[31m|[m 
+[31m|[m     added collider to cloud_2
+[31m|[m 
+* [33mcommit 5d2f034ab37ae3eead445fc8743db31f1a8d5da0[m[33m ([m[1;32m009[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 6 20:52:25 2019 -0700
+[31m|[m 
+[31m|[m     added collider to cloud_1
+[31m|[m 
+* [33mcommit 4175da7ff23ce3b1233682f018900d0fe42c3539[m[33m ([m[1;32m008[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 6 20:08:10 2019 -0700
+[31m|[m 
+[31m|[m     added clouds ; added collider to cloud_0
+[31m|[m 
+* [33mcommit 01440e1a58ee52ec3f26fe72890b1913c8e1e117[m[33m ([m[1;32m007[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 6 19:29:59 2019 -0700
+[31m|[m 
+[31m|[m     fixed sprite animation pivot
+[31m|[m 
+* [33mcommit d9b2961aab2f3be23acdd8424da4c0ee832a7fe7[m[33m ([m[1;32m006[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 6 18:38:50 2019 -0700
+[31m|[m 
+[31m|[m     adjusted slicing and naming of GamePlay-element sprites
+[31m|[m 
+* [33mcommit 3661b08a10bf6ebeaa78973e286682e21bbc0050[m[33m ([m[1;32m005[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 6 18:26:58 2019 -0700
+[31m|[m 
+[31m|[m     equipped animator with idle-mode and a boolean 'walking' parameter
+[31m|[m 
+* [33mcommit 0d446c444ff865c607bc4e874359bedc16fe903a[m[33m ([m[1;32m004[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 6 18:02:24 2019 -0700
+[31m|[m 
+[31m|[m     created the animation object ; added ui-elements for debugging purposes
+[31m|[m 
+* [33mcommit 040cf33ef431659b4a4bf1b01de2612336e9653a[m[33m ([m[1;32m003[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 6 15:31:10 2019 -0700
+[31m|[m 
+[31m|[m     finished redoing the settings for imported sprites
+[31m|[m 
+* [33mcommit 2c210a0e9814410d6bbf0315d847a7d382e83885[m[33m ([m[1;32m001b[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 6 15:21:00 2019 -0700
+[31m|[m 
+[31m|[m     was able to split the player and gamePlayElemet sprites correctly
+[31m|[m 
+* [33mcommit 71ea43b8652b87978cffc0c6d561d7bfe2191e94[m[33m ([m[1;32m000[m[33m)[m
+[31m|[m Author: alexk <alexk@LAPTOP-518CEKNS>
+[31m|[m Date:   Thu Jun 6 11:53:42 2019 -0700
+[31m|[m 
+[31m|[m     imported assests from course
+[31m|[m 
+* [33mcommit 4bac8e75d77669d713d75b4113617e8912c4bf52[m[33m ([m[1;32mmaster[m[33m)[m
+  Author: alexk <alexk@LAPTOP-518CEKNS>
+  Date:   Thu Jun 6 11:50:08 2019 -0700
+  
+      starting-point

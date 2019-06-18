@@ -34,6 +34,7 @@ public class CloudSpawner : MonoBehaviour
         public static void SetSection(int s) { currentSection = s % 4; }
         public static void SetDeltaY(float d) { deltaY = d; }
         public static void SetLuck(float l) { luckFactor = l; }
+        public static void SetLWD(bool lwd)  { lastWasDark = lwd; }
         public static float DeltaY { get { return deltaY; } }
         public static void PlanCloud(Queue<CloudPlan> cloudPlans) {
             float xf = Random.Range(0f, 1f);
@@ -53,7 +54,7 @@ public class CloudSpawner : MonoBehaviour
             cloudPlans.Enqueue(cp);
         }
     }
-    private void MakeCloud_tool(CloudPlan cloudPlan, float xleftBound, float width)
+    private void MakeCloud_tool(CloudPlan cloudPlan, float xleftBound, float width, int choice)
     {
         float sliceWidth = width / 4;
         float sliceleftBound = xleftBound + cloudPlan.Section * sliceWidth;
@@ -66,14 +67,18 @@ public class CloudSpawner : MonoBehaviour
         }
         else
         {
-            int i = Random.Range(0,clouds.Length-1);
-            cloud = Instantiate(clouds[i]);
+            cloud = Instantiate(clouds[choice % clouds.Length]);
         }
 
         cloud.name = string.Format("cld({0})", count++);
 
         cloud.transform.position = new Vector2(xpos,ypos);
         cloudManager.ReportClouds(1);
+    }
+    private void MakeCloud_tool(CloudPlan cloudPlan, float xleftBound, float width)
+    {
+        int c = Random.Range(0,clouds.Length-1);
+        MakeCloud_tool(cloudPlan,xleftBound,width,c);
     }
 
     [SerializeField]
