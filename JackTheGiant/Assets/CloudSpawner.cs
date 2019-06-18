@@ -36,22 +36,27 @@ public class CloudSpawner : MonoBehaviour
         public static void SetLuck(float l) { luckFactor = l; }
         public static void SetLWD(bool lwd)  { lastWasDark = lwd; }
         public static float DeltaY { get { return deltaY; } }
-        public static void PlanCloud(Queue<CloudPlan> cloudPlans) {
+        public static CloudPlan PlanCloud() {
             float xf = Random.Range(0f, 1f);
             float yp = currentY;
             int se = currentSection;
             bool isd = false;
             if (!lastWasDark)
             {
-                float r = Random.Range(0f,1f);
+                float r = Random.Range(0f, 1f);
                 isd = r > luckFactor;
             }
             lastWasDark = isd;
             currentY -= deltaY;
             currentSection = (currentSection + 1) % 4;
 
-            CloudPlan cp = new CloudPlan(xf,yp,se,isd);
+            CloudPlan cp = new CloudPlan(xf, yp, se, isd);
+            return cp;
+        }
+        public static CloudPlan PlanCloud(Queue<CloudPlan> cloudPlans) {
+            CloudPlan cp = PlanCloud();
             cloudPlans.Enqueue(cp);
+            return cp;
         }
     }
     private void MakeCloud_tool(CloudPlan cloudPlan, float xleftBound, float width, int choice)
@@ -77,7 +82,7 @@ public class CloudSpawner : MonoBehaviour
     }
     private void MakeCloud_tool(CloudPlan cloudPlan, float xleftBound, float width)
     {
-        int c = Random.Range(0,clouds.Length-1);
+        int c = Random.Range(0,clouds.Length);
         MakeCloud_tool(cloudPlan,xleftBound,width,c);
     }
 
@@ -118,38 +123,33 @@ public class CloudSpawner : MonoBehaviour
         camLeftBound = Camera.main.transform.position.x - camWidth / 2;
         camWidth -= cloudWidth; // account for width of clouds
     }
-    private void PlaceFirstCloudUnderPlayer() {
+    private void PlacePlayerOverFirstCloud() {
         // this should only be called AFTER ComputeWidthAndBound has been called
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        // compute initial cloud info
-        float xpos = 0, ypos = 0; int sec = 0;
-        {
-            // compute initial cloud info
-            float w = camWidth / 2;
-            float b = camLeftBound;
-            if (player.transform.position.x >= w + b)
-            {
-                sec += 2; b += w;
-            }
-            w /= 2;
-            if (player.transform.position.x >= w + b)
-            {
-                sec += 1;
-            }
-            xpos = player.transform.position.x - cloudWidth / 2;
-            ypos = player.transform.position.y - 3;
-        }
+        // get objects and values
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        var sbe = clouds[0].GetComponent<SpriteRenderer>().sprite.bounds.extents; // sbe:=sprite.bounds.extents
+        float playerYpos = player.transform.position.y;
+        float cloudHeight = sbe.y * 2;
+        float cloudWidth = sbe.x * 2;
+
+        // set up the CloudPlanner
+        CloudPlanner.SetY(playerYpos - cloudHeight);
+        CloudPlanner.SetLWD(true);
+        CloudPlanner.SetSection( Random.Range(0,4) );
+
+        // plan first cloud
+        CloudPlan cloudPlan = CloudPlanner.PlanCloud();
+
+          
+
+        // move the player to stand where the cloud will be
+        Vector2 vector = player.transform.position;
+        vector.x = camLeftBound + ((cloudPlan.Section + cloudPlan.X_frac) * (camWidth / 4)) + cloudWidth/4;
+        player.transform.position = vector;
 
         // create and add cloud
-        {
-            GameObject cloud = Instantiate(clouds[0]);
-            cloud.transform.position = new Vector2(xpos,ypos);
-        }
-
-        // reset the cloud-planner
-        CloudPlanner.SetY(ypos - CloudPlanner.DeltaY);
-        CloudPlanner.SetSection( (sec+1)%4 );
+        MakeCloud_tool(cloudPlan, camLeftBound, camWidth, 0);
     }
 
     // Start is called before the first frame update
@@ -158,7 +158,7 @@ public class CloudSpawner : MonoBehaviour
         cloudManager = transform.GetComponentInParent<CloudManager>();
         cloudPlans = new Queue<CloudPlan>();
         ComputeWidthAndBound();
-        PlaceFirstCloudUnderPlayer();
+        PlacePlayerOverFirstCloud();
 
         Test();
     }
