@@ -17,6 +17,7 @@ public class Tester00 : MonoBehaviour
     public void ButtonPress() {
         string x = input.text;
         string y = Compute(x);
+        y = "<~~     ~~>" + y;
         Debug.Log(y);
     }
 
