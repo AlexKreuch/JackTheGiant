@@ -7,37 +7,34 @@ public class Tester00 : MonoBehaviour
 
     private InputField input;
 
-
-
+    private Vector2[] campos;
+    private int cur = 0;
+    private float dt = 1f;
+    private void setup_vals() {
+        campos = new Vector2[2];
+        campos[0] = Camera.main.transform.position;
+        campos[1] = Camera.main.transform.position;
+    }
+    private void update_vals() {
+        campos[cur] = Camera.main.transform.position;
+        cur = (cur + 1) % 2;
+        dt = Time.deltaTime;
+    }
+    private float computeSpeed() {
+        Vector2 vector = campos[0] - campos[1];
+        float distance = vector.magnitude;
+        return distance/dt;
+    }
     public void Start() {
         input = (InputField)gameObject.GetComponentInChildren(typeof(InputField));
 
-
+        setup_vals();
     }
+    public void Update() { update_vals(); }
     public void ButtonPress() {
-        string x = input.text;
-        string y = "<   >" + Comp1(x);
-        Debug.Log(y);
+        var v = computeSpeed();
+        Debug.Log("speed = " + v);
     }
-    private int[] Comp0(string inp) {
-        int[] res = new int[] { 0 , 0 , 0 , 0 };
-        string[] tokens = inp.Split(',');
-        if (tokens.Length != 3) { return res; }
-        for (int i = 0; i < 3; i++)
-        {
-            bool flg = int.TryParse(tokens[i].Trim() , out res[i+1]);
-            if (!flg) return res;
-        }
-        res[0] = 1;
-        return res;
-    }
-    private string Comp1(string inp)
-    {
-        int[] data = Comp0(inp);
-        if (data[0] == 0) return "INVALID";
-        int x = Mathf.Clamp(data[1], data[2], data[3]);
-
-        return string.Format("Mathf.Clamp({0},{1},{2}) = {3}" , data[1] , data[2] , data[3] , x);
-    }
+    
 }
  
