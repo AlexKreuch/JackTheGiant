@@ -24,11 +24,13 @@ public class Tester00 : MonoBehaviour
             init_pos = player.transform.position;
             firstUpdate = false;
         }
-        if (player.transform.localScale.x != scale)
+        if ( Mathf.Abs(player.transform.localScale.x) != scale)
         {
+            bool flipped = player.transform.localScale.x < 0;
             Vector2 vector = player.transform.localScale;
             vector.x = scale;
             vector.y = scale;
+            if (flipped) vector.x *= -1;
             player.transform.localScale = vector;
         }
     }
