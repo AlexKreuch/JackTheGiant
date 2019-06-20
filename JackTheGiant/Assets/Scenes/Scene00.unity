@@ -245,6 +245,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8087052189119392527}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &179368521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179368514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4dd131cebfd57a4e8b9c07cf963c268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &343125615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1420,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LinearDrag
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9370fe7180c814147bcd8fd074aa0b62, type: 3}
