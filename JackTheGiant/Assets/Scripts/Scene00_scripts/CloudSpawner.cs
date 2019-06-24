@@ -190,10 +190,10 @@ public class CloudSpawner : MonoBehaviour
         {
             c++;
             cur = ComputeWidth(cld);
-            Debug.Log(string.Format("({0}:{1})",cld.name,cur));
+          //  Debug.Log(string.Format("({0}:{1})",cld.name,cur));
             sum += cur;
         }
-        Debug.Log(string.Format("ave={0}",sum/c));
+     //   Debug.Log(string.Format("ave={0}",sum/c));
     }
     private float ComputeWidth(GameObject obj)
     {

@@ -30,6 +30,6 @@ public class Horizontal_Bounds : MonoBehaviour
         float cam_x_pos = Camera.main.transform.position.x;
         minBound = cam_x_pos - x_extent + player_ext;
         maxBound = cam_x_pos + x_extent - player_ext;
-        Debug.Log("REPORT : MIN=" + minBound + " | maxBound =" + maxBound);
+      //  Debug.Log("REPORT : MIN=" + minBound + " | maxBound =" + maxBound);
     }
 }
