@@ -2,59 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+  [ExecuteAlways]
 public class Scene00_tester : MonoBehaviour
 {
-    public bool btn = false;
-    public string dsp = "";
-    private CameraMover cms;
+    public UnityEngine.UI.Image image;
+    private float x_to_y = 84 / 27;
+    private float safeDiv(float x, float y) { if (y == 0) y = .01f; return x/y; }
 
-    public float currentSpeed = 0f;
-    public float speedUpFactor = 0f;
-    public float maxSpeed = 0f;
+    public void Update() { Adjust(); }
 
-    private void getVals() {
-        getCMS();
-        currentSpeed = cms.currentSpeed;
-        speedUpFactor = cms.speedUpFactor;
-        maxSpeed = cms.maxSpeed;
-    }
-    private void updateVals() {
-        getCMS();
-        if (cms.enabled)
+    private void Adjust() {
+        if (image == null) return;
+        Vector2 vector = image.rectTransform.sizeDelta;
+        if (safeDiv(vector.x, vector.y) != x_to_y)
         {
-            currentSpeed = cms.currentSpeed;
-            speedUpFactor = cms.speedUpFactor;
-            maxSpeed = cms.maxSpeed;
-        }
-        else
-        {
-            cms.currentSpeed = currentSpeed;
-            cms.speedUpFactor = speedUpFactor;
-            cms.maxSpeed = maxSpeed;
+            Debug.Log("this");
+            vector.y = safeDiv(vector.x,x_to_y);
+            image.rectTransform.sizeDelta = vector;
         }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        getVals();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        updateVals();
-        if (btn)
-        {
-            btn_push();
-            btn = false;
-        }
-    }
-    private void btn_push() {
-        getCMS();
-        bool x = cms.enabled;
-        cms.enabled = !x;
-    }
-    private void getCMS() { if(cms==null) cms = (Camera.main).GetComponent<CameraMover>(); }
+    
 }
