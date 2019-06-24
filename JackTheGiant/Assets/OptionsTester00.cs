@@ -5,7 +5,8 @@ using UnityEngine;
 [ExecuteAlways]
 public class OptionsTester00 : MonoBehaviour
 {
-    public UnityEngine.UI.Image image;
+    private UnityEngine.UI.Image image;
+    public GameObject button;
     private bool notStarted = true;
     private float x_to_y = 0f;
     // Start is called before the first frame update
@@ -22,7 +23,7 @@ public class OptionsTester00 : MonoBehaviour
 
     private void Adjust() {
         float safeDiv(float x, float y) { if (y == 0) y = .001f; return x / y; }
-        if (image == null) return;
+        if (!CheckForImage()) return;
         if (notStarted)
         {
             x_to_y = safeDiv(image.rectTransform.sizeDelta.x , image.rectTransform.sizeDelta.y);
@@ -34,6 +35,17 @@ public class OptionsTester00 : MonoBehaviour
             vector.y = safeDiv(vector.x,x_to_y);
             image.rectTransform.sizeDelta = vector;
         }
+    }
+
+    private bool CheckForImage() {
+        if (image != null) return true;
+
+        if (button == null) return false;
+
+        UnityEngine.UI.Image im = button.GetComponent<UnityEngine.UI.Image>();
+        if (im == null) {Debug.Log("no image found");  return false; }
+        image = im;
+        return true;
     }
     
 }
