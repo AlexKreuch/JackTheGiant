@@ -13,21 +13,12 @@ public class MainMenuScript : MonoBehaviour
 
     #region button-methods
 
-    public void StartGame() {
-        
-    }
-    public void Options() { }
-    public void HighScore() { }
-    public void Quit() { }
-    public void Music() { }
+    public void StartGame() { Debug.Log("start-button pushed"); }
+    public void Options() { Debug.Log("options-button pushed"); }
+    public void HighScore() { Debug.Log("highScore-button pushed"); }
+    public void Quit() { Debug.Log("quit-button pushed"); }
+    public void Music() { Debug.Log("music-button pushed"); }
 
     #endregion
-    /**
-buttons : 
-start-game
-options
-high-score
-quit
-toggle-music
-**/
+   
 }
