@@ -5,6 +5,15 @@ using UnityEngine;
 [ExecuteAlways]
 public class OptionsTester00 : MonoBehaviour
 {
+    public bool reset_btn = false;
+    private void reset_chkFn() {
+        if (reset_btn)
+        {
+            image = null;
+            notStarted = true;
+            reset_btn = false;
+        }
+    }
     private UnityEngine.UI.Image image;
     public GameObject button;
     private bool notStarted = true;
@@ -18,6 +27,7 @@ public class OptionsTester00 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        reset_chkFn();
         Adjust();
     }
 
