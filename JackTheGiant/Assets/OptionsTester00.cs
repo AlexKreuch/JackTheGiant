@@ -27,6 +27,7 @@ public class OptionsTester00 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("update");
         reset_chkFn();
         Adjust();
     }
