@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class MainMenuScript : MonoBehaviour
 {
     #region scene-names
@@ -13,10 +13,10 @@ public class MainMenuScript : MonoBehaviour
 
     #region button-methods
 
-    public void StartGame() { Debug.Log("start-button pushed"); }
-    public void Options() { Debug.Log("options-button pushed"); }
-    public void HighScore() { Debug.Log("highScore-button pushed"); }
-    public void Quit() { Debug.Log("quit-button pushed"); }
+    public void StartGame() {SceneManager.LoadScene(GamePlay_sceneName);}
+    public void Options() { SceneManager.LoadScene(OptionsMenu_sceneName); }
+    public void HighScore() { SceneManager.LoadScene(HighScore_sceneName); }
+    public void Quit() {Debug.Log("quit-button pushed");}
     public void Music() { Debug.Log("music-button pushed"); }
 
     #endregion
