@@ -18,7 +18,7 @@ public class CloudCollector : MonoBehaviour
             GameObject.Destroy(other.gameObject);
             cloudManager.ReportClouds(-1);
             other.name = "asdf";
-            Debug.Log("cloud-collected");
+     //       Debug.Log("cloud-collected");
         }
     }
 }

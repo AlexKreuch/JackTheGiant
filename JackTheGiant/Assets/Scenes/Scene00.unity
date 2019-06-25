@@ -260,6 +260,9 @@ MonoBehaviour:
   getCoin: {fileID: 8300000, guid: 186700c42147b4b4c9880c9cdd04c39d, type: 3}
   getLife: {fileID: 8300000, guid: 456536eab1b423d439b7698f48ba797e, type: 3}
   dieSound: {fileID: 8300000, guid: eba2bc2f4314979488dd018a5078e0e6, type: 3}
+  playerScore: 0
+  coinScore: 0
+  lifeScore: 0
 --- !u!114 &179368521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,7 +962,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66e44d37f34e784498535ea00128aa06, type: 3}
   m_Name: 
