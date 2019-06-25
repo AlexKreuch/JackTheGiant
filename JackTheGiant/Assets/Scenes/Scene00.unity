@@ -245,6 +245,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8087052189119392527}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &179368515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179368514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f404efccaffa33c47a767dec913e2778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getCoin: {fileID: 8300000, guid: 186700c42147b4b4c9880c9cdd04c39d, type: 3}
+  getLife: {fileID: 8300000, guid: 456536eab1b423d439b7698f48ba797e, type: 3}
+  dieSound: {fileID: 8300000, guid: eba2bc2f4314979488dd018a5078e0e6, type: 3}
 --- !u!114 &179368521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,7 +1282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.5, y: -13.4}
+  m_AnchoredPosition: {x: 2.5, y: -13.399994}
   m_SizeDelta: {x: -105, y: -146.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &940581744
