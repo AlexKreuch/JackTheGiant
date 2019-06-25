@@ -4,33 +4,43 @@ using UnityEngine;
 
 public class Player_Score : MonoBehaviour
 {
+    private class ScoreKeeper {
+        private Vector2 previousPos;
+        private bool keeperOn;
+
+        public ScoreKeeper() { previousPos = new Vector2(); keeperOn = false;  }
+        public ScoreKeeper(Transform tran) { previousPos = tran.position; keeperOn = true; }
+
+        public void Step(Transform tran, ref int score) {
+            if (keeperOn && (tran.position.y < previousPos.y)) score++;
+            previousPos = tran.position;
+        }
+        public bool IsOn { get { return keeperOn; } set { keeperOn = value; } }
+        public void ToggleOnOff() { keeperOn = !keeperOn; }
+    }
+    private ScoreKeeper scoreKeeper;
     [SerializeField]
     private AudioClip getCoin, getLife, dieSound;
-
-    private Vector2 previousPosition;
+    
     public int playerScore = 0;
     public int coinScore = 0;
     public int lifeScore = 0;
+    
+    
 
-    private bool trackPlayerScore = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        previousPosition = transform.position;
+        scoreKeeper = new ScoreKeeper(transform);
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        UpdatePlayerScore();
+        scoreKeeper.Step(transform, ref playerScore);
     }
-
-    private void UpdatePlayerScore() {
-        if (!trackPlayerScore) return;
-        if (transform.position.y < previousPosition.y) playerScore++;
-        previousPosition = transform.position;
-    }
+   
+    
 
     public void OnTriggerEnter2D(Collider2D other) {
         switch (other.tag) {
