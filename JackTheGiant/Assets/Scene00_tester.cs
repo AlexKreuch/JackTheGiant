@@ -5,21 +5,39 @@ using UnityEngine;
   [ExecuteAlways]
 public class Scene00_tester : MonoBehaviour
 {
-    public UnityEngine.UI.Image image;
-    private float x_to_y = 84 / 27;
-    private float safeDiv(float x, float y) { if (y == 0) y = .01f; return x/y; }
-
-    public void Update() { Adjust(); }
-
-    private void Adjust() {
-        if (image == null) return;
-        Vector2 vector = image.rectTransform.sizeDelta;
-        if (safeDiv(vector.x, vector.y) != x_to_y)
+    public GameObject player;
+    public bool btn = false;
+    public int setToThis = 0;
+    public string dsp;
+    private SpriteRenderer spriteRenderer;
+    public void Update() {
+        if (btn)
         {
-            Debug.Log("this");
-            vector.y = safeDiv(vector.x,x_to_y);
-            image.rectTransform.sizeDelta = vector;
+            Push_btn();
+            btn = false;
         }
+    }
+
+    private bool HaveRenderer() {
+        if (spriteRenderer != null) return true;
+        if (player == null) return false;
+        var sr = player.GetComponent<SpriteRenderer>();
+        if (sr == null) return false;
+        else
+        {
+            spriteRenderer = sr;
+            return true;
+        }
+    }
+
+    private void Push_btn() {
+        if (!HaveRenderer())
+        {
+            dsp = "!!!";
+            return;
+        }
+        if (dsp == "chk") { dsp = string.Format("SR.sl_id = {0}",spriteRenderer.sortingOrder); return; }
+        spriteRenderer.sortingOrder = setToThis;
     }
     
 }

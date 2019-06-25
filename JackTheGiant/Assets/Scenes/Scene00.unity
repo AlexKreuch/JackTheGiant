@@ -1957,12 +1957,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1827893401}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdd063a8bb126154b87de97a7fabbc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  player: {fileID: 179368514}
+  btn: 0
+  setToThis: 1
+  dsp: SR.sl_id = 1
 --- !u!4 &1827893403
 Transform:
   m_ObjectHideFlags: 0
