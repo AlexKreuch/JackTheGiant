@@ -57,7 +57,6 @@ public class Collectibles : MonoBehaviour
         if (collectible == null) return null;
         collectible.Init(this);
         result.transform.position = position;
-        result.SetActive(false);
         return result;
     }
 }

@@ -9,6 +9,8 @@ TagManager:
   - b_gnd
   - cloud
   - cloud_dark
+  - Coin
+  - Life
   layers:
   - Default
   - TransparentFX

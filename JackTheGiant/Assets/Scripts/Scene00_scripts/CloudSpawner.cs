@@ -78,6 +78,12 @@ public class CloudSpawner : MonoBehaviour
         cloud.name = string.Format("cld({0})", count++);
 
         cloud.transform.position = new Vector2(xpos,ypos);
+
+        if (!cloudPlan.IsDark)
+        {
+            collectiblesManager.MakeCollectable(new Vector2(xpos + cloudWidth / 4, ypos + .4f));
+        }
+
         cloudManager.ReportClouds(1);
     }
     private void MakeCloud_tool(CloudPlan cloudPlan, float xleftBound, float width)
@@ -88,6 +94,9 @@ public class CloudSpawner : MonoBehaviour
 
     [SerializeField]
     private int cloudCountTarget = 5;
+
+    [SerializeField]
+    private Collectibles collectiblesManager;
 
     private CloudManager cloudManager;
 

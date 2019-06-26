@@ -6,7 +6,6 @@ public class Collectible : MonoBehaviour
 {
     private Collectibles collectibles;
     private bool isStarted = false;
-    private bool hasBeenDisabled = false; // use this to ensure item can be disabled and re-enabled exactly ONCE int its lifetime
     private bool hasBeenSet = false;
     public bool IsStarted { get { return isStarted; } private set { isStarted = value; } }
    
@@ -18,23 +17,21 @@ public class Collectible : MonoBehaviour
     }
 
 
-    void OnEnable() {
-        if (isStarted) collectibles.SetUpCollectable(this);
-    }
+   
     void OnDisable() {
-        if (hasBeenDisabled)
-        {
-            if(isStarted) collectibles.ReportDestruction(gameObject);
-            GameObject.Destroy(gameObject);
-        }
-        else hasBeenDisabled = true;
+        if (isStarted) collectibles.ReportDestruction(gameObject);
+        GameObject.Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
         switch (collider.tag)
         {
-            case "cldSpawner": gameObject.SetActive(true); break;
-            case "cldCollector": gameObject.SetActive(false); break;
+            case "cldSpawner":
+                if (isStarted) collectibles.SetUpCollectable(this);
+                break;
+            case "cldCollector":
+                gameObject.SetActive(false);
+                break;
         }
     }
 
