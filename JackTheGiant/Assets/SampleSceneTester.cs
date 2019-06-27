@@ -1,20 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SampleSceneTester : MonoBehaviour
 {
-    public GameObject[] gameObjects;
-    public GameObject Col;
-    public int in_num = 0;
-    public string dsp;
+    public readonly static string SS_name = "SampleScene";
+    public readonly static string SS01_name = "SampleScene_01";
+
+    [SerializeField]
+    private SpriteRenderer someThing;
 
     public bool btn = false;
-    
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Start() { Debug.Log("in SS : Start-called"); }
+    void Awake() { Debug.Log("in SS : Awake-called"); }
+    void OnApplicationQuit() { Debug.Log("in SS : OnApplicationQuit-called"); }
+    void OnDisable() { Debug.Log("in SS : OnDisable-called"); }
+    void OnDestroy() { Debug.Log("in SS : OnDestroy-called"); }
+
+    void Update() {
         if (btn)
         {
             Push();
@@ -23,27 +28,7 @@ public class SampleSceneTester : MonoBehaviour
     }
 
     private void Push() {
-        if (in_num < 0 || in_num >= gameObjects.Length)
-        {
-            dsp = "invalid-index";
-        }
-        else if (dsp == "mk") gameObjects[in_num] = Instantiate(Col);
-        else
-        {
-            if (gameObjects[in_num] == null) { dsp = "not-found"; return; }
-            bool b0 = false;
-            switch (dsp)
-            {
-                case "toggle":
-                    b0 = !gameObjects[in_num].activeSelf;
-                    gameObjects[in_num].SetActive(b0);
-                    break;
-                case "kill":
-                    GameObject.Destroy(gameObjects[in_num]);
-                    break;
-                default: dsp = "???"; break;
-            }
-        }
-
+        SceneManager.LoadScene(SS01_name);
     }
+
 }

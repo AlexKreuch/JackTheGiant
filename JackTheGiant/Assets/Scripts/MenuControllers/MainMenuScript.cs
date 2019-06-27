@@ -8,7 +8,7 @@ public class MainMenuScript : MonoBehaviour
     private const string HighScore_sceneName = "HighScore00";
     private const string MainMenu_sceneName = "MainMenu00";
     private const string OptionsMenu_sceneName = "OptionsMenu";
-    private const string GamePlay_sceneName = "Scene00";
+    private const string GamePlay_sceneName = "Scene00_working00"; // "Scene00"; 
     #endregion
 
     #region button-methods
