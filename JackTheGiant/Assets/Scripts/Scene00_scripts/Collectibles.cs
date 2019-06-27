@@ -21,6 +21,9 @@ public class Collectibles : MonoBehaviour
     private int MaxLives = 2;
     [SerializeField]
     private float lifeProb = .5f;
+
+    [SerializeField]
+    private Player_Score player_Score;
     #endregion
 
     public void SetUpCollectable(Collectible collectible) {
@@ -44,7 +47,7 @@ public class Collectibles : MonoBehaviour
 
     private int PickType() {
         // 0:=Coin ; 1:=Life
-        if (lifeCount >= MaxLives) return 0;
+        if (lifeCount+player_Score.lifeScore >= MaxLives) return 0;
         float r = Random.Range(0f, 1f);
         return r < lifeProb ? 1 : 0 ;
     }

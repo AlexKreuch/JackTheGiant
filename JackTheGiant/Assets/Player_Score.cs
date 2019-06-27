@@ -63,21 +63,18 @@ public class Player_Score : MonoBehaviour
         spriteRenderer.sortingOrder = 0;
         scoreKeeper.IsOn = false;
     }
-    // coin-200 ; life-300
+
     private void HitCoin(Collider2D other) {
         playerScore += 200;
         coinScore++;
         AudioSource.PlayClipAtPoint(getCoin,transform.position);
-        other.enabled = false;
-        KillCollider(other);
+        other.gameObject.SetActive(false);
     }
     private void HitLife(Collider2D other) {
         playerScore += 300;
         lifeScore++;
         AudioSource.PlayClipAtPoint(getLife, transform.position);
-        other.enabled = false;
-
-        KillCollider(other);
+        other.gameObject.SetActive(false);
     }
     private void HitBound(Collider2D other) {
         AudioSource.PlayClipAtPoint(dieSound, transform.position);
@@ -87,8 +84,6 @@ public class Player_Score : MonoBehaviour
         scoreKeeper.IsOn = false;
     }
 
-    private void KillCollider(Collider2D obj) {
-        obj.gameObject.SetActive(false);
-    }
+    
     #endregion
 }

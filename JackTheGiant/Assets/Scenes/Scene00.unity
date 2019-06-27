@@ -263,6 +263,12 @@ MonoBehaviour:
   playerScore: 0
   coinScore: 0
   lifeScore: 0
+--- !u!50 &179368518 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
+    type: 3}
+  m_PrefabInstance: {fileID: 8087052189119392527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &179368521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2034,6 +2040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd063a8bb126154b87de97a7fabbc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 179368518}
 --- !u!4 &1827893403
 Transform:
   m_ObjectHideFlags: 0
@@ -2160,6 +2167,7 @@ MonoBehaviour:
     type: 3}
   MaxLives: 2
   lifeProb: 0.5
+  player_Score: {fileID: 179368515}
 --- !u!4 &1886436430
 Transform:
   m_ObjectHideFlags: 0
