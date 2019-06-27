@@ -2041,6 +2041,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 179368518}
+  Pauser: 0
+  addV: 0
+  chkV: 0
+  inp: 
+  dsp: 
 --- !u!4 &1827893403
 Transform:
   m_ObjectHideFlags: 0

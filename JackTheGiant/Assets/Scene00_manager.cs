@@ -47,12 +47,8 @@ public class Scene00_manager : MonoBehaviour
 
     [SerializeField]
     private UnityEngine.UI.Button pauseButton;
-
-    private Rigidbody2D playerBody;
-    private Animator playerAnimator;
+    
     private Player_Score player_Score;
-    private CameraMover cameraMover;
-    private player00_script playerController;
     private UnityEngine.UI.Image pauseButtonImage;
 
     private bool currentlyPaused = false;
@@ -89,12 +85,8 @@ public class Scene00_manager : MonoBehaviour
     void Start()
     {
         pausePanel.SetActive(false);
-
-        playerController = player.GetComponent<player00_script>();
-        playerBody = player.GetComponent<Rigidbody2D>();
-        playerAnimator = player.GetComponent<Animator>();
+        
         player_Score = player.GetComponent<Player_Score>();
-        cameraMover = Camera.main.GetComponent<CameraMover>();
         pauseButtonImage = pauseButton.GetComponent<UnityEngine.UI.Image>();
 
         #region  initialize panelControllers
@@ -120,11 +112,7 @@ public class Scene00_manager : MonoBehaviour
         currentlyPaused = true;
 
         // freeze the game
-        foreach(var x in panelControllers) { x.TurnedOn = false; }
-        cameraMover.enabled = false;
-        playerBody.constraints = RigidbodyConstraints2D.FreezeAll;
-        playerAnimator.enabled = false;
-        playerController.UpdateDirection = false;
+        Time.timeScale = 0f;
 
         // turn on PausePanel
         pausePanel.SetActive(true);
@@ -135,11 +123,7 @@ public class Scene00_manager : MonoBehaviour
         currentlyPaused = false;
 
         // unfreeze game
-        foreach (var x in panelControllers) { x.TurnedOn = true; }
-        cameraMover.enabled = true;
-        playerBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-        playerAnimator.enabled = true;
-        playerController.UpdateDirection = true;
+        Time.timeScale = 1f;
 
         // turn off PausePanel
         pausePanel.SetActive(false);
@@ -149,5 +133,8 @@ public class Scene00_manager : MonoBehaviour
 
     public void PressQuit() {
         SceneManager.LoadScene(MainMenu_sceneName);
+        Time.timeScale = 1f;
     }
+
+   
 }

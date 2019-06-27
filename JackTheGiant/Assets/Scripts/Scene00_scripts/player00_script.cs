@@ -13,7 +13,7 @@ public class player00_script : MonoBehaviour
     private Sprite sprite;
     private Animator animator;
 
-    public bool UpdateDirection = true; // use this to pause/unpause player
+  
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class player00_script : MonoBehaviour
         Move();
     }
     void Update() {
-        if (UpdateDirection) FaceRightWay();
+        FaceRightWay();
         WalkingAnimation();
     }
 
