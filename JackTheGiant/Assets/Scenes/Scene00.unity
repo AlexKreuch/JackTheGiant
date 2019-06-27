@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 242576054}
   - component: {fileID: 242576053}
   m_Layer: 0
-  m_Name: Life_text
+  m_Name: Coin_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -509,7 +509,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 306556164}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1750987547}
+        m_MethodName: PressQuit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &306556164
@@ -1123,7 +1134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSpeed: 0
   maxSpeed: 7
-  speedUpFactor: 2
+  speedUpFactor: 0.1
 --- !u!1 &632432631
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,7 +1215,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 632432634}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1750987547}
+        m_MethodName: UnPauseGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &632432634
@@ -1332,7 +1354,7 @@ GameObject:
   - component: {fileID: 940581745}
   - component: {fileID: 940581744}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: PausePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1467,6 +1489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloudCountTarget: 5
+  collectiblesManager: {fileID: 1886436429}
   clouds:
   - {fileID: 9124618184544545411, guid: 73ea6c48baf1d5c4baa57df6e19ba03d, type: 3}
   - {fileID: 2781517449716071590, guid: 75fd9bdd76dfd52408d97e6388e77387, type: 3}
@@ -1933,6 +1956,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1590985098}
   m_CullTransparentMesh: 0
+--- !u!1 &1750987545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1750987546}
+  - component: {fileID: 1750987547}
+  m_Layer: 0
+  m_Name: Scene00_manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1750987546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750987545}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1750987547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750987545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9586b031479a7e04b8eda15aa0c5f263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausePanel: {fileID: 940581742}
+  player: {fileID: 179368514}
+  pauseButton: {fileID: 2044435759}
+  scoreText_SDPC: {fileID: 1483569724}
+  lifeText_SDPC: {fileID: 324358647}
+  coinText_SDPC: {fileID: 242576053}
 --- !u!1 &1827893401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1962,10 +2034,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd063a8bb126154b87de97a7fabbc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 179368514}
-  btn: 0
-  setToThis: 1
-  dsp: SR.sl_id = 1
 --- !u!4 &1827893403
 Transform:
   m_ObjectHideFlags: 0
@@ -2056,6 +2124,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839629745}
   m_CullTransparentMesh: 0
+--- !u!1 &1886436428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1886436430}
+  - component: {fileID: 1886436429}
+  m_Layer: 0
+  m_Name: CollectiblesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1886436429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886436428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac469a95c2f2c14b859fb2d5cb0abab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Blank: {fileID: 5592220253710155982, guid: a24f3c6e4e12e454cbb3a8a458b29097, type: 3}
+  coinSprite: {fileID: -4504691372432430140, guid: 0110e217a125b9d4fb16a336f826339c,
+    type: 3}
+  lifeSprite: {fileID: -6607178875853909384, guid: 0110e217a125b9d4fb16a336f826339c,
+    type: 3}
+  MaxLives: 2
+  lifeProb: 0.5
+--- !u!4 &1886436430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886436428}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.2765326, y: -2.6901267, z: -16.781267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1990604188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2280,7 +2398,7 @@ GameObject:
   - component: {fileID: 2044435760}
   - component: {fileID: 2044435759}
   m_Layer: 0
-  m_Name: Button
+  m_Name: PauseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2347,7 +2465,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2044435760}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1750987547}
+        m_MethodName: PauseGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2044435760
@@ -2587,12 +2716,17 @@ PrefabInstance:
     - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
         type: 3}
       propertyPath: m_LinearDrag
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
         type: 3}
       propertyPath: m_Constraints
-      value: 6
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
+        type: 3}
+      propertyPath: m_Mass
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8087052189054117661, guid: 9370fe7180c814147bcd8fd074aa0b62,
         type: 3}
