@@ -107,7 +107,7 @@ public class Scene00_manager : MonoBehaviour
         foreach(var x in panelControllers) { x.Update(); }
     }
 
-    private void PauseGame() {
+    public void PauseGame() {
         // freeze the game
         foreach(var x in panelControllers) { x.TurnedOn = false; }
         cameraMover.enabled = false;
@@ -120,7 +120,7 @@ public class Scene00_manager : MonoBehaviour
         pauseButton.enabled = false;
         pauseButtonImage.enabled = false;
     }
-    private void UnPauseGame() {
+    public void UnPauseGame() {
         // unfreeze game
         foreach (var x in panelControllers) { x.TurnedOn = true; }
         cameraMover.enabled = true;
