@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Scene00_manager : MonoBehaviour
 {
@@ -39,7 +40,8 @@ public class Scene00_manager : MonoBehaviour
         }
     }
 
-    
+    private const string MainMenu_sceneName = "MainMenu00";
+
     [SerializeField]
     private GameObject pausePanel, player;
 
@@ -143,5 +145,9 @@ public class Scene00_manager : MonoBehaviour
         pausePanel.SetActive(false);
         pauseButton.enabled = true;
         pauseButtonImage.enabled = true;
+    }
+
+    public void PressQuit() {
+        SceneManager.LoadScene(MainMenu_sceneName);
     }
 }
