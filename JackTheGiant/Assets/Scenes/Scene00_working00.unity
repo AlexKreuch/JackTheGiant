@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 242576054}
   - component: {fileID: 242576053}
   m_Layer: 0
-  m_Name: Life_text
+  m_Name: Coin_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1977,6 +1977,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9586b031479a7e04b8eda15aa0c5f263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player_Score: {fileID: 179368515}
+  scoreText_SDPC: {fileID: 1483569724}
+  lifeText_SDPC: {fileID: 324358647}
+  coinText_SDPC: {fileID: 242576053}
 --- !u!1 &1827893401
 GameObject:
   m_ObjectHideFlags: 0
