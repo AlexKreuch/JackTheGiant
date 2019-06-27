@@ -11,6 +11,8 @@ public class Scene00_manager : MonoBehaviour
 
         private int currentValue;
 
+        public bool TurnedOn { get; set; }
+
         public ScoreDisplayPanelController(System.Func<int,string> tds, System.Func<int> gv, UnityEngine.UI.Text txt) {
             text = txt;
             toDisplayString = tds;
@@ -18,22 +20,37 @@ public class Scene00_manager : MonoBehaviour
 
             currentValue = getValue();
 
+            TurnedOn = true;
+
             text.text = toDisplayString( currentValue );
         }
 
-        public void update() {
-            var x = getValue();
-            if (currentValue != x)
+        public void Update() {
+            if (TurnedOn)
             {
-                currentValue = x;
-                text.text = toDisplayString(currentValue);
+                var x = getValue();
+                if (currentValue != x)
+                {
+                    currentValue = x;
+                    text.text = toDisplayString(currentValue);
+                }
             }
         }
     }
 
     
     [SerializeField]
+    private GameObject pausePanel, player;
+
+    [SerializeField]
+    private UnityEngine.UI.Button pauseButton;
+
+    private Rigidbody2D playerBody;
+    private Animator playerAnimator;
     private Player_Score player_Score;
+    private CameraMover cameraMover;
+    private player00_script playerController;
+    private UnityEngine.UI.Image pauseButtonImage;
 
     #region ScoreDisplayPanelController fields
 
@@ -66,6 +83,15 @@ public class Scene00_manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pausePanel.SetActive(false);
+
+        playerController = player.GetComponent<player00_script>();
+        playerBody = player.GetComponent<Rigidbody2D>();
+        playerAnimator = player.GetComponent<Animator>();
+        player_Score = player.GetComponent<Player_Score>();
+        cameraMover = Camera.main.GetComponent<CameraMover>();
+        pauseButtonImage = pauseButton.GetComponent<UnityEngine.UI.Image>();
+
         #region  initialize panelControllers
         lifePanelController = new ScoreDisplayPanelController(displayLifexCoin_SDPC, getLife_SDPC, lifeText_SDPC);
         coinPanelController = new ScoreDisplayPanelController(displayLifexCoin_SDPC, getCoin_SDPC, coinText_SDPC);
@@ -78,6 +104,33 @@ public class Scene00_manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach(var x in panelControllers) { x.update(); }
+        foreach(var x in panelControllers) { x.Update(); }
+    }
+
+    private void PauseGame() {
+        // freeze the game
+        foreach(var x in panelControllers) { x.TurnedOn = false; }
+        cameraMover.enabled = false;
+        playerBody.constraints = RigidbodyConstraints2D.FreezeAll;
+        playerAnimator.enabled = false;
+        playerController.UpdateDirection = false;
+
+        // turn on PausePanel
+        pausePanel.SetActive(true);
+        pauseButton.enabled = false;
+        pauseButtonImage.enabled = false;
+    }
+    private void UnPauseGame() {
+        // unfreeze game
+        foreach (var x in panelControllers) { x.TurnedOn = true; }
+        cameraMover.enabled = true;
+        playerBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        playerAnimator.enabled = true;
+        playerController.UpdateDirection = true;
+
+        // turn off PausePanel
+        pausePanel.SetActive(false);
+        pauseButton.enabled = true;
+        pauseButtonImage.enabled = true;
     }
 }
