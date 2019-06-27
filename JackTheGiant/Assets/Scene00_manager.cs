@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Scene00_manager : MonoBehaviour
 {
+ 
     private class ScoreDisplayPanelController {
         private UnityEngine.UI.Text text;
         private System.Func<int,string> toDisplayString;
@@ -51,6 +52,8 @@ public class Scene00_manager : MonoBehaviour
     private CameraMover cameraMover;
     private player00_script playerController;
     private UnityEngine.UI.Image pauseButtonImage;
+
+    private bool currentlyPaused = false;
 
     #region ScoreDisplayPanelController fields
 
@@ -104,10 +107,16 @@ public class Scene00_manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (currentlyPaused) UnPauseGame(); else PauseGame();
+        }
         foreach(var x in panelControllers) { x.Update(); }
     }
 
     public void PauseGame() {
+        currentlyPaused = true;
+
         // freeze the game
         foreach(var x in panelControllers) { x.TurnedOn = false; }
         cameraMover.enabled = false;
@@ -121,6 +130,8 @@ public class Scene00_manager : MonoBehaviour
         pauseButtonImage.enabled = false;
     }
     public void UnPauseGame() {
+        currentlyPaused = false;
+
         // unfreeze game
         foreach (var x in panelControllers) { x.TurnedOn = true; }
         cameraMover.enabled = true;
