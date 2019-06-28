@@ -44,7 +44,15 @@ public class Player_Score : MonoBehaviour
         scoreKeeper.Step(transform, ref playerScore);
     }
 
-    
+    private void Die() {
+        AudioSource.PlayClipAtPoint(dieSound, transform.position);
+        camMover.enabled = false;
+        lifeScore--;
+        //spriteRenderer.sortingOrder = 0;
+        spriteRenderer.enabled = false;
+        scoreKeeper.IsOn = false;
+    }
+
     public void OnTriggerEnter2D(Collider2D other) {
         switch (other.tag) {
             case "cloud_dark": HitDarkCloud(other); break;
@@ -57,12 +65,9 @@ public class Player_Score : MonoBehaviour
     }
    
     #region onTrigger-helpers
-    private void HitDarkCloud(Collider2D other) {
-        AudioSource.PlayClipAtPoint(dieSound,transform.position);
-        camMover.enabled = false;
-        lifeScore--;
-        spriteRenderer.sortingOrder = -1;
-       scoreKeeper.IsOn = false;
+    private void HitDarkCloud(Collider2D other)
+    {
+        Die();
     }
 
     private void HitCoin(Collider2D other) {
@@ -78,11 +83,7 @@ public class Player_Score : MonoBehaviour
         other.gameObject.SetActive(false);
     }
     private void HitBound(Collider2D other) {
-        AudioSource.PlayClipAtPoint(dieSound, transform.position);
-        camMover.enabled = false;
-        lifeScore--;
-        spriteRenderer.sortingOrder = -1;
-        scoreKeeper.IsOn = false;
+        Die();
     }
 
     
