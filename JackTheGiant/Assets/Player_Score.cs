@@ -48,7 +48,6 @@ public class Player_Score : MonoBehaviour
         AudioSource.PlayClipAtPoint(dieSound, transform.position);
         camMover.enabled = false;
         lifeScore--;
-        //spriteRenderer.sortingOrder = 0;
         spriteRenderer.enabled = false;
         scoreKeeper.IsOn = false;
     }
