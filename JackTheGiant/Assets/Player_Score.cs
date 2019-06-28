@@ -55,13 +55,14 @@ public class Player_Score : MonoBehaviour
             default: break;
         }
     }
+   
     #region onTrigger-helpers
     private void HitDarkCloud(Collider2D other) {
         AudioSource.PlayClipAtPoint(dieSound,transform.position);
         camMover.enabled = false;
         lifeScore--;
         spriteRenderer.sortingOrder = 0;
-        scoreKeeper.IsOn = false;
+       scoreKeeper.IsOn = false;
     }
 
     private void HitCoin(Collider2D other) {

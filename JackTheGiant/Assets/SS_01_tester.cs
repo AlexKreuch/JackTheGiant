@@ -5,28 +5,65 @@ using UnityEngine.SceneManagement;
 
 public class SS_01_tester : MonoBehaviour
 {
-    public readonly static string SS_name = "SampleScene";
-    public readonly static string SS01_name = "SampleScene_01";
 
-    public bool btn = false;
+    [SerializeField]
+    private GameObject thing;
 
-    void Start() { Debug.Log("in SS01 : Start-called"); }
-    void Awake() { Debug.Log("in SS01 : Awake-called"); }
-    void OnApplicationQuit() { Debug.Log("in SS01 : OnApplicationQuit-called"); }
-    void OnDisable() { Debug.Log("in SS01 : OnDisable-called"); }
-    void OnDestroy() { Debug.Log("in SS01 : OnDestroy-called"); }
+    public float spd = 1f;
 
-    void Update()
-    {
-        if (btn)
+    private class TimeTracker {
+        private float t;
+        public TimeTracker() { t = 0f; }
+        public void Step() { t += Time.deltaTime; }
+        public float GetCurrent() { return t; }
+    }
+    TimeTracker tracker = new TimeTracker();
+
+
+    
+    public bool countDwn = false;
+    public int cd_disp = 0;
+
+    void Update() {
+        tracker.Step();
+        CheckForPush(DoCountDown, ref countDwn);
+        Asdf();
+    }
+
+    private void CheckForPush(System.Func<int> method, ref bool sudoButton) {
+        if (sudoButton)
         {
-            Push();
-            btn = false;
+            method();
+            sudoButton = false;
         }
     }
 
-    private void Push()
-    {
-        SceneManager.LoadScene(SS_name);
+    private int DoCountDown() {
+        IEnumerator enumerator() {
+            for (cd_disp = 10; cd_disp > 0; cd_disp--)
+            {
+                yield return new WaitForSeconds(1f);
+            }
+        }
+
+        StartCoroutine(enumerator());
+        return 0;
     }
+
+    
+    private void Asdf() {
+        var alpha = Mathf.Sin(spd * tracker.GetCurrent());
+        alpha = (alpha + 1) / 2;
+        SetColorAlpha(alpha);
+    }
+
+    private void SetColorAlpha(float alpha)
+    {
+        SpriteRenderer sr = thing.GetComponent<SpriteRenderer>();
+        var color = sr.color;
+        color.a = alpha;
+        sr.color = color;
+    }
+    
+
 }

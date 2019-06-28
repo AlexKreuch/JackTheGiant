@@ -263,12 +263,6 @@ MonoBehaviour:
   playerScore: 0
   coinScore: 0
   lifeScore: 0
---- !u!50 &179368518 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
-    type: 3}
-  m_PrefabInstance: {fileID: 8087052189119392527}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &179368521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2040,12 +2034,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd063a8bb126154b87de97a7fabbc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 179368518}
-  Pauser: 0
-  addV: 0
-  chkV: 0
-  inp: 
-  dsp: 
+  player: {fileID: 179368514}
+  flySpd: 10
 --- !u!4 &1827893403
 Transform:
   m_ObjectHideFlags: 0
@@ -2661,6 +2651,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_0
       objectReference: {fileID: 0}
+    - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
+        type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8087052189054117660, guid: 9370fe7180c814147bcd8fd074aa0b62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2725,21 +2730,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
-        type: 3}
-      propertyPath: m_LinearDrag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8087052189054117658, guid: 9370fe7180c814147bcd8fd074aa0b62,
-        type: 3}
-      propertyPath: m_Mass
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8087052189054117661, guid: 9370fe7180c814147bcd8fd074aa0b62,
         type: 3}
