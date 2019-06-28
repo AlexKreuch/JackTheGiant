@@ -61,7 +61,7 @@ public class Player_Score : MonoBehaviour
         AudioSource.PlayClipAtPoint(dieSound,transform.position);
         camMover.enabled = false;
         lifeScore--;
-        spriteRenderer.sortingOrder = 0;
+        spriteRenderer.sortingOrder = -1;
        scoreKeeper.IsOn = false;
     }
 
@@ -81,7 +81,7 @@ public class Player_Score : MonoBehaviour
         AudioSource.PlayClipAtPoint(dieSound, transform.position);
         camMover.enabled = false;
         lifeScore--;
-        spriteRenderer.sortingOrder = 0;
+        spriteRenderer.sortingOrder = -1;
         scoreKeeper.IsOn = false;
     }
 
