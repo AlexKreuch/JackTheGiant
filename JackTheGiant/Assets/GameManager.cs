@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
         public static class Tags {
             public const string GAMEPLAY_LOADED = "scene00 just loaded";
             public const string READYBUTTON_PUSHED = "ready-button pushed";
+            public const string EXIT_GAMEPLAY = "now exiting gamePlay";
+            public const string HIGHSCORE_SCREEN = "highScore display opened";
         }
 
     }
@@ -76,6 +78,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private int HighScore = 0;
+    private int HighCoinScore = 0;
     private SituationCode situationCode = new SituationCode();
     private DifficultySetting difficulty = DifficultySetting.MEDIUM;
     private DataRecord dataRecord = new DataRecord();
@@ -102,6 +105,8 @@ public class GameManager : MonoBehaviour
         {
             case SceneChangeUtils.Tags.GAMEPLAY_LOADED: GamePlayStarted(data); break;
             case SceneChangeUtils.Tags.READYBUTTON_PUSHED:ReadyButtonPushed(data); break;
+            case SceneChangeUtils.Tags.EXIT_GAMEPLAY: ExitingGamePlay(data); break;
+            case SceneChangeUtils.Tags.HIGHSCORE_SCREEN:HighScoreScreen(data); break;
         }
     }
 
@@ -144,15 +149,56 @@ public class GameManager : MonoBehaviour
         if (situationCode.have_scores_recorded)
         {
             if (s > HighScore) HighScore = s;
+            if (c > HighCoinScore) HighCoinScore = c;
         }
         else
         {
             HighScore = s;
+            HighCoinScore = c;
             situationCode.have_scores_recorded = true;
+
         }
         dataRecord.SetInt("score", s);
         dataRecord.SetInt("lives", l);
         dataRecord.SetInt("coins", c);
+    }
+    private void ExitingGamePlay(object data) {
+        /*
+          data is expected to be an array of two integers containing the 
+          current player-score, and coin-score respectively
+         */
+        int[] sc = (int[])data;
+        int s = sc[0], c = sc[1];
+        if (situationCode.have_scores_recorded)
+        {
+            if (s > HighScore) HighScore = s;
+            if (c > HighCoinScore) HighCoinScore = c;
+        }
+        else
+        {
+            HighScore = s;
+            HighCoinScore = c;
+            situationCode.have_scores_recorded = true;
+        }
+    }
+    private void HighScoreScreen(object data)
+    {
+        /*
+             data is expected to be a deligate (string,string,bool) -> int 
+             for settting the scoreText and coinText fields respectively.
+             if the final parameter is set to true, then the fontSize of the High-score text
+             will be reset to 45 (to fit message)
+         */
+        situationCode.sit = SituationCode.Sit.HIGH_SCORE;
+        System.Func<string, string, bool,int> setter = (System.Func<string, string,bool, int>)data;
+        if (situationCode.have_scores_recorded)
+        {
+            setter(HighScore.ToString(), HighCoinScore.ToString(),false);
+        }
+        else
+        {
+            setter("NO-SCORES RECORDED YET" , "---", true);
+        }
     }
     #endregion
 

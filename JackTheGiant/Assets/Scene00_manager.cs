@@ -9,14 +9,14 @@ public class Scene00_manager : MonoBehaviour
 
     private class ScoreDisplayPanelController {
         private UnityEngine.UI.Text text;
-        private System.Func<int,string> toDisplayString;
+        private System.Func<int, string> toDisplayString;
         private System.Func<int> getValue;
 
         private int currentValue;
 
         public bool TurnedOn { get; set; }
 
-        public ScoreDisplayPanelController(System.Func<int,string> tds, System.Func<int> gv, UnityEngine.UI.Text txt) {
+        public ScoreDisplayPanelController(System.Func<int, string> tds, System.Func<int> gv, UnityEngine.UI.Text txt) {
             text = txt;
             toDisplayString = tds;
             getValue = gv;
@@ -25,7 +25,7 @@ public class Scene00_manager : MonoBehaviour
 
             TurnedOn = true;
 
-            text.text = toDisplayString( currentValue );
+            text.text = toDisplayString(currentValue);
         }
 
         public void Update() {
@@ -49,7 +49,7 @@ public class Scene00_manager : MonoBehaviour
 
     [SerializeField]
     private UnityEngine.UI.Button pauseButton, ReadyButton;
-    
+
     private Player_Score player_Score;
     private UnityEngine.UI.Image pauseButtonImage;
 
@@ -72,9 +72,9 @@ public class Scene00_manager : MonoBehaviour
     private int getCoin_SDPC() { return player_Score.coinScore; }
     private int getScore_SDPC() { return player_Score.playerScore; }
 
-    private string displayLifexCoin_SDPC(int x) { return string.Format("x{0}",x); }
+    private string displayLifexCoin_SDPC(int x) { return string.Format("x{0}", x); }
 
-    private string displayScore_SDPC(int x) { return string.Format("{0}",x); }
+    private string displayScore_SDPC(int x) { return string.Format("{0}", x); }
     #endregion
 
     ScoreDisplayPanelController[] panelControllers;
@@ -93,7 +93,18 @@ public class Scene00_manager : MonoBehaviour
     private void TellManagerSceneStarted() {
         System.Func<int, int, int, int> f = StateReseter;
         string s = GameManager.SceneChangeUtils.Tags.GAMEPLAY_LOADED;
-        GameManager.instance.TellManagerSomething(s,f);
+        GameManager.instance.TellManagerSomething(s, f);
+    }
+
+    private void ExitToMainMenu()
+    {
+        GameManager.instance.TellManagerSomething
+           (
+               GameManager.SceneChangeUtils.Tags.EXIT_GAMEPLAY,
+               new int[] { player_Score.playerScore, player_Score.coinScore }
+           );
+        SceneManager.LoadScene(MainMenu_sceneName);
+        Time.timeScale = 1f;
     }
 
     #endregion
@@ -106,7 +117,7 @@ public class Scene00_manager : MonoBehaviour
     void Start()
     {
         pausePanel.SetActive(false);
-        
+
         player_Score = player.GetComponent<Player_Score>();
         pauseButtonImage = pauseButton.GetComponent<UnityEngine.UI.Image>();
 
@@ -128,7 +139,7 @@ public class Scene00_manager : MonoBehaviour
         {
             if (currentlyPaused) UnPauseGame(); else PauseGame();
         }
-        foreach(var x in panelControllers) { x.Update(); }
+        foreach (var x in panelControllers) { x.Update(); }
     }
 
     public void PauseGame() {
@@ -155,8 +166,8 @@ public class Scene00_manager : MonoBehaviour
     }
 
     public void PressQuit() {
-        SceneManager.LoadScene(MainMenu_sceneName);
-        Time.timeScale = 1f;
+
+        ExitToMainMenu();
     }
 
     public void PressReadyButton() {
@@ -171,5 +182,7 @@ public class Scene00_manager : MonoBehaviour
     public void SetReadyButtonActive(bool x) {
         ReadyButton.gameObject.SetActive(x);
     }
+
+    
    
 }
