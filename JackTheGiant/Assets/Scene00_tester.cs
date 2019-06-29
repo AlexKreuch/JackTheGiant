@@ -5,6 +5,8 @@ using UnityEngine;
 [ExecuteAlways]
 public class Scene00_tester : MonoBehaviour
 {
+    
+
     private bool flyMode = false;
 
     [SerializeField]

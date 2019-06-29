@@ -431,8 +431,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1319328034}
-        m_MethodName: HitReadyButton
+      - m_Target: {fileID: 1750987547}
+        m_MethodName: PressReadyButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1740,18 +1740,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213565143}
   m_CullTransparentMesh: 0
---- !u!114 &1319328034 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7889028249074967855, guid: ca6adaf310d133c49bfc8d4e09d29081,
-    type: 3}
-  m_PrefabInstance: {fileID: 7889028250121403405}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42a13cff929d328489950f617b053a3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1384835297
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,6 +2135,7 @@ MonoBehaviour:
   pausePanel: {fileID: 940581742}
   player: {fileID: 179368514}
   pauseButton: {fileID: 2044435759}
+  ReadyButton: {fileID: 207595160}
   scoreText_SDPC: {fileID: 1483569724}
   lifeText_SDPC: {fileID: 324358647}
   coinText_SDPC: {fileID: 242576053}

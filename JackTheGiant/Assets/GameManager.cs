@@ -65,6 +65,14 @@ public class GameManager : MonoBehaviour
 
     private enum DifficultySetting { EASY, MEDIUM, HARD }
 
+    public static class SceneChangeUtils {
+        public static class Tags {
+            public const string GAMEPLAY_LOADED = "scene00 just loaded";
+            public const string READYBUTTON_PUSHED = "ready-button pushed";
+        }
+
+    }
+
     #endregion
 
     private int HighScore = 0;
@@ -84,11 +92,60 @@ public class GameManager : MonoBehaviour
             GameObject.Destroy(this);
     }
 
-
-
-    public void HitReadyButton() {
-        
+    public void TellManagerSomething(string info , object data) {
+        switch (info)
+        {
+            case SceneChangeUtils.Tags.GAMEPLAY_LOADED: GamePlayStarted(data); break;
+            case SceneChangeUtils.Tags.READYBUTTON_PUSHED:ReadyButtonPushed(data); break;
+        }
     }
 
-   
+    #region scene-change helpers
+    private void GamePlayStarted(object data) {
+        /**
+         
+         data is expected to be a function (int,int,int) -> int, 
+         which we may use to set the score, lives, and coins of the player respectively.
+         
+         we only need to set these values if this comes after the 'ready-button' has been pushed.
+         */
+
+        // set the situation code;
+        situationCode.sit = SituationCode.Sit.GAMEPLAY;
+
+        if (situationCode.received_rsad_headsup)
+        {
+            situationCode.received_rsad_headsup = false;
+
+            System.Func<int, int, int, int> setter = (System.Func<int, int, int, int>)data;
+
+            setter(dataRecord.GetInt("score"), dataRecord.GetInt("lives"), dataRecord.GetInt("coins"));
+        }
+        
+
+    }
+    private void ReadyButtonPushed(object data) {
+        /*
+         data is expected to be an array of 3 ints containing the score, lives, and coins of the player respectively
+         
+         */
+        situationCode.received_rsad_headsup = true;
+        int[] slc = (int[])data;
+        int s = slc[0], l = slc[1], c = slc[2];
+        if (situationCode.have_scores_recorded)
+        {
+            if (s > HighScore) HighScore = s;
+        }
+        else
+        {
+            HighScore = s;
+            situationCode.have_scores_recorded = true;
+        }
+        dataRecord.SetInt("score", s);
+        dataRecord.SetInt("lives", l);
+        dataRecord.SetInt("coins", c);
+    }
+    #endregion
+
+
 }

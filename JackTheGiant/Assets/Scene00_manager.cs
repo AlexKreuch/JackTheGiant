@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Scene00_manager : MonoBehaviour
 {
- 
+    public static Scene00_manager instance;
+
     private class ScoreDisplayPanelController {
         private UnityEngine.UI.Text text;
         private System.Func<int,string> toDisplayString;
@@ -41,12 +42,13 @@ public class Scene00_manager : MonoBehaviour
     }
 
     private const string MainMenu_sceneName = "MainMenu00";
+    private const string this_sceneName = "Scene00";
 
     [SerializeField]
     private GameObject pausePanel, player;
 
     [SerializeField]
-    private UnityEngine.UI.Button pauseButton;
+    private UnityEngine.UI.Button pauseButton, ReadyButton;
     
     private Player_Score player_Score;
     private UnityEngine.UI.Image pauseButtonImage;
@@ -79,7 +81,26 @@ public class Scene00_manager : MonoBehaviour
 
     #endregion
 
-    
+    #region SceneChange helpers
+
+    private int StateReseter(int scoreVal, int livesVAl, int coinsVal) {
+        player_Score.playerScore = scoreVal;
+        player_Score.lifeScore = livesVAl;
+        player_Score.coinScore = coinsVal;
+        return 0;
+    }
+
+    private void TellManagerSceneStarted() {
+        System.Func<int, int, int, int> f = StateReseter;
+        string s = GameManager.SceneChangeUtils.Tags.GAMEPLAY_LOADED;
+        GameManager.instance.TellManagerSomething(s,f);
+    }
+
+    #endregion
+
+    void Awake() {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -96,6 +117,8 @@ public class Scene00_manager : MonoBehaviour
 
         panelControllers = new ScoreDisplayPanelController[] { lifePanelController, coinPanelController, scorePanelController };
         #endregion
+
+        TellManagerSceneStarted();
     }
 
     // Update is called once per frame
@@ -136,5 +159,17 @@ public class Scene00_manager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void PressReadyButton() {
+        GameManager.instance.TellManagerSomething
+            (
+            GameManager.SceneChangeUtils.Tags.READYBUTTON_PUSHED,
+            new int[] { player_Score.playerScore, player_Score.lifeScore, player_Score.coinScore }
+            );
+        SceneManager.LoadScene(this_sceneName);
+    }
+
+    public void SetReadyButtonActive(bool x) {
+        ReadyButton.gameObject.SetActive(x);
+    }
    
 }

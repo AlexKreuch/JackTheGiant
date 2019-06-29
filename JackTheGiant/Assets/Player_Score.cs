@@ -50,6 +50,9 @@ public class Player_Score : MonoBehaviour
         lifeScore--;
         spriteRenderer.enabled = false;
         scoreKeeper.IsOn = false;
+
+        // todo : make this do something different on gameOver
+        Scene00_manager.instance.SetReadyButtonActive(true);
     }
 
     public void OnTriggerEnter2D(Collider2D other) {
