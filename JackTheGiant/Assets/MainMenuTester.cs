@@ -6,11 +6,7 @@ public class MainMenuTester : MonoBehaviour
 {
     
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        GameManager.instance.TestGM();
-    }
+   
 
     
 }
