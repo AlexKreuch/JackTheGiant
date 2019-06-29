@@ -1,18 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    
+
+    public static GameManager instance;
+
+    void Awake() {
+        MakeInstance();
+    }
+
+    private void MakeInstance() {
+        if (instance == null)
+            instance = this;
+        else
+            GameObject.Destroy(this);
+    }
+
+    void Start() { Debug.Log("gm-started"); }
+
+    public void HitReadyButton() {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void TestGM() {
+        Debug.Log("this workeed");
     }
 }

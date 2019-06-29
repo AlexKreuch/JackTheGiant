@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[ExecuteAlways]
 public class Scene00_tester : MonoBehaviour
 {
     private bool flyMode = false;
@@ -16,12 +16,18 @@ public class Scene00_tester : MonoBehaviour
 
     private RigidbodyConstraints2D noMoving, moving;
 
+   
+
     void Start() {
+
+      
+
         playerBody = player.GetComponent<Rigidbody2D>();
         noMoving = RigidbodyConstraints2D.FreezeAll;
         moving = RigidbodyConstraints2D.FreezeRotation;
     }
     void Update() {
+
         if (Input.GetKeyDown(KeyCode.O)) ToggleFlyMode();
         if (flyMode) Mover();
     }
