@@ -83,13 +83,18 @@ public class GameManager : MonoBehaviour
 
     void Awake() {
         MakeInstance();
+        
     }
 
     private void MakeInstance() {
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
             GameObject.Destroy(this);
+
     }
 
     public void TellManagerSomething(string info , object data) {
@@ -110,6 +115,9 @@ public class GameManager : MonoBehaviour
          we only need to set these values if this comes after the 'ready-button' has been pushed.
          */
 
+        Debug.Log("gameplay-started");
+        bool usedSetter = false;
+
         // set the situation code;
         situationCode.sit = SituationCode.Sit.GAMEPLAY;
 
@@ -118,10 +126,10 @@ public class GameManager : MonoBehaviour
             situationCode.received_rsad_headsup = false;
 
             System.Func<int, int, int, int> setter = (System.Func<int, int, int, int>)data;
-
+            usedSetter = true;
             setter(dataRecord.GetInt("score"), dataRecord.GetInt("lives"), dataRecord.GetInt("coins"));
         }
-        
+        Debug.Log("used-setter = " + usedSetter);
 
     }
     private void ReadyButtonPushed(object data) {
@@ -129,6 +137,7 @@ public class GameManager : MonoBehaviour
          data is expected to be an array of 3 ints containing the score, lives, and coins of the player respectively
          
          */
+        Debug.Log("ready-button reported");
         situationCode.received_rsad_headsup = true;
         int[] slc = (int[])data;
         int s = slc[0], l = slc[1], c = slc[2];
