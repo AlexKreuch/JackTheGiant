@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class Player_Score : MonoBehaviour
 {
@@ -49,6 +49,14 @@ public class Player_Score : MonoBehaviour
     }
 
     private void Die() {
+        /*
+          GameManager.instance.TellManagerSomething
+            (
+            GameManager.SceneChangeUtils.Tags.GAME_RESTARTED,
+            new int[] { player_Score.playerScore, player_Score.lifeScore, player_Score.coinScore }
+            );
+         
+         */
         AudioSource.PlayClipAtPoint(dieSound, transform.position);
         camMover.enabled = false;
         lifeScore--;
@@ -58,7 +66,12 @@ public class Player_Score : MonoBehaviour
     
         if (lifeScore > 0)
         {
-            Scene00_manager.instance.SetReadyButtonActive(true);
+            GameManager.instance.TellManagerSomething
+            (
+                GameManager.SceneChangeUtils.Tags.GAME_RESTARTED,
+                new int[] { playerScore, lifeScore, coinScore }
+            );
+            SceneManager.LoadScene(Scene00_manager.SceneName);
         }
         else
         {

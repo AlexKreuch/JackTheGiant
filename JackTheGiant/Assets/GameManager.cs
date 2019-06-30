@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     public static class SceneChangeUtils {
         public static class Tags {
             public const string GAMEPLAY_LOADED = "scene00 just loaded";
-            public const string READYBUTTON_PUSHED = "ready-button pushed";
+            public const string GAME_RESTARTED = "game restarted after death";
             public const string EXIT_GAMEPLAY = "now exiting gamePlay";
             public const string HIGHSCORE_SCREEN = "highScore display opened";
             public const string OPTIONS = "options_screen";
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         switch (info)
         {
             case SceneChangeUtils.Tags.GAMEPLAY_LOADED: GamePlayStarted(data); break;
-            case SceneChangeUtils.Tags.READYBUTTON_PUSHED:ReadyButtonPushed(data); break;
+            case SceneChangeUtils.Tags.GAME_RESTARTED:AboutToRestartedAfterDeath(data); break;
             case SceneChangeUtils.Tags.EXIT_GAMEPLAY: ExitingGamePlay(data); break;
             case SceneChangeUtils.Tags.HIGHSCORE_SCREEN: HighScoreScreen(data); break;
             case SceneChangeUtils.Tags.OPTIONS: OptionsScreen(data); break;
@@ -138,12 +138,11 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    private void ReadyButtonPushed(object data) {
+    private void AboutToRestartedAfterDeath(object data) {
         /*
          data is expected to be an array of 3 ints containing the score, lives, and coins of the player respectively
          
          */
-        Debug.Log("ready-button reported");
         situationCode.received_rsad_headsup = true;
         int[] slc = (int[])data;
         int s = slc[0], l = slc[1], c = slc[2];

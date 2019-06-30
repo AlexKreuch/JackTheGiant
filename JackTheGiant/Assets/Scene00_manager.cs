@@ -42,7 +42,7 @@ public class Scene00_manager : MonoBehaviour
     }
 
     private const string MainMenu_sceneName = "MainMenu00";
-    private const string this_sceneName = "Scene00";
+    public const string SceneName = "Scene00";
 
     [SerializeField]
     private GameObject pausePanel, player;
@@ -130,6 +130,9 @@ public class Scene00_manager : MonoBehaviour
         #endregion
 
         TellManagerSceneStarted();
+
+        ReadyButton.gameObject.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     // Update is called once per frame
@@ -171,12 +174,8 @@ public class Scene00_manager : MonoBehaviour
     }
 
     public void PressReadyButton() {
-        GameManager.instance.TellManagerSomething
-            (
-            GameManager.SceneChangeUtils.Tags.READYBUTTON_PUSHED,
-            new int[] { player_Score.playerScore, player_Score.lifeScore, player_Score.coinScore }
-            );
-        SceneManager.LoadScene(this_sceneName);
+        ReadyButton.gameObject.SetActive(false);
+        Time.timeScale = 1f;
 
 
     }
