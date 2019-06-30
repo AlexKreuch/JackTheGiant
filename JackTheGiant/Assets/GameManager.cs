@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
             public const string READYBUTTON_PUSHED = "ready-button pushed";
             public const string EXIT_GAMEPLAY = "now exiting gamePlay";
             public const string HIGHSCORE_SCREEN = "highScore display opened";
+            public const string OPTIONS = "options_screen";
+            public const string SAVE_OPTION = "save the selected difficulty";
         }
 
     }
@@ -106,7 +108,10 @@ public class GameManager : MonoBehaviour
             case SceneChangeUtils.Tags.GAMEPLAY_LOADED: GamePlayStarted(data); break;
             case SceneChangeUtils.Tags.READYBUTTON_PUSHED:ReadyButtonPushed(data); break;
             case SceneChangeUtils.Tags.EXIT_GAMEPLAY: ExitingGamePlay(data); break;
-            case SceneChangeUtils.Tags.HIGHSCORE_SCREEN:HighScoreScreen(data); break;
+            case SceneChangeUtils.Tags.HIGHSCORE_SCREEN: HighScoreScreen(data); break;
+            case SceneChangeUtils.Tags.OPTIONS: OptionsScreen(data); break;
+            case SceneChangeUtils.Tags.SAVE_OPTION: SaveOption(data); break;
+
         }
     }
 
@@ -194,6 +199,36 @@ public class GameManager : MonoBehaviour
         else
         {
             setter("NO-SCORES RECORDED YET" , "---", true);
+        }
+    }
+    private void OptionsScreen(object data)
+    {
+        /*
+             data is expected to be a function : int -> int.
+             This function is used to set the currently selected options by :
+             0:=Easy, 1:=Medium, 2:=Hard
+         */
+        situationCode.sit = SituationCode.Sit.OPTIONS_MENU;
+        System.Func<int, int> setter = (System.Func<int, int>)data;
+        switch (difficulty)
+        {
+            case DifficultySetting.EASY: setter(0); break;
+            case DifficultySetting.MEDIUM: setter(1); break;
+            case DifficultySetting.HARD: setter(2); break;
+        }
+    }
+    private void SaveOption(object data)
+    {
+        /*
+         data is expected to be an int from 0 to 2 (inclusively).
+         */
+        int m = (int)data;
+        Debug.Assert(m>=0 && m<=2);
+        switch (m)
+        {
+            case 0: difficulty = DifficultySetting.EASY; break;
+            case 1: difficulty = DifficultySetting.MEDIUM; break;
+            case 2: difficulty = DifficultySetting.HARD; break;
         }
     }
     #endregion
