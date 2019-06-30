@@ -159,8 +159,8 @@ public class Scene00_manager : MonoBehaviour
     public void UnPauseGame() {
         currentlyPaused = false;
 
-        // unfreeze game
-        Time.timeScale = 1f;
+        // unfreeze game (but only if the ready-button is inactive)
+        if(!ReadyButton.IsActive()) Time.timeScale = 1f;
 
         // turn off PausePanel
         pausePanel.SetActive(false);
