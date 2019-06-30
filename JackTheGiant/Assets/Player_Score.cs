@@ -23,6 +23,9 @@ public class Player_Score : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private AudioClip getCoin, getLife, dieSound;
+
+    [SerializeField]
+    private GameOverPanel gameOverPanel;
     
     public int playerScore = 0;
     public int coinScore = 0;
@@ -51,8 +54,16 @@ public class Player_Score : MonoBehaviour
         spriteRenderer.enabled = false;
         scoreKeeper.IsOn = false;
 
-        // todo : make this do something different on gameOver
-        Scene00_manager.instance.SetReadyButtonActive(true);
+    
+        if (lifeScore > 0)
+        {
+            Scene00_manager.instance.SetReadyButtonActive(true);
+        }
+        else
+        {
+            gameOverPanel.gameObject.SetActive(true);
+            gameOverPanel.SetVals(playerScore,coinScore);
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D other) {
