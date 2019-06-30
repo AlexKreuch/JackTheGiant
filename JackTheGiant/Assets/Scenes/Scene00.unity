@@ -263,7 +263,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 890290970}
   playerScore: 0
   coinScore: 0
-  lifeScore: 1
+  lifeScore: 2
 --- !u!114 &179368521
 MonoBehaviour:
   m_ObjectHideFlags: 0

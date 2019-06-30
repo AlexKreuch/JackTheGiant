@@ -153,8 +153,7 @@ public class Scene00_manager : MonoBehaviour
 
         // turn on PausePanel
         pausePanel.SetActive(true);
-        pauseButton.enabled = false;
-        pauseButtonImage.enabled = false;
+        SetPauseButtonOn(false);
     }
     public void UnPauseGame() {
         currentlyPaused = false;
@@ -164,8 +163,7 @@ public class Scene00_manager : MonoBehaviour
 
         // turn off PausePanel
         pausePanel.SetActive(false);
-        pauseButton.enabled = true;
-        pauseButtonImage.enabled = true;
+        SetPauseButtonOn(true);
     }
 
     public void PressQuit() {
@@ -184,6 +182,10 @@ public class Scene00_manager : MonoBehaviour
         ReadyButton.gameObject.SetActive(x);
     }
 
+    public void SetPauseButtonOn(bool x) {
+        pauseButton.enabled = x;
+        pauseButtonImage.enabled = x;
+    }
     
    
 }
