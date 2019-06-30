@@ -78,6 +78,7 @@ public class Player_Score : MonoBehaviour
             gameOverPanel.gameObject.SetActive(true);
             gameOverPanel.SetVals(playerScore,coinScore);
             Scene00_manager.instance.SetPauseButtonOn(false);
+            Scene00_manager.instance.CanPauseWithPKey = false;
             Scene00_manager.instance.Invoke("ExitToMainMenu", 5f);
         }
     }

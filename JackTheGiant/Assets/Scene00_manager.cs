@@ -7,6 +7,8 @@ public class Scene00_manager : MonoBehaviour
 {
     public static Scene00_manager instance;
 
+    public bool CanPauseWithPKey = true;
+
     private class ScoreDisplayPanelController {
         private UnityEngine.UI.Text text;
         private System.Func<int, string> toDisplayString;
@@ -138,7 +140,7 @@ public class Scene00_manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (CanPauseWithPKey && Input.GetKeyDown(KeyCode.P))
         {
             if (currentlyPaused) UnPauseGame(); else PauseGame();
         }
