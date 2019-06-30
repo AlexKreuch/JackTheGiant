@@ -119,9 +119,7 @@ public class GameManager : MonoBehaviour
          
          we only need to set these values if this comes after the 'ready-button' has been pushed.
          */
-
-        Debug.Log("gameplay-started");
-        bool usedSetter = false;
+         
 
         // set the situation code;
         situationCode.sit = SituationCode.Sit.GAMEPLAY;
@@ -131,10 +129,8 @@ public class GameManager : MonoBehaviour
             situationCode.received_rsad_headsup = false;
 
             System.Func<int, int, int, int> setter = (System.Func<int, int, int, int>)data;
-            usedSetter = true;
             setter(dataRecord.GetInt("score"), dataRecord.GetInt("lives"), dataRecord.GetInt("coins"));
         }
-        Debug.Log("used-setter = " + usedSetter);
 
     }
     private void ReadyButtonPushed(object data) {

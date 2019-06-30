@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player_Score : MonoBehaviour
 {
     private class ScoreKeeper {
@@ -63,6 +64,7 @@ public class Player_Score : MonoBehaviour
         {
             gameOverPanel.gameObject.SetActive(true);
             gameOverPanel.SetVals(playerScore,coinScore);
+            Scene00_manager.instance.Invoke("ExitToMainMenu", 5f);
         }
     }
 

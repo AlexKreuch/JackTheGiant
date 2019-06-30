@@ -96,7 +96,7 @@ public class Scene00_manager : MonoBehaviour
         GameManager.instance.TellManagerSomething(s, f);
     }
 
-    private void ExitToMainMenu()
+    public void ExitToMainMenu()
     {
         GameManager.instance.TellManagerSomething
            (
@@ -177,6 +177,8 @@ public class Scene00_manager : MonoBehaviour
             new int[] { player_Score.playerScore, player_Score.lifeScore, player_Score.coinScore }
             );
         SceneManager.LoadScene(this_sceneName);
+
+
     }
 
     public void SetReadyButtonActive(bool x) {
