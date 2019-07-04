@@ -1349,6 +1349,75 @@ MonoBehaviour:
   currentSpeed: 0
   maxSpeed: 7
   speedUpFactor: 0.1
+--- !u!1001 &559651296
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1381198882890544985, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_Name
+      value: MusicController
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381198882890544991, guid: af43fa6754ad467488e5ad1b3c36b503,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af43fa6754ad467488e5ad1b3c36b503, type: 3}
 --- !u!1 &632432631
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,6 +2452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9586b031479a7e04b8eda15aa0c5f263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanPauseWithPKey: 1
   pausePanel: {fileID: 940581742}
   player: {fileID: 179368514}
   pauseButton: {fileID: 2044435759}
