@@ -48,22 +48,17 @@ public class Player_Score : MonoBehaviour
         scoreKeeper.Step(transform, ref playerScore);
     }
 
-    private void Die() {
-        /*
-          GameManager.instance.TellManagerSomething
-            (
-            GameManager.SceneChangeUtils.Tags.GAME_RESTARTED,
-            new int[] { player_Score.playerScore, player_Score.lifeScore, player_Score.coinScore }
-            );
-         
-         */
-        AudioSource.PlayClipAtPoint(dieSound, transform.position);
+    IEnumerator DieRoutine() {
+       
         camMover.enabled = false;
         lifeScore--;
         spriteRenderer.enabled = false;
         scoreKeeper.IsOn = false;
 
-    
+        AudioSource.PlayClipAtPoint(dieSound, transform.position);
+
+        yield return new WaitForSeconds(dieSound.length);
+
         if (lifeScore > 0)
         {
             GameManager.instance.TellManagerSomething
@@ -76,14 +71,28 @@ public class Player_Score : MonoBehaviour
         else
         {
             gameOverPanel.gameObject.SetActive(true);
-            gameOverPanel.SetVals(playerScore,coinScore);
+            gameOverPanel.SetVals(playerScore, coinScore);
             Scene00_manager.instance.SetPauseButtonOn(false);
             Scene00_manager.instance.CanPauseWithPKey = false;
             Scene00_manager.instance.Invoke("ExitToMainMenu", 5f);
         }
     }
 
+    private void Die() {
+        /*
+          GameManager.instance.TellManagerSomething
+            (
+            GameManager.SceneChangeUtils.Tags.GAME_RESTARTED,
+            new int[] { player_Score.playerScore, player_Score.lifeScore, player_Score.coinScore }
+            );
+         
+         */
+        StartCoroutine(DieRoutine());
+    }
+    private string currentCol = ""; 
     public void OnTriggerEnter2D(Collider2D other) {
+        currentCol = other.gameObject.name + " | " + other.tag; 
+        Debug.Log("trigger-hit : " + other.name);               
         switch (other.tag) {
             case "cloud_dark": HitDarkCloud(other); break;
             case "Coin": HitCoin(other); break;

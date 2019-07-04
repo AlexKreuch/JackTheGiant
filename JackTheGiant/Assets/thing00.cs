@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class thing00 : MonoBehaviour
 {
-    void Start() { Debug.Log("in thing : Start-called"); }
-    void Awake() { Debug.Log("in thing : Awake-called"); }
-    void OnAplicationQuit() { Debug.Log("in thing : OnAplicationQuit-called"); }
-    void OnDisable() { Debug.Log("in thing : OnDisable-called");
-        GameObject.Destroy(gameObject);
+    public static thing00 instance;
+
+    public void Shout(UnityEngine.AudioClip audio) {
+
+        AudioSource.PlayClipAtPoint(audio,new Vector3());
+
+        
     }
-    void OnDestroy() { Debug.Log("in thing : OnDestroy-called"); }
-    void OnEnable() { Debug.Log("in thing : OnEnable-called"); }
+
+    void Awake() {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
 }

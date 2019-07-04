@@ -2,68 +2,71 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class SS_01_tester : MonoBehaviour
 {
+ 
+    private string nxtSceneName = "SampleScene_0";
+
+    private void SetterUpper()
+    {
+        void func(Scene scene ,  LoadSceneMode mode) {
+            var nm = scene.name;
+            if (nm.Length == 0) return;
+            var c = nm[nm.Length - 1];
+            c = c == '1' ? '2' : '1';
+            nxtSceneName += c;
+        }
+        SceneManager.sceneLoaded += func;
+        
+    }
+
+    void OnEnable() { SetterUpper(); }
 
     [SerializeField]
-    private GameObject thing;
+    UnityEngine.AudioClip audio;
 
-    public float spd = 1f;
+    public bool btn_0 = false;
 
-    private class TimeTracker {
-        private float t;
-        public TimeTracker() { t = 0f; }
-        public void Step() { t += Time.deltaTime; }
-        public float GetCurrent() { return t; }
-    }
-    TimeTracker tracker = new TimeTracker();
-
-
-    
-    public bool countDwn = false;
-    public int cd_disp = 0;
-
-    void Update() {
-        tracker.Step();
-        CheckForPush(DoCountDown, ref countDwn);
-        Asdf();
-    }
-
-    private void CheckForPush(System.Func<int> method, ref bool sudoButton) {
-        if (sudoButton)
+    public bool Paused = false;
+    private void Pause_erator() {
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            method();
-            sudoButton = false;
+            Time.timeScale = 1 - Time.timeScale;
         }
+        Paused = Time.timeScale == 0f;
     }
 
-    private int DoCountDown() {
-        IEnumerator enumerator() {
-            for (cd_disp = 10; cd_disp > 0; cd_disp--)
-            {
-                yield return new WaitForSeconds(1f);
-            }
-        }
 
-        StartCoroutine(enumerator());
-        return 0;
-    }
-
-    
-    private void Asdf() {
-        var alpha = Mathf.Sin(spd * tracker.GetCurrent());
-        alpha = (alpha + 1) / 2;
-        SetColorAlpha(alpha);
-    }
-
-    private void SetColorAlpha(float alpha)
+    IEnumerator YellAndGO()
     {
-        SpriteRenderer sr = thing.GetComponent<SpriteRenderer>();
-        var color = sr.color;
-        color.a = alpha;
-        sr.color = color;
+        float t = audio.length;
+        AudioSource.PlayClipAtPoint(audio,new Vector3());
+        yield return new WaitForSeconds(t);
+        SceneManager.LoadScene(nxtSceneName);
     }
-    
 
+    private int nxtLevel()
+    {
+        StartCoroutine(YellAndGO());
+        return 0;
+    } 
+
+    void Update()
+    {
+        CheckPsudoButton(nxtLevel, ref btn_0);
+        Pause_erator();
+        if (Input.GetKeyDown(KeyCode.O) && !btn_0) btn_0 = true;
+    }
+
+   
+
+    private void CheckPsudoButton(Func<int> func, ref bool buttonBool) {
+        if (buttonBool)
+        {
+            func();
+            buttonBool = false;
+        }
+    }
 }
