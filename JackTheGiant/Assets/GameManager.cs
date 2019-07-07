@@ -88,8 +88,10 @@ public class GameManager : MonoBehaviour
 
     void Awake() {
         MakeInstance();
-
+        DataPreserver.GetInstance().LoadData();
     }
+
+    
 
     private void MakeInstance() {
         if (instance == null)
@@ -161,6 +163,8 @@ public class GameManager : MonoBehaviour
         dataRecord.SetInt("score", s);
         dataRecord.SetInt("lives", l);
         dataRecord.SetInt("coins", c);
+
+        DataPreserver.GetInstance().SaveData();
     }
     private void ExitingGamePlay(object data) {
         /*
@@ -233,18 +237,23 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private class DataPreserver{
-        public static DataPreserver instance;
+        private static DataPreserver instance;
 
         private DataPreserver() { }
-        public DataPreserver GetInstance() {
-            if (instance == null) instance = new DataPreserver();
+        public static DataPreserver GetInstance() {
+            if (instance == null)
+            {
+                instance = new DataPreserver();
+                if (!PlayerPrefs.HasKey(isInit)) instance.initial_setup();
+            }
             return instance;
         }
 
-        // field-names have the form : <coins/score> + <difficulty-mode>
+        // field-names have the form : <coins/score/HaveSavedScores> + <difficulty-mode>
         
         #region constant-strings
         const string currentMode = "difficulty-setting";
+        const string HaveSavedScores = "scoresHaveBeenSaved";
         const string coins = "coins";
         const string score = "score";
         const string easyMode = "easy";
@@ -253,12 +262,12 @@ public class GameManager : MonoBehaviour
         const string isInit = "this has been initialized";
         #endregion
 
-        private void initial_setup() {
-            string[] sarr0 = new string[] { coins , score };
+        private void initial_setup(){
+            string[] sarr0 = new string[] { coins , score , HaveSavedScores };
             string[] sarr1 = new string[] { easyMode, mediMode, hardMode };
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 9; i++)
             {
-                string s = sarr0[i % 2] + sarr1[i / 2];
+                string s = sarr0[i % 3] + sarr1[i / 3];
                 PlayerPrefs.SetInt(s,0);
             }
             PlayerPrefs.SetInt(isInit, 0);
@@ -266,44 +275,45 @@ public class GameManager : MonoBehaviour
         }
         public void SaveData()
         {
-            int dm = PlayerPrefs.GetInt(currentMode);
-            string md = "";
-            switch (dm)
+            int difficultyMode_int = PlayerPrefs.GetInt(currentMode);
+            string difficultyMode_str = "";
+            switch (difficultyMode_int)
             {
-                case 0: md = easyMode; break;
-                case 1: md = mediMode; break;
-                case 2: md = hardMode; break;
+                case 0: difficultyMode_str = easyMode; break;
+                case 1: difficultyMode_str = mediMode; break;
+                case 2: difficultyMode_str = hardMode; break;
             }
-            PlayerPrefs.SetInt(coins + md,GameManager.instance.HighCoinScore);
-            PlayerPrefs.SetInt(score + md, GameManager.instance.HighScore);
+            PlayerPrefs.SetInt(coins + difficultyMode_str,GameManager.instance.HighCoinScore);
+            PlayerPrefs.SetInt(score + difficultyMode_str, GameManager.instance.HighScore);
+            PlayerPrefs.SetInt(HaveSavedScores + difficultyMode_str, GameManager.instance.situationCode.have_scores_recorded ? 1 : 0);
         }
         public void LoadData() {
-            if (!PlayerPrefs.HasKey(isInit)) initial_setup();
-            int dm = PlayerPrefs.GetInt(currentMode);
-            string md = "";
-            switch (dm)
+            int difficultyMode_int = PlayerPrefs.GetInt(currentMode);
+            string difficultyMode_str = "";
+            switch (difficultyMode_int)
             {
-                case 0: md = easyMode; GameManager.instance.difficulty = DifficultySetting.EASY; break;
-                case 1: md = mediMode; GameManager.instance.difficulty = DifficultySetting.MEDIUM; break;
-                case 2: md = hardMode; GameManager.instance.difficulty = DifficultySetting.HARD; break;
+                case 0: difficultyMode_str = easyMode; GameManager.instance.difficulty = DifficultySetting.EASY; break;
+                case 1: difficultyMode_str = mediMode; GameManager.instance.difficulty = DifficultySetting.MEDIUM; break;
+                case 2: difficultyMode_str = hardMode; GameManager.instance.difficulty = DifficultySetting.HARD; break;
             }
-            GameManager.instance.HighCoinScore = PlayerPrefs.GetInt(coins + md);
-            GameManager.instance.HighScore = PlayerPrefs.GetInt(score + md);
+            GameManager.instance.HighCoinScore = PlayerPrefs.GetInt(coins + difficultyMode_str);
+            GameManager.instance.HighScore = PlayerPrefs.GetInt(score + difficultyMode_str);
+            GameManager.instance.situationCode.have_scores_recorded = PlayerPrefs.GetInt(HaveSavedScores + difficultyMode_str)==1;
         }
         public void SwitchSetting(int setting)
         {
             Debug.Assert(setting >= 0 && setting < 2, "INVALID-SETTING");
             PlayerPrefs.SetInt(currentMode,setting);
-            string md = "";
+            string difficultyMode_str = "";
             switch (setting)
             {
-                case 0: md = easyMode; GameManager.instance.difficulty = DifficultySetting.EASY; break;
-                case 1: md = mediMode; GameManager.instance.difficulty = DifficultySetting.MEDIUM; break;
-                case 2: md = hardMode; GameManager.instance.difficulty = DifficultySetting.HARD; break;
+                case 0: difficultyMode_str = easyMode; GameManager.instance.difficulty = DifficultySetting.EASY; break;
+                case 1: difficultyMode_str = mediMode; GameManager.instance.difficulty = DifficultySetting.MEDIUM; break;
+                case 2: difficultyMode_str = hardMode; GameManager.instance.difficulty = DifficultySetting.HARD; break;
             }
-            GameManager.instance.HighCoinScore = PlayerPrefs.GetInt(coins + md);
-            GameManager.instance.HighScore = PlayerPrefs.GetInt(score + md);
-            
+            GameManager.instance.HighCoinScore = PlayerPrefs.GetInt(coins + difficultyMode_str);
+            GameManager.instance.HighScore = PlayerPrefs.GetInt(score + difficultyMode_str);
+            GameManager.instance.situationCode.have_scores_recorded = PlayerPrefs.GetInt(HaveSavedScores + difficultyMode_str) == 1;
         }
     }
 
