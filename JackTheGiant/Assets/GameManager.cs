@@ -275,6 +275,11 @@ public class GameManager : MonoBehaviour
         }
         public void SaveData()
         {
+            /*
+              This method assumes that the 'difficulty-mode' (DM) saved in PlayerPrefs ALREADY agrees with the 
+              DM saved in the GameManager, and so this method does NOT change change the current DM saved in PlayerPrefs.
+              
+             */
             int difficultyMode_int = PlayerPrefs.GetInt(currentMode);
             string difficultyMode_str = "";
             switch (difficultyMode_int)
@@ -288,6 +293,10 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt(HaveSavedScores + difficultyMode_str, GameManager.instance.situationCode.have_scores_recorded ? 1 : 0);
         }
         public void LoadData() {
+            /*
+             Unlike SaveData (above), this method does not assume that the 'difficulty-mode' (DM) saved in PlayerPrefs already agrees with the 
+             DM saved in the GameManager, and so this method will update the DM in GameManager if needed.
+             */
             int difficultyMode_int = PlayerPrefs.GetInt(currentMode);
             string difficultyMode_str = "";
             switch (difficultyMode_int)
@@ -302,6 +311,9 @@ public class GameManager : MonoBehaviour
         }
         public void SwitchSetting(int setting)
         {
+            /*
+             WARNING : this method will delete any data not-already saved in the CURRENT difficulty-setting.
+             */
             Debug.Assert(setting >= 0 && setting < 2, "INVALID-SETTING");
             PlayerPrefs.SetInt(currentMode,setting);
             string difficultyMode_str = "";
