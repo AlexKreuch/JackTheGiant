@@ -43,7 +43,9 @@ public class SS_01_tester : MonoBehaviour
                     0:=invalid input 
                     1:=SET-command
                     2:=GET-command
+                    3:=CHANGE-command
              */
+            if (input == "CHANGE") { resultCode = 3; return; }
             resultCode = 0;
             string[] tokens = input.Split(' ');
             if (tokens.Length < 2) return;
@@ -61,7 +63,7 @@ public class SS_01_tester : MonoBehaviour
                     break;
             }
         }
-        public enum ResultType { INVALID, SET, GET };
+        public enum ResultType { INVALID, SET, GET, CHANGE };
         public class Command
         {
             public ResultType resultType { get; private set; }
@@ -84,6 +86,7 @@ public class SS_01_tester : MonoBehaviour
                     case 0: rt = ResultType.INVALID; break;
                     case 1: rt = ResultType.SET; break;
                     case 2: rt = ResultType.GET; break;
+                    case 3: rt = ResultType.CHANGE; break;
                 }
 
                 return new Command(rt,strs[0],strs[1]);
@@ -129,6 +132,9 @@ public class SS_01_tester : MonoBehaviour
                     PlayerPrefs.SetString(cmd.key,cmd.val);
                     display = "<~ item-set ~>";
                     break;
+                case EntryParser.ResultType.CHANGE:
+                    SceneSwitcher.GetInstance().SwitchScenes();
+                    break;
             }
         }
     }
@@ -162,6 +168,52 @@ public class SS_01_tester : MonoBehaviour
             display = test0(command) + '|' + EntryParser.ParseEscapeChars(command); // test0(command);
         }
     }
+
+    private class SceneSwitcher {
+        private static SceneSwitcher instance;
+        public static SceneSwitcher GetInstance() {
+            if (instance == null) instance = new SceneSwitcher();
+            return instance;
+        }
+
+        private string otherSceneName = "";
+        private bool SetUpDone = false;
+
+        private SceneSwitcher() { }
+
+        public void SetUp() {
+            if (SetUpDone)
+            {
+                Debug.Log("ALREADY SETUP!");
+            }
+            else
+            {
+                void func(Scene scene, LoadSceneMode loadSceneMode) {
+                    string s = "SampleScene_0";
+                    string nm = scene.name;
+                    Debug.Assert(nm.Length>0);
+                    char c = nm[nm.Length - 1];
+                    c = (c == '1') ? '2' : '1';
+                    otherSceneName = s + c;
+                }
+                SceneManager.sceneLoaded += func;
+                SetUpDone = true;
+            }
+        }
+
+        public void SwitchScenes() {
+            if (SetUpDone)
+                SceneManager.LoadScene(otherSceneName);
+            else
+                Debug.Log("NOT SET UP!");
+        }
+    }
+
+    void Awake() {
+        SceneSwitcher.GetInstance().SetUp();
+    }
+
+  
 
     void Update() {
           Go();

@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
 
     void Awake() {
         MakeInstance();
-        DataPreserver.GetInstance().LoadData();
     }
 
     
@@ -98,6 +97,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            DataPreserver.GetInstance().LoadData();
         }
         else
             GameObject.Destroy(this);
@@ -184,6 +184,7 @@ public class GameManager : MonoBehaviour
             HighCoinScore = c;
             situationCode.have_scores_recorded = true;
         }
+        DataPreserver.GetInstance().SaveData();
     }
     private void HighScoreScreen(object data)
     {
@@ -227,12 +228,15 @@ public class GameManager : MonoBehaviour
          */
         int m = (int)data;
         Debug.Assert(m >= 0 && m <= 2);
+        DataPreserver.GetInstance().SwitchSetting(m);
+        /*
         switch (m)
         {
             case 0: difficulty = DifficultySetting.EASY; break;
             case 1: difficulty = DifficultySetting.MEDIUM; break;
             case 2: difficulty = DifficultySetting.HARD; break;
         }
+        */
     }
     #endregion
 
@@ -314,7 +318,7 @@ public class GameManager : MonoBehaviour
             /*
              WARNING : this method will delete any data not-already saved in the CURRENT difficulty-setting.
              */
-            Debug.Assert(setting >= 0 && setting < 2, "INVALID-SETTING");
+            Debug.Assert(setting >= 0 && setting <= 2, "INVALID-SETTING");
             PlayerPrefs.SetInt(currentMode,setting);
             string difficultyMode_str = "";
             switch (setting)
