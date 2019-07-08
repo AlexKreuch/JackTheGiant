@@ -58,9 +58,40 @@ public class Scene00_manager : MonoBehaviour
              -> probability of spawning a life
              -> probability of spawning a dark-cloud
          
-          */
-
           
+           Current default vals : 
+             -> max-Camera speed                      : 7
+             -> Max lives given                       : 2
+             -> probability of spawning a life        :  .5
+             -> probability of spawning a dark-cloud  :  .5
+             
+             
+             */
+
+        #region Settings values
+
+        #region easy-mode settings
+        private const float EASY_MaxCamSpeed = 7f;
+        private const int EASY_MaxLivesAllowed = 2;
+        private const float EASY_LiveSpawnProbability = .5f;
+        private const float EASY_DarkCloudSpawnProbability = .5f;
+        #endregion
+
+        #region medium-mode settings
+        private const float MEDI_MaxCamSpeed = 7f;
+        private const int MEDI_MaxLivesAllowed = 2;
+        private const float MEDI_LiveSpawnProbability = .5f;
+        private const float MEDI_DarkCloudSpawnProbability = .5f;
+        #endregion
+
+        #region hard-mode settings
+        private const float HARD_MaxCamSpeed = 7f;
+        private const int HARD_MaxLivesAllowed = 2;
+        private const float HARD_LiveSpawnProbability = .5f;
+        private const float HARD_DarkCloudSpawnProbability = .5f;
+        #endregion
+
+        #endregion
 
         #region SetDifficulty helpers
         private void SetMaxCameraSpeed(float maxSpeed) { CameraMover.instance.maxSpeed = maxSpeed; }
@@ -82,9 +113,33 @@ public class Scene00_manager : MonoBehaviour
             Debug.Assert(difficultyLevel>=0 && difficultyLevel<=2, "INVALID DIFFICULTY_LEVEL");
             // TODO : add implementation
             Debug.Log("difficulty-set : " + difficultyLevel);
+
+            #region adjust settings 
+            switch (difficultyLevel)
+            {
+                case 0:
+                    SetMaxCameraSpeed(EASY_MaxCamSpeed);
+                    SetMaxLives(EASY_MaxLivesAllowed);
+                    SetlifeProb(EASY_LiveSpawnProbability);
+                    SetDarkCloudProb(EASY_DarkCloudSpawnProbability);
+                    break;
+                case 1:
+                    SetMaxCameraSpeed(MEDI_MaxCamSpeed);
+                    SetMaxLives(MEDI_MaxLivesAllowed);
+                    SetlifeProb(MEDI_LiveSpawnProbability);
+                    SetDarkCloudProb(MEDI_DarkCloudSpawnProbability);
+                    break;
+                case 2:
+                    SetMaxCameraSpeed(HARD_MaxCamSpeed);
+                    SetMaxLives(HARD_MaxLivesAllowed);
+                    SetlifeProb(HARD_LiveSpawnProbability);
+                    SetDarkCloudProb(HARD_DarkCloudSpawnProbability);
+                    break;
+            }
+            #endregion
         }
     }
-
+    
     private const string MainMenu_sceneName = "MainMenu00";
     public const string SceneName = "Scene00";
 
