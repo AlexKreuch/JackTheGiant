@@ -50,14 +50,30 @@ public class Scene00_manager : MonoBehaviour
             if (instance == null) instance = new DifficultySettingUtil();
             return instance;
         }
-        /*
-           TODO-list : 
 
-            -> add 'set-difficulty' method to this util-class
-            -> adjust 'StateReseter' to accept a difficulty-setting
-            -> adjust GameManager code to accecpt the adjusted StateReseter
-            -> adjust GameManager Documentation
-         */
+        /*
+           Difficulty-setting adjustment plans : 
+             -> max-Camera speed
+             -> Max lives given
+             -> probability of spawning a life
+             -> probability of spawning a dark-cloud
+         
+          */
+
+          
+
+        #region SetDifficulty helpers
+        private void SetMaxCameraSpeed(float maxSpeed) { CameraMover.instance.maxSpeed = maxSpeed; }
+        private void SetMaxLives(int maxLives) {
+            Collectibles.instance.DifficultyAdjustMent(0,maxLives);
+        }
+        private void SetlifeProb(float prob) {
+            Collectibles.instance.DifficultyAdjustMent(1,prob);
+        }
+        private void SetDarkCloudProb(float prob) {
+            CloudSpawner.instance.DifficultyAdjustMent(0,prob);
+        }
+        #endregion
 
         public void SetDifficulty(int difficultyLevel) {
             /*

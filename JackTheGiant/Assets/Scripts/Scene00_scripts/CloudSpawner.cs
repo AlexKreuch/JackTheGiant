@@ -11,7 +11,23 @@ public class CloudSpawner : MonoBehaviour
     }
     public void DifficultyAdjustMent(params object[] data)
     {
-        // TODO
+        /*
+             At least one argument is expected.
+             The argument is expected to be an int, indecating what operation should be carried out.
+             
+             if the 1st argument == 0 then : 
+                -> there should be 1 more argument, which must be a float, indicating the probability of spawning a dark-cloud durring a game.
+         */
+        Debug.Assert(data.Length >= 1);
+        int c = (int)data[0];
+        switch (c)
+        {
+            case 0:
+                Debug.Assert(data.Length == 2);
+                CloudPlanner.SetLuck((float)data[1]);
+                break;
+           
+        }
     }
 
 

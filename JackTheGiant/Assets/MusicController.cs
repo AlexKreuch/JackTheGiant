@@ -6,7 +6,7 @@ public class MusicController : MonoBehaviour
 {
     public static MusicController instance;
 
-    [SerializeField]
+    
     private AudioSource audioSource;
    
 

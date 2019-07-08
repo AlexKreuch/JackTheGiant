@@ -77,6 +77,104 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private class DataPreserver
+    {
+        private static DataPreserver instance;
+
+        private DataPreserver() { }
+        public static DataPreserver GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new DataPreserver();
+                if (!PlayerPrefs.HasKey(isInit)) instance.initial_setup();
+            }
+            return instance;
+        }
+
+        // field-names have the form : <coins/score/HaveSavedScores> + <difficulty-mode>
+
+        #region constant-strings
+        const string currentMode = "difficulty-setting";
+        const string HaveSavedScores = "scoresHaveBeenSaved";
+        const string coins = "coins";
+        const string score = "score";
+        const string easyMode = "easy";
+        const string mediMode = "medium";
+        const string hardMode = "hard";
+        const string isInit = "this has been initialized";
+        #endregion
+
+        private void initial_setup()
+        {
+            string[] sarr0 = new string[] { coins, score, HaveSavedScores };
+            string[] sarr1 = new string[] { easyMode, mediMode, hardMode };
+            for (int i = 0; i < 9; i++)
+            {
+                string s = sarr0[i % 3] + sarr1[i / 3];
+                PlayerPrefs.SetInt(s, 0);
+            }
+            PlayerPrefs.SetInt(isInit, 0);
+            PlayerPrefs.SetInt(currentMode, 1);
+        }
+        public void SaveData()
+        {
+            /*
+              This method assumes that the 'difficulty-mode' (DM) saved in PlayerPrefs ALREADY agrees with the 
+              DM saved in the GameManager, and so this method does NOT change the current DM saved in PlayerPrefs.
+              
+             */
+            int difficultyMode_int = PlayerPrefs.GetInt(currentMode);
+            string difficultyMode_str = "";
+            switch (difficultyMode_int)
+            {
+                case 0: difficultyMode_str = easyMode; break;
+                case 1: difficultyMode_str = mediMode; break;
+                case 2: difficultyMode_str = hardMode; break;
+            }
+            PlayerPrefs.SetInt(coins + difficultyMode_str, GameManager.instance.HighCoinScore);
+            PlayerPrefs.SetInt(score + difficultyMode_str, GameManager.instance.HighScore);
+            PlayerPrefs.SetInt(HaveSavedScores + difficultyMode_str, GameManager.instance.situationCode.have_scores_recorded ? 1 : 0);
+        }
+        public void LoadData()
+        {
+            /*
+             Unlike SaveData (above), this method does not assume that the 'difficulty-mode' (DM) saved in PlayerPrefs already agrees with the 
+             DM saved in the GameManager, and so this method will update the DM in GameManager if needed.
+             */
+            int difficultyMode_int = PlayerPrefs.GetInt(currentMode);
+            string difficultyMode_str = "";
+            switch (difficultyMode_int)
+            {
+                case 0: difficultyMode_str = easyMode; GameManager.instance.difficulty = DifficultySetting.EASY; break;
+                case 1: difficultyMode_str = mediMode; GameManager.instance.difficulty = DifficultySetting.MEDIUM; break;
+                case 2: difficultyMode_str = hardMode; GameManager.instance.difficulty = DifficultySetting.HARD; break;
+            }
+            GameManager.instance.HighCoinScore = PlayerPrefs.GetInt(coins + difficultyMode_str);
+            GameManager.instance.HighScore = PlayerPrefs.GetInt(score + difficultyMode_str);
+            GameManager.instance.situationCode.have_scores_recorded = PlayerPrefs.GetInt(HaveSavedScores + difficultyMode_str) == 1;
+        }
+        public void SwitchSetting(int setting)
+        {
+            /*
+             WARNING : this method will delete any data not-already saved in the CURRENT difficulty-setting.
+             */
+            Debug.Assert(setting >= 0 && setting <= 2, "INVALID-SETTING");
+            PlayerPrefs.SetInt(currentMode, setting);
+            string difficultyMode_str = "";
+            switch (setting)
+            {
+                case 0: difficultyMode_str = easyMode; GameManager.instance.difficulty = DifficultySetting.EASY; break;
+                case 1: difficultyMode_str = mediMode; GameManager.instance.difficulty = DifficultySetting.MEDIUM; break;
+                case 2: difficultyMode_str = hardMode; GameManager.instance.difficulty = DifficultySetting.HARD; break;
+            }
+            GameManager.instance.HighCoinScore = PlayerPrefs.GetInt(coins + difficultyMode_str);
+            GameManager.instance.HighScore = PlayerPrefs.GetInt(score + difficultyMode_str);
+            GameManager.instance.situationCode.have_scores_recorded = PlayerPrefs.GetInt(HaveSavedScores + difficultyMode_str) == 1;
+        }
+    }
+
+
     #endregion
 
     private int HighScore = 0;
@@ -108,7 +206,7 @@ public class GameManager : MonoBehaviour
         switch (info)
         {
             case SceneChangeUtils.Tags.GAMEPLAY_LOADED: GamePlayStarted(data); break;
-            case SceneChangeUtils.Tags.GAME_RESTARTED: AboutToRestartedAfterDeath(data); break;
+            case SceneChangeUtils.Tags.GAME_RESTARTED: AboutToRestartAfterDeath(data); break;
             case SceneChangeUtils.Tags.EXIT_GAMEPLAY: ExitingGamePlay(data); break;
             case SceneChangeUtils.Tags.HIGHSCORE_SCREEN: HighScoreScreen(data); break;
             case SceneChangeUtils.Tags.OPTIONS: OptionsScreen(data); break;
@@ -125,7 +223,7 @@ public class GameManager : MonoBehaviour
          which we may use to set the score, lives, coins, and difficultyLevel of the player respectively.
          (difficultyLevel is encoded as : 0:=Easy, 1:=Medium, 2:=Hard). Any value set below zero will be ignored and left unchanged.
          
-         we only need to set the score, lives, and coin values if this comes after the 'ready-button' has been pushed,
+         We only need to set the score, lives, and coin values if this comes after the player has died and restarted the game,
          but we must set the difficultSetting every time the GamePlay starts.
          */
 
@@ -151,7 +249,7 @@ public class GameManager : MonoBehaviour
             setter(-1,-1,-1,difficultySetting_int);
 
     }
-    private void AboutToRestartedAfterDeath(object data) {
+    private void AboutToRestartAfterDeath(object data) {
         /*
          data is expected to be an array of 3 ints containing the score, lives, and coins of the player respectively
          
@@ -203,7 +301,7 @@ public class GameManager : MonoBehaviour
              data is expected to be a deligate (string,string,bool) -> int 
              for settting the scoreText and coinText fields respectively.
              if the final parameter is set to true, then the fontSize of the High-score text
-             will be reset to 45 (to fit message)
+             will be reset to 45 (to fit message).
          */
         situationCode.sit = SituationCode.Sit.HIGH_SCORE;
         System.Func<string, string, bool, int> setter = (System.Func<string, string, bool, int>)data;
@@ -251,98 +349,6 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    private class DataPreserver{
-        private static DataPreserver instance;
-
-        private DataPreserver() { }
-        public static DataPreserver GetInstance() {
-            if (instance == null)
-            {
-                instance = new DataPreserver();
-                if (!PlayerPrefs.HasKey(isInit)) instance.initial_setup();
-            }
-            return instance;
-        }
-
-        // field-names have the form : <coins/score/HaveSavedScores> + <difficulty-mode>
-        
-        #region constant-strings
-        const string currentMode = "difficulty-setting";
-        const string HaveSavedScores = "scoresHaveBeenSaved";
-        const string coins = "coins";
-        const string score = "score";
-        const string easyMode = "easy";
-        const string mediMode = "medium";
-        const string hardMode = "hard";
-        const string isInit = "this has been initialized";
-        #endregion
-
-        private void initial_setup(){
-            string[] sarr0 = new string[] { coins , score , HaveSavedScores };
-            string[] sarr1 = new string[] { easyMode, mediMode, hardMode };
-            for (int i = 0; i < 9; i++)
-            {
-                string s = sarr0[i % 3] + sarr1[i / 3];
-                PlayerPrefs.SetInt(s,0);
-            }
-            PlayerPrefs.SetInt(isInit, 0);
-            PlayerPrefs.SetInt(currentMode,1);
-        }
-        public void SaveData()
-        {
-            /*
-              This method assumes that the 'difficulty-mode' (DM) saved in PlayerPrefs ALREADY agrees with the 
-              DM saved in the GameManager, and so this method does NOT change change the current DM saved in PlayerPrefs.
-              
-             */
-            int difficultyMode_int = PlayerPrefs.GetInt(currentMode);
-            string difficultyMode_str = "";
-            switch (difficultyMode_int)
-            {
-                case 0: difficultyMode_str = easyMode; break;
-                case 1: difficultyMode_str = mediMode; break;
-                case 2: difficultyMode_str = hardMode; break;
-            }
-            PlayerPrefs.SetInt(coins + difficultyMode_str,GameManager.instance.HighCoinScore);
-            PlayerPrefs.SetInt(score + difficultyMode_str, GameManager.instance.HighScore);
-            PlayerPrefs.SetInt(HaveSavedScores + difficultyMode_str, GameManager.instance.situationCode.have_scores_recorded ? 1 : 0);
-        }
-        public void LoadData() {
-            /*
-             Unlike SaveData (above), this method does not assume that the 'difficulty-mode' (DM) saved in PlayerPrefs already agrees with the 
-             DM saved in the GameManager, and so this method will update the DM in GameManager if needed.
-             */
-            int difficultyMode_int = PlayerPrefs.GetInt(currentMode);
-            string difficultyMode_str = "";
-            switch (difficultyMode_int)
-            {
-                case 0: difficultyMode_str = easyMode; GameManager.instance.difficulty = DifficultySetting.EASY; break;
-                case 1: difficultyMode_str = mediMode; GameManager.instance.difficulty = DifficultySetting.MEDIUM; break;
-                case 2: difficultyMode_str = hardMode; GameManager.instance.difficulty = DifficultySetting.HARD; break;
-            }
-            GameManager.instance.HighCoinScore = PlayerPrefs.GetInt(coins + difficultyMode_str);
-            GameManager.instance.HighScore = PlayerPrefs.GetInt(score + difficultyMode_str);
-            GameManager.instance.situationCode.have_scores_recorded = PlayerPrefs.GetInt(HaveSavedScores + difficultyMode_str)==1;
-        }
-        public void SwitchSetting(int setting)
-        {
-            /*
-             WARNING : this method will delete any data not-already saved in the CURRENT difficulty-setting.
-             */
-            Debug.Assert(setting >= 0 && setting <= 2, "INVALID-SETTING");
-            PlayerPrefs.SetInt(currentMode,setting);
-            string difficultyMode_str = "";
-            switch (setting)
-            {
-                case 0: difficultyMode_str = easyMode; GameManager.instance.difficulty = DifficultySetting.EASY; break;
-                case 1: difficultyMode_str = mediMode; GameManager.instance.difficulty = DifficultySetting.MEDIUM; break;
-                case 2: difficultyMode_str = hardMode; GameManager.instance.difficulty = DifficultySetting.HARD; break;
-            }
-            GameManager.instance.HighCoinScore = PlayerPrefs.GetInt(coins + difficultyMode_str);
-            GameManager.instance.HighScore = PlayerPrefs.GetInt(score + difficultyMode_str);
-            GameManager.instance.situationCode.have_scores_recorded = PlayerPrefs.GetInt(HaveSavedScores + difficultyMode_str) == 1;
-        }
-    }
-
+  
 
 }
