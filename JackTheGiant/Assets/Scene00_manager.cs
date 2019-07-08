@@ -71,10 +71,10 @@ public class Scene00_manager : MonoBehaviour
         #region Settings values
 
         #region easy-mode settings
-        private const float EASY_MaxCamSpeed = 7f;
-        private const int EASY_MaxLivesAllowed = 2;
-        private const float EASY_LiveSpawnProbability = .5f;
-        private const float EASY_DarkCloudSpawnProbability = .5f;
+        private const float EASY_MaxCamSpeed = 3.5f;
+        private const int EASY_MaxLivesAllowed = 10;
+        private const float EASY_LiveSpawnProbability = .75f;
+        private const float EASY_DarkCloudSpawnProbability = 0f;
         #endregion
 
         #region medium-mode settings
@@ -91,6 +91,11 @@ public class Scene00_manager : MonoBehaviour
         private const float HARD_DarkCloudSpawnProbability = .5f;
         #endregion
 
+        #region common cloud-count and cloud-distance settings
+        private const int cloudCount = 10;
+        private const float cloudDistance = 4f;
+        #endregion
+
         #endregion
 
         #region SetDifficulty helpers
@@ -104,6 +109,10 @@ public class Scene00_manager : MonoBehaviour
         private void SetDarkCloudProb(float prob) {
             CloudSpawner.instance.DifficultyAdjustMent(0,prob);
         }
+        private void SetCloudCountAndDistance(int cloudCount, float cloudDistance)
+        {
+            CloudSpawner.instance.DifficultyAdjustMent(1,cloudCount,cloudDistance);
+        }
         #endregion
 
         public void SetDifficulty(int difficultyLevel) {
@@ -115,6 +124,7 @@ public class Scene00_manager : MonoBehaviour
             Debug.Log("difficulty-set : " + difficultyLevel);
 
             #region adjust settings 
+            SetCloudCountAndDistance(cloudCount,cloudDistance);
             switch (difficultyLevel)
             {
                 case 0:

@@ -17,16 +17,35 @@ public class CloudSpawner : MonoBehaviour
              
              if the 1st argument == 0 then : 
                 -> there should be 1 more argument, which must be a float, indicating the probability of spawning a dark-cloud durring a game.
+
+             if the 1st argument == 1 then : 
+                -> there should be 2 more arguments (an int and a float respectively), the first being the target-number of clouds and the second
+                   being the distance between clouds.
+                   (note : the current implementation of this assumes that this method is being called AFTER PlacePlayerOverFirstCloud
+                    has been called once and BEFORE any more clouds have been planned, which is why the current y-position value of the cloud
+                    planer must be adjusted below)
          */
+
+
         Debug.Assert(data.Length >= 1);
         int c = (int)data[0];
+        float f0 = 0f, f1 = 0f;
         switch (c)
         {
             case 0:
                 Debug.Assert(data.Length == 2);
-                CloudPlanner.SetLuck((float)data[1]);
+                f0 = (float)data[1];
+                f0 = Mathf.Clamp(f0, 0, 1);
+                CloudPlanner.SetLuck(1 - f0);
                 break;
-           
+            case 1:
+                Debug.Assert(data.Length == 3);
+                cloudCountTarget = (int)data[1];
+                f0 = (float)data[2];
+                f1 = CloudPlanner.GetY() + CloudPlanner.DeltaY - f0;
+                CloudPlanner.SetDeltaY(f0);
+                CloudPlanner.SetY(f1);
+                break;
         }
     }
 
@@ -58,6 +77,7 @@ public class CloudSpawner : MonoBehaviour
         private static float deltaY = 5f;
         private static float luckFactor = .5f;
         public static void SetY(float y) { currentY = y; }
+        public static float GetY() { return currentY; }
         public static void SetSection(int s) { currentSection = s % 4; }
         public static void SetDeltaY(float d) { deltaY = d; }
         public static void SetLuck(float l) { luckFactor = l; }
@@ -161,7 +181,7 @@ public class CloudSpawner : MonoBehaviour
     }
     private void PlacePlayerOverFirstCloud() {
         // this should only be called AFTER ComputeWidthAndBound has been called
-
+        
         // get objects and values
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         var sbe = clouds[0].GetComponent<SpriteRenderer>().sprite.bounds.extents; // sbe:=sprite.bounds.extents
