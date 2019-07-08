@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class CloudSpawner : MonoBehaviour
 {
+    public static CloudSpawner instance;
+    private class DifficultyUtil
+    {
+        // TODO
+    }
+    public void DifficultyAdjustMent(params object[] data)
+    {
+        // TODO
+    }
+
+
     private int count=0;
     private class CloudPlan {
         public float Y_pos { get; private set; }
@@ -159,6 +170,10 @@ public class CloudSpawner : MonoBehaviour
 
         // create and add cloud
         MakeCloud_tool(cloudPlan, camLeftBound, camWidth, 0);
+    }
+
+    void Awake() {
+        instance = this;
     }
 
     // Start is called before the first frame update

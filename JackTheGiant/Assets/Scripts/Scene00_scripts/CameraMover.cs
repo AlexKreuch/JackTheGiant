@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraMover : MonoBehaviour
 {
+    public static CameraMover instance;
+    void Awake() { instance = this; }
     public float currentSpeed = 0f;
     public float maxSpeed = 5f;
     public float speedUpFactor = 1f;
