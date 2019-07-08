@@ -78,10 +78,10 @@ public class Scene00_manager : MonoBehaviour
         #endregion
 
         #region medium-mode settings
-        private const float MEDI_MaxCamSpeed = 7f;
-        private const int MEDI_MaxLivesAllowed = 2;
+        private const float MEDI_MaxCamSpeed = 5f;
+        private const int MEDI_MaxLivesAllowed = 5;
         private const float MEDI_LiveSpawnProbability = .5f;
-        private const float MEDI_DarkCloudSpawnProbability = .5f;
+        private const float MEDI_DarkCloudSpawnProbability = .25f;
         #endregion
 
         #region hard-mode settings
