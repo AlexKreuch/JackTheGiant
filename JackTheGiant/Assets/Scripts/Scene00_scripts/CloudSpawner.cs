@@ -74,6 +74,16 @@ public class CloudSpawner : MonoBehaviour
         private static bool lastWasDark = false;
         private static float currentY = 0f;
         private static int currentSection = 0;
+        private static int currentSectionDir = 1;
+        private static void currentSectionInc() {
+            Debug.Assert(currentSection>=0 && currentSection<=3 && (currentSectionDir==-1 || currentSectionDir==1));
+            currentSection += currentSectionDir;
+            if (currentSection == -1 || currentSection == 4)
+            {
+                currentSectionDir *= -1;
+                currentSection += (2 * currentSectionDir);
+            }
+        }
         private static float deltaY = 5f;
         private static float luckFactor = .5f;
         public static void SetY(float y) { currentY = y; }
