@@ -43,6 +43,32 @@ public class Scene00_manager : MonoBehaviour
         }
     }
 
+    private class DifficultySettingUtil {
+        private static DifficultySettingUtil instance;
+        private DifficultySettingUtil() { }
+        public static DifficultySettingUtil GetInstance() {
+            if (instance == null) instance = new DifficultySettingUtil();
+            return instance;
+        }
+        /*
+           TODO-list : 
+
+            -> add 'set-difficulty' method to this util-class
+            -> adjust 'StateReseter' to accept a difficulty-setting
+            -> adjust GameManager code to accecpt the adjusted StateReseter
+            -> adjust GameManager Documentation
+         */
+
+        public void SetDifficulty(int difficultyLevel) {
+            /*
+             difficultyLevel must be from 0 to 2 inclusively, with : 0:=Easy , 1:=Medium , 2:=Hard
+             */
+            Debug.Assert(difficultyLevel>=0 && difficultyLevel<=2, "INVALID DIFFICULTY_LEVEL");
+            // TODO : add implementation
+            Debug.Log("difficulty-set : " + difficultyLevel);
+        }
+    }
+
     private const string MainMenu_sceneName = "MainMenu00";
     public const string SceneName = "Scene00";
 
@@ -85,15 +111,20 @@ public class Scene00_manager : MonoBehaviour
 
     #region SceneChange helpers
 
-    private int StateReseter(int scoreVal, int livesVAl, int coinsVal) {
-        player_Score.playerScore = scoreVal;
-        player_Score.lifeScore = livesVAl;
-        player_Score.coinScore = coinsVal;
+    private int StateReseter(int scoreVal, int livesVAl, int coinsVal, int difficultyLevel) {
+        /*
+         * Note : negative values will be ignored
+         */
+        Debug.Assert(difficultyLevel < 3, "INVALID DIFFICULTY_LEVEL");
+        if (scoreVal >= 0) player_Score.playerScore = scoreVal;
+        if (livesVAl >= 0) player_Score.lifeScore = livesVAl;
+        if (coinsVal >= 0) player_Score.coinScore = coinsVal;
+        if (difficultyLevel >= 0) DifficultySettingUtil.GetInstance().SetDifficulty(difficultyLevel);
         return 0;
     }
 
     private void TellManagerSceneStarted() {
-        System.Func<int, int, int, int> f = StateReseter;
+        System.Func<int, int, int, int,int> f = StateReseter;
         string s = GameManager.SceneChangeUtils.Tags.GAMEPLAY_LOADED;
         GameManager.instance.TellManagerSomething(s, f);
     }

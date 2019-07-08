@@ -121,23 +121,34 @@ public class GameManager : MonoBehaviour
     private void GamePlayStarted(object data) {
         /**
          
-         data is expected to be a function (int,int,int) -> int, 
-         which we may use to set the score, lives, and coins of the player respectively.
+         data is expected to be a function (int,int,int,int) -> int, 
+         which we may use to set the score, lives, coins, and difficultyLevel of the player respectively.
+         (difficultyLevel is encoded as : 0:=Easy, 1:=Medium, 2:=Hard). Any value set below zero will be ignored and left unchanged.
          
-         we only need to set these values if this comes after the 'ready-button' has been pushed.
+         we only need to set the score, lives, and coin values if this comes after the 'ready-button' has been pushed,
+         but we must set the difficultSetting every time the GamePlay starts.
          */
 
 
         // set the situation code;
         situationCode.sit = SituationCode.Sit.GAMEPLAY;
 
+        System.Func<int, int, int, int,int> setter = (System.Func<int, int, int, int,int>)data;
+        int difficultySetting_int = -1;
+        switch (difficulty)
+        {
+            case DifficultySetting.EASY: difficultySetting_int = 0; break;
+            case DifficultySetting.MEDIUM: difficultySetting_int = 1; break;
+            case DifficultySetting.HARD: difficultySetting_int = 2; break;
+        }
         if (situationCode.received_rsad_headsup)
         {
             situationCode.received_rsad_headsup = false;
 
-            System.Func<int, int, int, int> setter = (System.Func<int, int, int, int>)data;
-            setter(dataRecord.GetInt("score"), dataRecord.GetInt("lives"), dataRecord.GetInt("coins"));
+            setter(dataRecord.GetInt("score"), dataRecord.GetInt("lives"), dataRecord.GetInt("coins"), difficultySetting_int);
         }
+        else
+            setter(-1,-1,-1,difficultySetting_int);
 
     }
     private void AboutToRestartedAfterDeath(object data) {
