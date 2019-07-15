@@ -5,37 +5,69 @@ using UnityEngine;
 public class thing00 : MonoBehaviour
 {
     public static thing00 instance;
-    public static int counter = -1;
 
-    private void Report(string s, params object[] args) {
-        Debug.Log(string.Format(s,args));
-    }
-    private void Report() { Debug.Log(""); }
+    private GameObject ThePanel;
+    private UnityEngine.UI.Image image;
 
-    void Awake()
-    {
-        counter++;
-        Report("{0} | OnAwake-called",counter);
-        MakeInstance();
-        Report("{0} | made it here",counter);
-    }
-
-    private void MakeInstance() {
-        Report("{0} | MakeInstance-called",counter);
+    void Awake() {
         if (instance == null)
         {
-            Report("{0} | no-instance found ; must be set", counter);
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
-        {
-            Report("{0} | instance already there ; must be destroyed",counter);
             Destroy(gameObject);
-        }
+    }
+
+   
+
+    private void SetOpacity(float alpha) {
+        var color = image.color;
+        color.a = alpha;
+        image.color = color;
     }
 
 
-   
-    
+
+    private IEnumerator Fade_erator(float time, System.Func<int> switchScene = null, System.Func<float,int> func = null) {
+        Debug.Assert(time > 0);
+        
+        float halfTime = time / 2;
+        float startTime = Time.realtimeSinceStartup;
+        float a = -2 / time;
+        float b = -.5f * time - startTime;
+        float endTime = startTime + halfTime;
+        void f() {
+            var x = a * Mathf.Abs(Time.realtimeSinceStartup + b) + 1;
+            SetOpacity(x );
+            if (func != null) func(x);
+        }
+        
+        ThePanel.SetActive(true);
+        Debug.Log("START");
+        SetOpacity(0);
+        while (Time.realtimeSinceStartup < endTime)
+        {
+            f();
+            yield return null;
+        }
+        if (switchScene != null) switchScene();
+        endTime += halfTime;
+        while (Time.realtimeSinceStartup < endTime)
+        {
+            f();
+            yield return null;
+        }
+        Debug.Log("STOP");
+        ThePanel.SetActive(false);
+    }
+
+
+    private void doSomething(float time, System.Func<int> switchScene = null, System.Func<float, int> func = null) {
+        StartCoroutine(Fade_erator(time,switchScene,func));
+    }
+
+    public static void FADE_METHOD(float time, System.Func<int> switchScene = null, System.Func<float, int> func = null) {
+        instance.doSomething(time, switchScene,func);
+    }
 }

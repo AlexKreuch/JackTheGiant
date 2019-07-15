@@ -44,39 +44,77 @@ public class SS_01_tester : MonoBehaviour
                     1:=SET-command
                     2:=GET-command
                     3:=CHANGE-command
+                    4:=CLEAR_ALL-command
+                    5:=SWITCH-command
+                    6:=GET_INT-command
              */
-            if (input == "CHANGE") { resultCode = 3; return; }
+            float f0 = 0f;
+            bool b0 = false;
             resultCode = 0;
             string[] tokens = input.Split(' ');
-            if (tokens.Length < 2) return;
-            switch (tokens[0])
+            switch (tokens.Length)
             {
-                case "SET":
-                    if (tokens.Length < 3) return;
-                    resultCode = 1;
-                    outStrings[0] = ParseEscapeChars(tokens[1]);
-                    outStrings[1] = ParseEscapeChars(tokens[2]);
-                    break;
-                case "GET":
-                    resultCode = 2;
-                    outStrings[0] = ParseEscapeChars(tokens[1]);
+                case 0: return;
+                case 1:
+                    switch (input)
+                    {
+                        case "CHANGE": resultCode = 3; return;
+                        case "CLEAR": resultCode = 4; return;
+                        default: return;
+                    }
+                default: //tokens.Length >= 2
+                    switch (tokens[0])
+                    {
+                        case "SET":
+                            if (tokens.Length < 3) return;
+                            resultCode = 1;
+                            outStrings[0] = ParseEscapeChars(tokens[1]);
+                            outStrings[1] = ParseEscapeChars(tokens[2]);
+                            break;
+                        case "GET":
+                            resultCode = 2;
+                            outStrings[0] = ParseEscapeChars(tokens[1]);
+                            break;
+                        case "SWITCH":
+                            b0 = float.TryParse(tokens[1], out f0);
+                            if (!b0 || f0<=0) return;
+                            resultCode = 5;
+                            outStrings[0] = tokens[1];
+                            break;
+                        case "GET_INT":
+                            resultCode = 6;
+                            outStrings[0] = ParseEscapeChars(tokens[1]);
+                            break;
+                    }
                     break;
             }
+            
         }
-        public enum ResultType { INVALID, SET, GET, CHANGE };
+        public enum ResultType { INVALID, SET, GET, CHANGE, CLEAR_ALL , SWITCH , GET_INT};
         public class Command
         {
             public ResultType resultType { get; private set; }
             public string key { get; private set; }
             public string val { get; private set; }
-            private Command() { resultType = ResultType.INVALID; key = ""; val = ""; }
+            public float time { get; private set; }
+            private Command() { resultType = ResultType.INVALID; key = ""; val = ""; time = 0f; }
             private Command(ResultType rt, string k, string v) {
                 resultType = rt;
                 key = k;
                 val = v;
+                time = 0f;
+            }
+            private Command(ResultType rt, float t)
+            {
+                resultType = rt;
+                key = "";
+                val = "";
+                time = t;
             }
             public static Command Create(string input)
             {
+                float f0 = 0f;
+                bool b0 = false;
                 string[] strs = new string[] { "" , "" };
                 int rc = -1;
                 ParseUtil(input,ref rc, strs);
@@ -87,6 +125,12 @@ public class SS_01_tester : MonoBehaviour
                     case 1: rt = ResultType.SET; break;
                     case 2: rt = ResultType.GET; break;
                     case 3: rt = ResultType.CHANGE; break;
+                    case 4: rt = ResultType.CLEAR_ALL; break;
+                    case 5:
+                        rt = ResultType.SWITCH;
+                        b0 = float.TryParse(strs[0],out f0);
+                        return new Command(rt,f0);
+                    case 6: rt = ResultType.GET_INT; break;
                 }
 
                 return new Command(rt,strs[0],strs[1]);
@@ -135,8 +179,34 @@ public class SS_01_tester : MonoBehaviour
                 case EntryParser.ResultType.CHANGE:
                     SceneSwitcher.GetInstance().SwitchScenes();
                     break;
+                case EntryParser.ResultType.CLEAR_ALL:
+                    PlayerPrefs.DeleteAll();
+                    display = "playerPrefs cleared";
+                    break;
+                case EntryParser.ResultType.SWITCH:
+                    SceneSwitcher.GetInstance().SwitchScenes();
+                    break;
+                case EntryParser.ResultType.GET_INT:
+                    if (PlayerPrefs.HasKey(cmd.key))
+                        display = PlayerPrefs.GetInt(cmd.key).ToString();
+                    else
+                        display = "<~ INT-NOT-FOUND ~>";
+                    break;
             }
         }
+    }
+
+    void ASDF(float t) {
+        int changeTheScene() {
+            SceneSwitcher.GetInstance().SwitchScenes();
+            return 0;
+        }
+        int REPORT_OPACITY(float x) {
+            display = x.ToString();
+            return 0;
+        }
+
+        thing00.FADE_METHOD(t,changeTheScene,REPORT_OPACITY);
     }
 
     private string test0(string x) {
@@ -217,6 +287,7 @@ public class SS_01_tester : MonoBehaviour
 
     void Update() {
           Go();
-      //  test();
     }
+
+    
 }
