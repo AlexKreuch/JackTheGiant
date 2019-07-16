@@ -12,7 +12,7 @@ public class Collectibles : MonoBehaviour
     public void DifficultyAdjustMent(params object[] data) {
         /*
              At least one argument is expected.
-             The argument is expected to be an int, indecating what operation should be carried out.
+             The 1st argument is expected to be an int, indecating what operation should be carried out.
 
              if the 1st argument == 0 then : 
                 -> there should be 1 more argument, which must be an int, indicating how many lives the player will be allowed to have durring a game
