@@ -41,9 +41,9 @@ public class MainMenuScript : MonoBehaviour
 
     #region button-methods
 
-    public void StartGame() {SceneManager.LoadScene(GamePlay_sceneName);}
-    public void Options() { SceneManager.LoadScene(OptionsMenu_sceneName); }
-    public void HighScore() { SceneManager.LoadScene(HighScore_sceneName); }
+    public void StartGame() {Fader.instance.FadeToNextScene(GamePlay_sceneName); }
+    public void Options() { Fader.instance.FadeToNextScene(OptionsMenu_sceneName); }
+    public void HighScore() { Fader.instance.FadeToNextScene(HighScore_sceneName); }
     public void Quit() {Debug.Log("quit-button pushed");}
     public void Music()
     {
