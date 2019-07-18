@@ -14,9 +14,23 @@ public class Fader : MonoBehaviour
     private Animator animator;
     private GameObject panel;
     private Image image;
-    private enum PAS { FADEIN , FADEOUT , IDLE , STARTING }; // PAS := Predicted Animator State
+    private enum PAS { FADEIN, FADEOUT, IDLE, STARTING }; // PAS := Predicted Animator State
     private PAS pas = PAS.STARTING;
 
+
+    private void TEST_LOAD_BEHAVIOR() {
+        /*
+            this is to be at the start of Awake, but only on the singleton object
+         
+         */
+        if (instance != null) return;
+        void func(Scene scene, LoadSceneMode loadSceneMode)
+        {
+            // TODO
+            Debug.Log(string.Format("scene-loaded : {0} | faderhasinstance : {1} | ", scene.name, instance != null));
+        }
+        SceneManager.sceneLoaded += func;
+    }
 
     private void MaintainOpacity() {
         if (panel.activeSelf)
@@ -26,8 +40,11 @@ public class Fader : MonoBehaviour
             image.color = c;
         }
     }
-    
+
     void Awake() {
+
+        TEST_LOAD_BEHAVIOR();
+
         if (instance == null)
         {
             instance = this;
@@ -40,7 +57,7 @@ public class Fader : MonoBehaviour
             Destroy(gameObject);
     }
 
-   
+
 
     void Update() {
         MaintainOpacity();
@@ -48,11 +65,37 @@ public class Fader : MonoBehaviour
     }
 
     public void FadeToNextScene(string nextScene) {
-        Debug.Assert(pas==PAS.IDLE,"tried to fade scenes durring fade");
+        Debug.Assert(pas == PAS.IDLE, "tried to fade scenes durring fade");
         QuedScene = nextScene;
         StartFading();
     }
 
+
+    private class FE_TESTER {
+        private static int count = 0;
+        private static void REPORT(string s) {
+            Debug.Log(string.Format("FE_TEST[{0}] : {1}",count++,s));
+        }
+        public static void TEST(int c) {
+            int line_req = -1;
+            switch (c)
+            {
+                case 6: line_req = 0; break;   // asterix
+                case 5: line_req = 1; break;   // downArrow
+                case 1: line_req = 2; break;   // up-Arrow
+            }
+            const string line0 = "*************";
+            const string line1 = "vvvvvvvvvvvvv";
+            const string line2 = "^^^^^^^^^^^^^";
+
+            if (line_req == 0) REPORT(line0);
+            else if (line_req == 1) REPORT(line1);
+
+            REPORT("c == + " + c);
+
+            if (line_req == 2) REPORT(line2);
+        }
+    }
     public void FadingEvent(int x) {
         int c = -1;
         switch (pas)
@@ -63,6 +106,7 @@ public class Fader : MonoBehaviour
             case PAS.STARTING: c = 3; break;
         }
         c = (2 * c) + x;
+        FE_TESTER.TEST(c);
         switch (c)
         {
             case 6: // pas==STARTING, x==0

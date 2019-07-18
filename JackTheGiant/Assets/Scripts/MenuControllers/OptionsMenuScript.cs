@@ -34,7 +34,8 @@ public class OptionsMenuScript : MonoBehaviour
 
     public void BackToMain() {
         SendSetting();
-        SceneManager.LoadScene("MainMenu00");
+        Fader.instance.FadeToNextScene("MainMenu00");
+        //  SceneManager.LoadScene("MainMenu00");
     }
     public void PushOptionsButton(int opt){
         Debug.Assert(opt>=0 && opt<=2);

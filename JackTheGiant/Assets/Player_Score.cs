@@ -66,7 +66,8 @@ public class Player_Score : MonoBehaviour
                 GameManager.SceneChangeUtils.Tags.GAME_RESTARTED,
                 new int[] { playerScore, lifeScore, coinScore }
             );
-            SceneManager.LoadScene(Scene00_manager.SceneName);
+            Fader.instance.FadeToNextScene(Scene00_manager.SceneName);
+           // SceneManager.LoadScene(Scene00_manager.SceneName);
         }
         else
         {

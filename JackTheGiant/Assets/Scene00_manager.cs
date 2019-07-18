@@ -217,7 +217,8 @@ public class Scene00_manager : MonoBehaviour
                GameManager.SceneChangeUtils.Tags.EXIT_GAMEPLAY,
                new int[] { player_Score.playerScore, player_Score.coinScore }
            );
-        SceneManager.LoadScene(MainMenu_sceneName);
+        Fader.instance.FadeToNextScene(MainMenu_sceneName);
+        //SceneManager.LoadScene(MainMenu_sceneName);
         Time.timeScale = 1f;
     }
 
