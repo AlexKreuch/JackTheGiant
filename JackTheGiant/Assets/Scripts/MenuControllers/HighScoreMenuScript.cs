@@ -27,5 +27,7 @@ public class HighScoreMenuScript : MonoBehaviour
         TellManagerSceneStarted();
     }
 
-    public void BackToMain() { SceneManager.LoadScene("MainMenu00"); }
+    public void BackToMain() {
+        Fader.instance.FadeToNextScene("MainMenu00");
+    }
 }
