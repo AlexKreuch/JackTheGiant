@@ -11,6 +11,8 @@ TagManager:
   - cloud_dark
   - Coin
   - Life
+  - Left_button
+  - Right_button
   layers:
   - Default
   - TransparentFX
