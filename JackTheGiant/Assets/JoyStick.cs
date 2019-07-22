@@ -16,8 +16,8 @@ public class JoyStick : MonoBehaviour
         Lbtn = buttons[i];
         Rbtn = buttons[(i + 1) % 2];
     }
-  
 
+    
    
 
     void Awake() {
