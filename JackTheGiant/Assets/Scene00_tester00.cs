@@ -68,18 +68,6 @@ public class Scene00_tester00 : MonoBehaviour
             return Get().transform.position;
         }
     }
-    private class GetImage {
-        private static Image image = null;
-        public static Image Get() {
-            if (image == null)
-            {
-                var js = FindObjectOfType<JoyStick>();
-                var ims = js.GetComponentsInChildren<Image>();
-                foreach(Image x in ims) if (x.gameObject.name == "Image") { image = x; break; }
-            }
-            return image;
-        }
-    }
 
     private class CameraDimensions {
         // 1st-space = camH ; 2nd-space = camW
