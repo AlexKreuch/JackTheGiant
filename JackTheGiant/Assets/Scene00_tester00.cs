@@ -64,136 +64,197 @@ public class Scene00_tester00 : MonoBehaviour
         public static float GetScale() {
             return Get().transform.localScale.x;
         }
+        public static Vector2 GetPos() {
+            return Get().transform.position;
+        }
     }
-
-
-    private void CheckButton(ref bool b, System.Action action)
-    {
-        if (b)
-        {
-            b = false;
-            action();
+    private class GetImage {
+        private static Image image = null;
+        public static Image Get() {
+            if (image == null)
+            {
+                var js = FindObjectOfType<JoyStick>();
+                var ims = js.GetComponentsInChildren<Image>();
+                foreach(Image x in ims) if (x.gameObject.name == "Image") { image = x; break; }
+            }
+            return image;
         }
     }
 
-    public bool btn = false;
-    private void pressBtn() {
-        var image = GetButton.Get().image;
-        var w = image.rectTransform.rect.width;
-        var h = image.rectTransform.rect.height;
-        Debug.Log(string.Format("(w,h) == ({0},{1})",w,h));
+    private class CameraDimensions {
+        // 1st-space = camH ; 2nd-space = camW
+        private static float[] data = new float[2];
+        private static int flags = 0;
+        private static System.Func<float>[] Computations = new System.Func<float>[] { ComputeH , ComputeW };
+        private static float ComputeH()
+        {
+            return Camera.main.orthographicSize * 2 / GetCanvas.GetScale();
+        }
+        private static float ComputeW()
+        {
+            var h = GetH();
+            var sh = (float)Screen.height;
+            var sw = (float)Screen.width;
+            var res = h * (sw / sh) * Camera.main.rect.width;
+            return res;
+        }
+        private static float GetVal(int index, int flg) {
+            if ((flags / flg) % 2 == 0)
+            {
+                data[index] = Computations[index]();
+                flags += flg;
+            }
+            return data[index];
+        }
+        public static float GetH() { return GetVal(0, 2); }
+        public static float GetW() { return GetVal(1, 1); }
+        public static void ExtraTest(ref bool btn) {
+            if (btn)
+            {
+                btn = false;
+                var h = ComputeH();
+                Debug.Log("testing : h == " + h);
+            }
+        }
     }
-    public bool reset_y = false;
+ 
 
-    private class Scale {
+    public bool btn = false;
+    public bool resetPos = false;
+
+    private void RESET_POS() {
+        if (resetPos)
+        {
+            resetPos = false;
+            Vector2 pos = new Vector2(0f,0f);
+            var arr = new RectTransform[] { GetButton.GetRT(), GetButton.GetRightRT() };
+            for (int i = 0; i < arr.Length; i++) arr[i].transform.position = pos;
+        }
+    }
+
+    private class TestEQSizeAndPos {
         private static int count = 0;
         private static void Report(string s) {
             Debug.Log(count++ + " | " + s);
         }
-        private static float CamH() {
-            float h = Camera.main.orthographicSize * 2;
-            float sca = GetCanvas.GetScale();
-            return h / sca;
+        private static void DATA(bool left, out Vector2 pos, out Vector2 sca) {
+            RectTransform rt = left ? GetButton.GetRT() : GetButton.GetRightRT();
+            pos = rt.position;
+            sca = rt.localScale;
         }
-        private static float CamW() {
-            float h = CamH();
-            float w = h * (Screen.width / ((float)(Screen.height))) * Camera.main.rect.width;
-            return w;
+        private static bool vecEq(Vector2 v0, Vector2 v1) {
+            return ((v0.x == v1.x) && (v0.y == v1.y));
         }
-        private static void Press0(ref bool btn) {
-            if (btn)
-            {
-                btn = false;
-                Debug.Log(count++ + " | camSize == " + CamH());
-            }
-        }
-
-        public static void Press(ref bool btn) {
-            if (btn)
-            {
-                btn = false;
-                doThis();
-            }
-        }
+        private static bool RUN_TEST() {
+            Vector2[] list = new Vector2[4];
+            DATA(true, out list[0], out list[1]);
+            DATA(false, out list[2], out list[3]);
+           
+            return vecEq(list[0], list[2]) && vecEq(list[1], list[3]);
         
-        private static float GetScale( bool getH ) {
-            Vector3 Dimentions = getH ?
-                         new Vector3(GetButton.GetRT().rect.height, GetButton.Get().transform.localScale.y,CamH())
-                         :
-                         new Vector3(GetButton.GetRT().rect.width, GetButton.Get().transform.localScale.x,CamW()/2);
-            float button_dimention = Dimentions.x;
-            float cameraDimention = Dimentions.z;
-            float old_val = Dimentions.y;
-            float new_val = old_val * (cameraDimention/button_dimention);
-            return new_val;
         }
-        private static float GetYscale() { return GetScale( true ); }
-        private static float GetXscale() { return GetScale( false ); }
-        private static void doThis() {
-            Vector2 sca = new Vector2( GetXscale() , GetYscale() );
-            Vector2 pos = new Vector2(CamW() / 4, 0f);
-            var R = GetButton.GetRight();
-            var L = GetButton.Get();
-            R.transform.localScale = sca; L.transform.localScale = sca;
-            R.transform.position = pos;
-            pos.x *= -1;
-            L.transform.position = pos;
-        }
-
-        public static void Reset_y(ref bool rbtn) {
-            if (rbtn)
+        public static void TEST(ref bool btn) {
+            if (btn)
             {
-                rbtn = false;
-                var button = GetButton.Get();
-                var vec = button.transform.localScale;
-                vec.y = 1f;
-                button.transform.localScale = vec;
+                btn = false;
+                bool res = RUN_TEST();
+                Report("test-result == " + res);
             }
         }
     }
-
-
-    private class SupToString {
-        public static string FloatToString(float input, int n=10) {
-            void split(float x, ref int y, ref float z) {
-                y = Mathf.FloorToInt(x);
-                z = x - y;
-            }
-            char toChar(int x)
-            {
-                return ((char)(x+((int)('0'))));
-            }
-            if (input == 0f) return "0";
-            bool isNegative = input < 0;
-            if (isNegative) input *= -1;
-            int i0 = -1; float f0 = -1f;
-            split(input, ref i0, ref f0);
-            string result = i0.ToString();
-            if (isNegative) result = '-' + result;
-            if (f0 == 0f) return result;
-            result += '.';
-            for (int i = 0; i < n; i++)
-            {
-                f0 *= 10;
-                split(f0, ref i0, ref f0);
-                result += toChar(i0);
-                if (f0 == 0f) break;
-            }
-            return result;
-        }
-        public static string Vec3ToString(Vector3 input, int n = 10)
+    public bool test = false;
+    private void press() {
+        if (btn)
         {
-            string sx = FloatToString(input.x,n);
-            string sy = FloatToString(input.y, n);
-            string sz = FloatToString(input.z, n);
+            btn = false;
+            var h = CameraDimensions.GetH();
+            var w = CameraDimensions.GetW();
+            var size = new Vector2(w/2,h);
+            var pos = new Vector2( (w/4f) , 0f  ); pos = (pos * GetCanvas.GetScale()) + GetCanvas.GetPos();
+            var L = GetButton.GetRT();
+            var R = GetButton.GetRightRT();
 
-            return string.Format("( {0} , {1} , {2} )",sx,sy,sz);
+            L.sizeDelta = size; R.sizeDelta = size;
+            
+            R.position = pos;
+            pos.x *= -1;
+            L.position = pos;
+            Debug.Log("pressed");
         }
     }
 
     void Update() {
-        //  CheckButton(ref btn , pressBtn);
-        Scale.Press(ref btn);
-        Scale.Reset_y(ref reset_y);
+        press();
+        RESET_POS();
+        TestEQSizeAndPos.TEST(ref test);
+        runTest0();
+
+        MaintainPLP();
+    }
+
+    public bool test0 = false;
+    private void runTest0() {
+        void ff(RectTransform rt)
+        {
+            Debug.Log(string.Format("{0} | pos=={1} | sca=={2} | localPos={3}",rt.name,rt.position,rt.localScale,rt.localPosition));
+        }
+        if (test0)
+        {
+            test0 = false;
+
+            var L = GetButton.GetRT();
+            var R = GetButton.GetRightRT();
+            ff(L); ff(R);
+        }
+    }
+
+    public string Pos = "";
+    public string localPos = "";
+    private void MaintainPLP() {
+        var L = GetButton.Get();
+        var rt = GetButton.GetRT();
+        var lp = supToStr.vec3_to_str(L.transform.localPosition);
+        var p = supToStr.vec3_to_str(rt.position);
+        Pos = p;
+        localPos = lp;
+    }
+
+    private class supToStr {
+        public static string float_to_str(float input, int n=10) { 
+            void split(float x, ref int y, ref float z) {
+                y = Mathf.FloorToInt(x);
+                z = x - y;
+            }
+            char toChar(int x) { return ((char)(x+((int)'0'))); }
+            string getDigits(float y, int k)
+            {
+                string s = "";
+                int x = 0;
+                for(int i=0; i<k; i++)
+                {
+                    if (y == 0) break;
+                    y *= 10;
+                    split(y, ref x, ref y);
+                    s += toChar(x);
+                }
+                return s;
+            }
+            if (input == 0) return "0";
+            bool isNegative = input < 0;
+            if (isNegative) input *= -1;
+            int intPart = 0; float floatPart = 0f;
+            split(input, ref intPart, ref floatPart);
+            string result = intPart.ToString();
+            if (isNegative) result = '-' + result;
+            string digits = getDigits(floatPart,n);
+            if (digits != "") result = result + '.' + digits;
+            return result;
+        }
+        public static string vec3_to_str(Vector3 input, int n = 10) {
+            string sx = float_to_str(input.x, n);
+            string sy = float_to_str(input.y, n);
+            string sz = float_to_str(input.z, n);
+            return string.Format("( {0} , {1} , {2} )",sx,sy,sz);
+        }
     }
 }
