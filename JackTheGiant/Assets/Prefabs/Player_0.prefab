@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8087052189054117658}
   - component: {fileID: 8087052189054117659}
   - component: {fileID: 8087052189054117657}
+  - component: {fileID: 179368515}
+  - component: {fileID: 179368521}
   m_Layer: 0
   m_Name: Player_0
   m_TagString: Player
@@ -115,8 +117,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 20
+  m_Mass: 5
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -164,3 +166,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 40
   maxVelocity: 10
+--- !u!114 &179368515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8087052189054117663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f404efccaffa33c47a767dec913e2778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getCoin: {fileID: 8300000, guid: 186700c42147b4b4c9880c9cdd04c39d, type: 3}
+  getLife: {fileID: 8300000, guid: 456536eab1b423d439b7698f48ba797e, type: 3}
+  dieSound: {fileID: 8300000, guid: eba2bc2f4314979488dd018a5078e0e6, type: 3}
+  gameOverPanel: {fileID: 0}
+  playerScore: 0
+  coinScore: 0
+  lifeScore: 2
+--- !u!114 &179368521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8087052189054117663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4dd131cebfd57a4e8b9c07cf963c268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

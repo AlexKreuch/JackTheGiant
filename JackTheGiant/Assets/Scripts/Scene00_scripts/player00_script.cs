@@ -13,15 +13,32 @@ public class player00_script : MonoBehaviour
     private Sprite sprite;
     private Animator animator;
 
-  
+    private class JoyStickAdapter{
+        private static JoyStick.Signal signal;
+        private static int[] vals = new int[] { 0, 2, 1, 0, 1, 0, 1, 1, 2, 2, 0, 2 };
+        public static int Convert(int ttm) {
+            Debug.Log("..sig-val : " + signal.GetVal());
+
+            if (signal == null) return ttm;
+            int a = ttm % 3, b = signal.GetVal() % 4;
+            int c = a * 4 + b;
+            int d = vals[c];
+            return (ttm/3)*3 + d;
+        }
+        public static void Connect() {
+            var js = FindObjectOfType<JoyStick>();
+            signal = js.GetSignal();
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<Sprite>();
         animator = GetComponent<Animator>();
-
+        JoyStickAdapter.Connect();
     }
 
     // Update is called once per frame
@@ -44,10 +61,16 @@ public class player00_script : MonoBehaviour
            i==1 := trying to move left
            i==2 := trying to move right
         */
+        int result = -1;
         float v = Input.GetAxis("Horizontal");
-        if (v == 0) return 0;
-        int i = v < 0 ? 1 : 2;
-        return i;
+        if (v == 0)
+            result = 0;
+        else
+            result = v < 0 ? 1 : 2;
+
+        result = JoyStickAdapter.Convert(result);
+
+        return result;
     }
     private void FaceRightWay() {
         /*

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class JoyStick : MonoBehaviour
 {
@@ -11,6 +12,52 @@ public class JoyStick : MonoBehaviour
     private UnityEngine.UI.Button Lbtn, Rbtn;
 
     #region Prepare Buttons
+    private class Handler : MonoBehaviour , IPointerDownHandler , IPointerUpHandler
+    {
+        private SharedInt SignalValue;
+        private int flagVal = 0;
+        void Awake() {
+            var js = GetComponentInParent<JoyStick>();
+            SignalValue = js.signalSource;
+            flagVal = gameObject.tag == Ltag ? 2 : 1;
+        }
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            SignalValue.val += flagVal;
+
+            Debug.Log(SignalValue.val + " | DOWN | " + gameObject.name);
+        }
+        public void OnPointerUp(PointerEventData eventData) {
+            SignalValue.val -= flagVal;
+
+            Debug.Log( SignalValue.val + " | UP | " + gameObject.name);
+        }
+    }
+
+    #region signal classes/methods
+    /*
+        signal is encoded as follows :      
+           if val:=value of the signal, then : 
+             * the right-button is pressed iff : val%2==1
+             * the left-button is pressed iff : (val//2)%2==1   
+    */
+    public class SharedInt {
+        public int val = 0;
+    }
+    public class Signal {
+        private SharedInt val;
+        public Signal(SharedInt sharedInt) { val = sharedInt; }
+        public int GetVal() { return val.val; }
+    }
+    private Signal signal;
+    private SharedInt signalSource;
+    private void SetUpSignal() {
+        signalSource = new SharedInt();
+        signal = new Signal(signalSource);
+    }
+    public Signal GetSignal() { return signal; }
+    #endregion
+
     private void GetButtons() {
         Button[] buttons = GetComponentsInChildren<Button>();
         int i = buttons[0].tag == Ltag ? 0 : 1;
@@ -35,6 +82,10 @@ public class JoyStick : MonoBehaviour
             rt.sizeDelta = scale;
         }
     }
+    private void AddHandlersToButtons() {
+        Lbtn.gameObject.AddComponent<Handler>();
+        Rbtn.gameObject.AddComponent<Handler>();
+    }
     private void MakeButtonsInvisible() {
         for (int i = 0; i < 2; i++)
         {
@@ -47,14 +98,12 @@ public class JoyStick : MonoBehaviour
     #endregion
 
 
-
-
-
-
-
+    
     void Awake() {
+        SetUpSignal();
         GetButtons();
         MakeButtonsInvisible();
+        AddHandlersToButtons();
     }
 
     void Start() { ScaleButtons(); }
