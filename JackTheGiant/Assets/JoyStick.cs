@@ -9,16 +9,16 @@ public class JoyStick : MonoBehaviour
     private const string Ltag = "Left_button";
 
     private UnityEngine.UI.Button Lbtn, Rbtn;
-    private Canvas canvas;
 
+    #region Prepare Buttons
     private void GetButtons() {
         Button[] buttons = GetComponentsInChildren<Button>();
         int i = buttons[0].tag == Ltag ? 0 : 1;
         Lbtn = buttons[i];
         Rbtn = buttons[(i + 1) % 2];
     }
-
     private void ScaleButtons() {
+        Canvas canvas = GetComponentInChildren<Canvas>();
         float camH = Camera.main.orthographicSize * 2;
         float camW = camH * (Screen.width / ((float)Screen.height)) * Camera.main.rect.width;
         float canvasScale = canvas.transform.localScale.x;
@@ -35,11 +35,26 @@ public class JoyStick : MonoBehaviour
             rt.sizeDelta = scale;
         }
     }
-   
+    private void MakeButtonsInvisible() {
+        for (int i = 0; i < 2; i++)
+        {
+            Button button = i == 0 ? Lbtn : Rbtn;
+            var color = button.image.color;
+            color.a = 0;
+            button.image.color = color;
+        }
+    }
+    #endregion
+
+
+
+
+
+
 
     void Awake() {
         GetButtons();
-        canvas = GetComponentInChildren<Canvas>();
+        MakeButtonsInvisible();
     }
 
     void Start() { ScaleButtons(); }

@@ -2174,7 +2174,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!1 &1271564214
 GameObject:
@@ -2837,7 +2837,7 @@ MonoBehaviour:
   resetPos: 0
   test: 0
   test0: 0
-  Pos: ( 0 , 0 , 0.0000076293 )
+  Pos: ( 0 , 0.5804533004 , 55.2812652587 )
   localPos: ( 0 , -40.0508804321 , -3814.3696289062 )
 --- !u!1 &1839629745
 GameObject:
