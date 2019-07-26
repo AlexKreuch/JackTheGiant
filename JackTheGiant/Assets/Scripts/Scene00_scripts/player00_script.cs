@@ -17,8 +17,6 @@ public class player00_script : MonoBehaviour
         private static JoyStick.Signal signal;
         private static int[] vals = new int[] { 0, 2, 1, 0, 1, 0, 1, 1, 2, 2, 0, 2 };
         public static int Convert(int ttm) {
-            Debug.Log("..sig-val : " + signal.GetVal());
-
             if (signal == null) return ttm;
             int a = ttm % 3, b = signal.GetVal() % 4;
             int c = a * 4 + b;
