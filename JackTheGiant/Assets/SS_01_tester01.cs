@@ -1,10 +1,16 @@
-﻿using System.Collections;
+﻿
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
 public class SS_01_tester01 : MonoBehaviour
 {
+
+
     private class SwitchMachine {
         private static string sceneNameBase = "SampleScene_0";
         private static string sceneName = "";
@@ -97,7 +103,7 @@ public class SS_01_tester01 : MonoBehaviour
             y = Mathf.Clamp(y_scaler * y,0,1);
             return y;
             
-            #region ScratchWork
+#region ScratchWork
             /*
                 y = 1-|xa+b|
              
@@ -120,7 +126,7 @@ public class SS_01_tester01 : MonoBehaviour
 
              
              */
-            #endregion
+#endregion
         }
 
         public static void UpdateState() {
@@ -149,8 +155,9 @@ public class SS_01_tester01 : MonoBehaviour
         while (Time.realtimeSinceStartup < endTime) yield return null;
         doThis();
     }
-    
-    
+
+   
+
 
 
     void Awake() {
