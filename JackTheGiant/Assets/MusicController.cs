@@ -8,7 +8,7 @@ public class MusicController : MonoBehaviour
 
     
     private AudioSource audioSource;
-   
+    
 
     void OnEnable() {
         if (instance == null)
@@ -22,7 +22,9 @@ public class MusicController : MonoBehaviour
     void Start() {
         audioSource = GetComponent<AudioSource>();
     }
-    public bool Play() { return audioSource.isPlaying; }
+    public bool Play() {
+        return audioSource.isPlaying;
+    }
     public void SetPlay(bool play)
     {
         int c = play ? 1 : 0;
