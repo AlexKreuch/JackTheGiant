@@ -3,54 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteAlways]
 public class thing_02 : MonoBehaviour
 {
-    private Image image;
-    private Image GetImage() {
-        if (image == null)
-        {
-            image = GetComponent<Image>();
+
+    // OnCollisionEnter2D(Collision2D)
+    public void OnCollisionEnter2D(Collision2D collision) {
+        var t = ftos(Time.time);
+
+        pushStr(string.Format(" me : {0} | you : {1} | time : {2} ",name,collision.collider.name,t));
+    }
+
+    private string ftos(float input, int n = 10) {
+        void split(float x, ref int y, ref float z) {
+            y = Mathf.FloorToInt(x);
+            z = x - y;
         }
-        return image;
-    }
-
-    private SpriteRenderer spriteRenderer;
-    private SpriteRenderer GetSpriteRenderer() {
-        if (spriteRenderer == null)
+        char itoc(int x) { return ((char)(x+((int)'0'))); }
+        if (input == 0) return "0";
+        bool isNegative = input < 0;
+        if (isNegative) input *= -1;
+        int i0 = 0; float f0 = 0f;
+        split(input, ref i0, ref f0);
+        string res = i0.ToString();
+        if (isNegative) res = '-' + res;
+        if (f0 == 0) return res;
+        res = res + '.';
+        for (int i = 0; i < n; i++)
         {
-            const string name = "New Sprite";
-            var canv = GetComponentInParent<Canvas>();
-            var sr_arr = canv.transform.gameObject.GetComponentsInChildren<SpriteRenderer>();
-            foreach (SpriteRenderer x in sr_arr) if (x.name == name) { spriteRenderer = x; break; }
+            if (f0 == 0) break;
+            f0 *= 10;
+            split(f0, ref i0, ref f0);
+            res += itoc(i0);
         }
-        return spriteRenderer;
-    }
-    
-
-    public string display0 = "";
-    public string display1 = "";
-
-    private void ShowPos() {
-        var tran = GetImage().transform;
-        display0 = "pos == " + tran.position.ToString();
-        display1 = "sca == " + tran.localScale.ToString();
+        return res;
     }
 
-    private void AdjustScale() {
-        var sr = GetSpriteRenderer();
-        var vec = sr.transform.localScale;
-        if (vec.x != vec.y)
-        {
-            vec.y = vec.x;
-            sr.transform.localScale = vec;
+    private static Queue<string> nms = new Queue<string>();
+
+    private static int line = 0;
+    private static void report(string s) {
+        Debug.Log(line++ + " | " + s);
+    }
+
+    private static void pushStr(string msg) {
+        if (nms.Count == 0) nms.Enqueue("collisions : ");
+        nms.Enqueue(msg);
+        report("count == " + nms.Count);
+        if (nms.Count > 4) {
+        var s = string.Join("\n      ",nms);
+            Debug.Log(s);
         }
     }
-
-    void Update() {
-        ShowPos();
-        AdjustScale();
-    }
-
-    
 }
