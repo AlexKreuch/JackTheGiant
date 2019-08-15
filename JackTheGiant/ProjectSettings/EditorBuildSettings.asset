@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu00.unity
     guid: ebbcb6a60cb83b249b407b45ee91da2f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HighScore00.unity
     guid: cef7a61fc88423d4c9d357ab4a8fd458
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OptionsMenu.unity
     guid: 34773b69221a8264eb03af1f211938ca
   - enabled: 0
@@ -26,13 +26,16 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scene00.unity
     guid: 395245dbb2f8b774c827e184784499c5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScenes/SampleScene_02.unity
     guid: 1b0c8747fe848b540b64f638528e701a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScenes/SampleScene_01.unity
     guid: 5dd64a3df833960499479197d4f01e04
+  - enabled: 1
+    path: Assets/Scripts/AdsScripts/HelloWorld/MY_VERSION/MY_ADS_HelloWorld.unity
+    guid: 25beb1665b6ff70479804de442c7db75
   m_configObjects: {}

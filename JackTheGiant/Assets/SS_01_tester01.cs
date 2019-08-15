@@ -4,13 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System;
 
 
 public class SS_01_tester01 : MonoBehaviour
 {
 
-
+    #region old-testing stuff
     private class SwitchMachine {
         private static string sceneNameBase = "SampleScene_0";
         private static string sceneName = "";
@@ -64,14 +64,14 @@ public class SS_01_tester01 : MonoBehaviour
             if (!PlayerPrefs.HasKey(initSign)) PlayerPrefs.SetInt(initSign, 0);
             PlayerPrefs.SetFloat(tdp, timeDataPoint);
             PlayerPrefs.SetFloat(lrt, lastRecordedTime);
-            PlayerPrefs.SetInt(tuo,turnedOn ? 1 : 0);
+            PlayerPrefs.SetInt(tuo, turnedOn ? 1 : 0);
         }
         public static void LoadData()
         {
             if (!PlayerPrefs.HasKey(initSign)) return;
             timeDataPoint = PlayerPrefs.GetFloat(tdp);
             lastRecordedTime = PlayerPrefs.GetFloat(lrt);
-            turnedOn = PlayerPrefs.GetInt(tuo)==1;
+            turnedOn = PlayerPrefs.GetInt(tuo) == 1;
 
             if (turnedOn)
             {
@@ -98,12 +98,12 @@ public class SS_01_tester01 : MonoBehaviour
             float y_scaler = 2f;
             if (!StopWatch.IsOn()) return 0f;
             var x = StopWatch.GetReading();
-            x = Mathf.Clamp(x,0,FadeTime);
+            x = Mathf.Clamp(x, 0, FadeTime);
             var y = 1 - Mathf.Abs(x * (2 / FadeTime) - 1);
-            y = Mathf.Clamp(y_scaler * y,0,1);
+            y = Mathf.Clamp(y_scaler * y, 0, 1);
             return y;
-            
-#region ScratchWork
+
+            #region ScratchWork
             /*
                 y = 1-|xa+b|
              
@@ -126,22 +126,22 @@ public class SS_01_tester01 : MonoBehaviour
 
              
              */
-#endregion
+            #endregion
         }
 
         public static void UpdateState() {
-            if (StopWatch.IsOn() && StopWatch.GetReading()>=FadeTime) StopWatch.Stop();
+            if (StopWatch.IsOn() && StopWatch.GetReading() >= FadeTime) StopWatch.Stop();
         }
 
         public static void MaintainPanel() {
             float op = 0f;
             bool ton = false;
-            GetPanelState(ref op,ref ton);
+            GetPanelState(ref op, ref ton);
             SS_01_panel.instance.PanelOn = ton;
             SS_01_panel.instance.Opacity = op;
         }
-        
-        public static void GetPanelState(ref float opacity , ref bool turnedOn) {
+
+        public static void GetPanelState(ref float opacity, ref bool turnedOn) {
             opacity = ComputeOp();
             turnedOn = StopWatch.IsOn();
         }
@@ -155,58 +155,116 @@ public class SS_01_tester01 : MonoBehaviour
         while (Time.realtimeSinceStartup < endTime) yield return null;
         doThis();
     }
+    #endregion
 
-   
+    private const string NAME = "com.google.android.gms.ads.initialization.OnInitializationCompleteListener";
+    
+    
 
 
+  
+
+    private void TryToMake() {
+
+       var x = new AndroidJavaProxy(NAME);
+
+        
+
+        Debug.Log("~~test-ran");
+    }
+
+    public string input = "";
+    public string display = "";
+    public bool btn = false;
+    public bool toggle_varification = false;
+
+    private class TESTER {
+        private static int TEST_HELPER(string s)
+        {
+            /*
+             *  encoding : 
+             *     0:=nothing-found
+             *     2:=something-found, but no interface
+             *     3:=something-found, and interface-found
+             */
+            int c = 0;
+            var x = new AndroidJavaProxy(s);
+            if (x == null) return c; else c += 2;
+            var y = x.javaInterface;
+            if (y != null) c += 1;
+            return c;
+        }
+        private static string RUNTEST(string input)
+        {
+            int x = TEST_HELPER(input);
+            string s = ((x/2)%2==1 ? "T" : "F") + (x%2==1 ? "T" : "F");
+            return s;
+        }
+
+        public static void UPDATE(ref bool pressed, ref bool tv, string inp, ref string disp) {
+            if (pressed)
+            {
+                pressed = false;
+                disp = RUNTEST(inp);
+                tv = !tv;
+            }
+        }
+    }
+
+    private void ObjStrTest() {
+        var x = new AndroidJavaObject("java.lang.String", "asdf");
+        var y = new AndroidJavaObject("java.lang.String", "asdf");
+
+        
+
+        bool b = x.Equals(y);
+
+        Debug.Log("<x==y> == " + b);
+
+        Debug.Log("end-ObjStrTest");
+    }
+
+    private void TestMyPlugin() {
+        /*
+            package : com.example.alexk.myunitypluginlibrary00
+            className : MyPlugin00
+            stringName : com.example.alexk.myunitypluginlibrary00.MyPlugin00
+            staticMethodName : DoSomething
+        */
+        //   AndroidJavaObject plugin = new AndroidJavaObject("com.example.alexk.myunitypluginlibrary00.MyPlugin00");
+        //   Debug.Log("trying to run-plugin");
+        //   plugin.CallStatic("ShowMessage");
+        AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity2d.player.UnityPlayer");
+        AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        Debug.Log("activity-found == " + (activity!=null));
+    }
 
     void Awake() {
-        SwitchMachine.Prep();
-        StopWatch.LoadData();
+       // TestMyPlugin();
+        ObjStrTest();
+        var x = new AndroidJavaProxy("asdf");
+        x.Invoke("asdf", new object[0]);
+        Debug.Log("ran-this test");
+        
     }
-    void Start() {
-        PanelController.MaintainPanel();
-    }
+
+    void Start() { TestMyPlugin(); }
 
     void Update() {
-        StopWatch.UpdateState();
-        PanelController.UpdateState();
-        PanelController.MaintainPanel();
-        readWatch();
-        press_btn();
-        pressSw();
+        TESTER.UPDATE(ref btn, ref toggle_varification, input, ref display);
     }
 
+    /*
+     let NAME := "com.google.android.gms.ads.initialization.OnInitializationCompleteListener"
+need to try : 
+  var x = new AndroidJavaProxy(NAME);
+AndroidJavaProxy
 
-    public bool btn = false;
-    private void press_btn() {
-        if (btn)
-        {
-            btn = false;
-            PanelController.StartFading();
-            StartCoroutine(WaitTillDo(PanelController.GetFadeTime()/2,SwitchMachine.SwitchScene));
-           // var wtd = WaitTillDo(PanelController.GetFadeTime() / 2,SwitchMachine.SwitchScene);
-            //StartCoroutine(wtd);
-        }
-    }
+     */
 
-    public bool sw = false;
-    private void pressSw() {
-        if (sw)
-        {
-            sw = false;
-            SwitchMachine.SwitchScene();
-        }
-    }
 
-    private void readWatch() {
-        if (StopWatch.IsOn())
-        {
-            Debug.Log("watch-on | currentTime = " + StopWatch.GetReading());
-        }
-        else
-        {
-            Debug.Log("watch-NOT-on | display shows : " + StopWatch.GetReading());
-        }
-    }
+
+
+
+
 }
