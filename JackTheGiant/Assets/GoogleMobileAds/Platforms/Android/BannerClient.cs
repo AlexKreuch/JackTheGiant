@@ -102,7 +102,7 @@ namespace GoogleMobileAds.Android
         }
         #endregion
 
-        #region pass method-calss to bannerView-field
+        #region pass method-calls to bannerView-field
 
         // Loads an ad.
         public void LoadAd(AdRequest request)

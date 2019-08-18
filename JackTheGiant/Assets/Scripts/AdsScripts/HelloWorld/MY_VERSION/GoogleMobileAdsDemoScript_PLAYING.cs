@@ -205,7 +205,10 @@ public class GoogleMobileAdsDemoScript_PLAYING : MonoBehaviour
     {
         int index = REPORTER.clicker();
         REPORTER.report("method-called",index);
+
+
         #region debuging-version (includes the 'return'-statement)
+        /*
         AdRequest.Builder builder = new AdRequest.Builder();
 
         REPORTER.report("made-builder", index);
@@ -245,9 +248,10 @@ public class GoogleMobileAdsDemoScript_PLAYING : MonoBehaviour
         REPORTER.report("finishing-method",index);
 
         return request;
-
+        */
         #endregion
-        /*
+        
+        
         return new AdRequest.Builder()
             .AddTestDevice(AdRequest.TestDeviceSimulator)
             .AddTestDevice("0123456789ABCDEF0123456789ABCDEF")
@@ -257,7 +261,7 @@ public class GoogleMobileAdsDemoScript_PLAYING : MonoBehaviour
             .TagForChildDirectedTreatment(false)
             .AddExtra("color_bg", "9B30FF")
             .Build();
-            */
+            
     }
 
     private void RequestBanner()
