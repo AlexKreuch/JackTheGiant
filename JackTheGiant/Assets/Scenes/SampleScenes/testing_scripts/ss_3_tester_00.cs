@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GoogleMobileAds.Api;
+using UnityEngine.SceneManagement;
 
 public class ss_3_tester_00 : MonoBehaviour
 {
@@ -16,8 +17,8 @@ public class ss_3_tester_00 : MonoBehaviour
         {
             Rect rect = new Rect
                     (
-                       new Vector2(window.w * Screen.width, window.x * Screen.height) , 
-                       new Vector2(window.y * Screen.width, window.z * Screen.height) 
+                       new Vector2(window.x * Screen.width, window.y * Screen.height) , 
+                       new Vector2(window.z * Screen.width, window.w * Screen.height) 
                     );
             GUI.skin.button.fontSize = fontSize;
             if (GUI.Button(rect, text)) action();
@@ -78,6 +79,7 @@ public class ss_3_tester_00 : MonoBehaviour
 
         public static void RequestBanner()
         {
+            Debug.Log("REQUESTING BANNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             if (bannerView != null)
             {
                 bannerView.Destroy();
@@ -92,5 +94,52 @@ public class ss_3_tester_00 : MonoBehaviour
         {
             if (bannerView != null) bannerView.Destroy();
         }
+    }
+    
+    private void SwitchScene() {
+        const string otherSceneName = "MY_ADS_HelloWorld";
+        SceneManager.LoadScene(otherSceneName);
+    }
+
+    #region makeButtons
+    private _button reqBtn = new _button(), killBtn = new _button(), swtBtn = new _button();
+    private void setupButtons() {
+        /*
+         public System.Action action { get; set; }
+        public Vector4 window { get; set; }
+        public string text { get; set; }
+        public int fontSize { get; set; }
+
+         */
+        reqBtn.action = MyAdUtils.RequestBanner;
+        reqBtn.window = new Vector4(0f,0f,1f,.33333f);
+        reqBtn.text = "request-banner";
+        reqBtn.fontSize = 50;
+
+        killBtn.action = MyAdUtils.KillBanner;
+        killBtn.window = new Vector4(0f, .33333f, 1f, .33333f);
+        killBtn.text = "kill-banner";
+        killBtn.fontSize = 50;
+
+        swtBtn.action = SwitchScene;
+        swtBtn.window = new Vector4(0f, .66666f, 1f, .33333f);
+        swtBtn.text = "switch_scenes";
+        swtBtn.fontSize = 50;
+
+    }
+
+    private void showButtons()
+    {
+        reqBtn.showButton();
+        killBtn.showButton();
+        swtBtn.showButton();
+    }
+    #endregion
+
+    void Start() { MyAdUtils.setUp(); setupButtons(); }
+    void OnGUI() { showButtons(); }
+
+    private void asdf() {
+        Debug.Log(SceneSwitcher00.asdf);
     }
 }

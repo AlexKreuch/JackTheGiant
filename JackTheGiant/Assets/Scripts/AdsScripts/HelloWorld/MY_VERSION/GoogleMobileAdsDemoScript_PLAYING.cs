@@ -6,11 +6,92 @@ using GoogleMobileAds.Api;
 using UnityEditor;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 
 
 // Example script showing how to invoke the Google Mobile Ads Unity plugin.
 public class GoogleMobileAdsDemoScript_PLAYING : MonoBehaviour
 {
+    #region place test-button
+    public float v0 = .56f, v1 = .78f, v2 = .3f, v3 = .1f;
+    private void _access(int code, int index, float val, int[] outint, float[] outfloat) {
+        /*
+           key : 
+             code==0 := getLength
+             code==1 := get ith-element
+             code==2 := set ith-el
+          note : outint and outfloat should both be non-null and have length >= 1.
+         */
+        switch (code)
+        {
+            case 0: outint[0] = 4; return;
+            case 1:
+                switch (index)
+                {
+                    case 0: outfloat[0] = v0; break;
+                    case 1: outfloat[0] = v1; break;
+                    case 2: outfloat[0] = v2; break;
+                    case 3: outfloat[0] = v3; break;
+                }
+                break;
+            case 2:
+                switch (index)
+                {
+                    case 0: v0 = val; outfloat[0] = val; break;
+                    case 1: v1 = val; outfloat[0] = val; break;
+                    case 2: v2 = val; outfloat[0] = val; break;
+                    case 3: v3 = val; outfloat[0] = val; break;
+                }
+                break;
+        }
+    }
+    private class ButtonBox
+    {
+        private const string otherSceneName = "ss_3";
+
+        private class gt
+        {
+            private static System.Action<int, int, float, int[], float[]> action;
+            private static int[] ibox = new int[1];
+            private static float[] fbox = new float[1];
+            private static bool started = false;
+
+            public static bool Started() { return started; }
+            public static void Start(System.Action<int, int, float, int[], float[]> f)
+            {
+                action = f;
+                started = true;
+            }
+
+            public static float get(int i) { action(1, i, 0f, ibox, fbox); return fbox[0]; }
+            public static float set(int i, float v) { action(2, i, v, ibox, fbox); return fbox[0]; }
+            public static int length() { action(0,0,0f,ibox,fbox); return ibox[0]; }
+
+        }
+
+        private static Vector2 MakeVec(int i, int j)
+        {
+            return new Vector2( gt.get(i) * Screen.width , gt.get(j) * Screen.height );
+        }
+        private static Rect MakeRect()
+        {
+            return new Rect(MakeVec(0, 1), MakeVec(2, 3));
+        }
+
+        private static void SwitchScenes()
+        {
+            SceneManager.LoadScene(otherSceneName);
+        }
+
+        public static void RenderButton(System.Action<int, int, float, int[], float[]> action) {
+            gt.Start(action);
+            Rect rect = MakeRect();
+
+            if (GUI.Button(rect, "test-button")) { SwitchScenes(); }
+        }
+    }
+    private void ShowTestButton() { ButtonBox.RenderButton(_access); }
+    #endregion
 
     private class REPORTER {
         // I wrote this class for debuging
@@ -76,6 +157,8 @@ public class GoogleMobileAdsDemoScript_PLAYING : MonoBehaviour
 
     public void OnGUI()
     {
+        ShowTestButton();
+
         #region compute rect-dimentions
         GUI.skin.button.fontSize = (int)(0.035f * Screen.width);
         float buttonWidth = 0.35f * Screen.width;

@@ -3,7 +3,9 @@ ScriptsOnlyBuild:
     Assembly-CSharp-Editor.dll:
     - GoogleMobileAds.Editor.GoogleMobileAdsSettings
     Assembly-CSharp.dll:
+    - GoogleMobileAds.Common.MobileAdsEventExecutor
     - GoogleMobileAdsDemoScript_PLAYING
+    - ss_3_tester_00
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
@@ -14,6 +16,25 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
   sceneClasses:
+    Assets/Scenes/SampleScenes/ss_3.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 17374}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
     Assets/Scripts/AdsScripts/HelloWorld/MY_VERSION/MY_ADS_HelloWorld.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -458,7 +479,7 @@ ScriptsOnlyBuild:
     className: CloudManager
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: e8f21f6075054105779ffa0d99360d88
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GoogleMobileAdsDemoScript_PLAYING
@@ -726,7 +747,20 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ss_3_tester_00
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SceneSwitcher00
   platform: 13
   scenePathNames:
   - Assets/Scripts/AdsScripts/HelloWorld/MY_VERSION/MY_ADS_HelloWorld.unity
-  playerPath: C:/Users/alexk/Desktop/aaca _ ORGANIZATION/aaaa_UDEMY_WORK/aaaa_course01/aaa_prj_01/JackTheGiant/JGT_build_01.apk
+  - Assets/Scenes/SampleScenes/ss_3.unity
+  playerPath: C:/Users/alexk/Desktop/aaca _ ORGANIZATION/aaaa_UDEMY_WORK/aaaa_course01/aaa_prj_01/JackTheGiant/JGT_testing_build_01.apk
