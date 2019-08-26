@@ -306,7 +306,7 @@ public class ss_3_tester_00 : MonoBehaviour
 
         public static void RequestBanner()
         {
-            Debug.Log("REQUESTING BANNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            REPORTER.report("REQUESTING BANNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             if (bannerView != null)
             {
@@ -462,15 +462,370 @@ public class ss_3_tester_00 : MonoBehaviour
     }
     #endregion
 
-    void Start() { MyAdUtils.setUp(); setupButtons();
-      
-    }
+    void Start() { MyAdUtils.setUp(); setupButtons(); Timer.SetUp(); }
     void OnGUI() { showButtons();  }
+
+    private class POST_OFFICE
+    {
+        #region helper classes
+        public class Post<T>
+        {
+            public int Addr { get; private set; }
+            public T Value { get; private set; }
+            private Post() { }
+            public Post(int a, T val) { Addr = a; Value = val; }
+        }
+        public class MailBox<T, U>
+        {
+            protected MailBox() { }
+            public MailBox(System.Func<T, U> proc)
+            {
+                proccess = proc;
+                inBox = new Queue<Post<T>>();
+                outBox = new Queue<Post<U>>();
+            }
+
+            private System.Func<T, U> proccess;
+            private Queue<Post<T>> inBox;
+            private Queue<Post<U>> outBox;
+
+            public void Work()
+            {
+                if (inBox.Count == 0) return;
+                Post<T> inPost = inBox.Dequeue();
+                Post<U> outPost = new Post<U>(inPost.Addr, proccess(inPost.Value));
+                outBox.Enqueue(outPost);
+            }
+
+            public int inBox_size() { return inBox.Count; }
+            public int outBox_size() { return outBox.Count; }
+
+            public void put(int addr, T val) { inBox.Enqueue(new Post<T>(addr, val)); }
+            public void put(Post<T> input) { inBox.Enqueue(input); }
+            public bool get(ref Post<U> output)
+            {
+                if (outBox.Count == 0) return false;
+                output = outBox.Dequeue();
+                return true;
+            }
+        }
+
+        public class WrappedBox 
+        {
+            public System.Type InType { get; private set; }
+            public System.Type outType { get; private set; }
+            private object box;
+            private System.Action<object[]> accessor;
+
+            private static System.Action<object[]> MakeAccessor<T, U>()
+            {
+                /*
+                     key : 
+                       -> op:=0 : get-input-size
+                       -> op:=1 : Work
+                 */
+                void f(object[] args)
+                {
+                    var mb = (MailBox<T, U>)args[1];
+                    switch (args[0])
+                    {
+                        case 0: args[2] = mb.inBox_size(); break;
+                        case 1: mb.Work(); break;
+                    }
+                }
+                return f;
+            }
+
+            private WrappedBox() { }
+            private WrappedBox(System.Type _in, System.Type _out, object bx, System.Action<object[]> acc)
+            {
+                InType = _in;
+                outType = _out;
+                box = bx;
+                accessor = acc;
+            }
+
+            public static WrappedBox Wrap<T, U>(MailBox<T,U> mb)
+            {
+                return new WrappedBox(typeof(T), typeof(U), mb, MakeAccessor<T,U>());
+            }
+            public MailBox<T, U> UnWrap<T, U>()
+            {
+                if (typeof(T) != InType || typeof(U) != outType) return null;
+                return ((MailBox<T,U>)box);
+            }
+
+            public int inbox_size()
+            {
+                var arr = new object[] { 0 , box , null };
+                accessor(arr);
+                return ((int)arr[2]);
+            }
+            public void work()
+            {
+                accessor(new object[] { 1 , box });
+            }
+        }
+
+        
+
+        private class IndexedSet<T>
+        {
+            private Queue<int> gaps = new Queue<int>();
+            private int cap = 0;
+            private Dictionary<int, T> entries = new Dictionary<int, T>();
+
+            public int Register(T val)
+            {
+                int index = -1;
+                if (gaps.Count == 0)
+                {
+                    index = cap++;
+                }
+                else
+                {
+                    index = gaps.Dequeue();
+                }
+                entries.Add(index, val);
+                return index;
+            }
+            private void _unregister(int index)
+            {
+                entries.Remove(index);
+                if (index == cap - 1) cap--;
+                else gaps.Enqueue(index);
+            }
+            public void UnRegister(int index)
+            {
+                if (!entries.ContainsKey(index)) return;
+                _unregister(index);
+            }
+            public void UnRegister(T val)
+            {
+                var keys = entries.Keys;
+                foreach (var k in keys)
+                {
+                    if (entries[k].Equals(val)) _unregister(k); 
+                }
+            }
+
+            public IEnumerable<T> GetVals() {
+                return entries.Values;
+            }
+
+            public bool TryGetVal(int ind, ref T result)
+            {
+                return entries.TryGetValue(ind,out result);
+            }
+        }
+
+        private class WrappedBox_00
+        {
+            public System.Type InType { get; private set; }
+            public System.Type OutType { get; private set; }
+            private object box;
+            private System.Action<object[]> accessor;
+
+            private WrappedBox_00() { }
+            private WrappedBox_00(System.Type _in, System.Type _out, object bx, System.Action<object[]> acc)
+            {
+                InType = _in;
+                OutType = _out;
+                box = bx;
+                accessor = acc;
+            }
+
+            private static System.Action<object[]> MakeAcc<T, U>()
+            {
+                /*
+                   protocal : 
+                      * there must be at least two-entries
+                      * the first entry must be the 'operation-code' (op)
+                      * the second entry must be the 'box'-object
+                      * key : 
+                      *       op==0 : Work
+                      *       op==1 : inbox_size
+                      *       op==2 : outbox_size
+                      *       op==3 : put(int add, T input)
+                      *               -> args := [ op , box , add , input  ]
+                      *       op==4 : put(Post<T> input)
+                      *               -> args := [ op , box , input  ]
+                      *       op==5 : get  
+                      *               -> args := [ op , box , output-post<U> , output-bool ]
+                      *          
+                 */
+                void f(object[] args)
+                {
+                    var mb = (MailBox<T, U>)args[1];
+                    switch ((int)args[0])
+                    {
+                        case 0: mb.Work(); break;
+                        case 1: args[2] = mb.inBox_size(); break;
+                        case 2: args[2] = mb.outBox_size(); break;
+                        case 3: mb.put((int)args[2], (T)args[3]); break;
+                        case 4: mb.put((Post<T>)args[2]); break;
+                        case 5:
+                            var postu = (Post<U>)args[2];
+                            args[3] = mb.get(ref postu);
+                            args[2] = postu;
+                            break;
+                    }
+                }
+                return f;
+            }
+
+            public static WrappedBox_00 Wrap<T, U>(MailBox<T, U> mb)
+            {
+                return new WrappedBox_00(typeof(T), typeof(U), mb, MakeAcc<T, U>());
+            }
+            public MailBox<T, U> Unwrap<T, U>()
+            {
+                if (typeof(T) != InType || typeof(U) != OutType) return null;
+                return ((MailBox<T, U>)box);
+            }
+
+            public void Work()
+            {
+                accessor(new object[] { 0, box });
+            }
+            public int inbox_size()
+            {
+                var arr = new object[] { 1, box, null };
+                accessor(arr);
+                return ((int)arr[2]);
+            }
+            public int outbox_size()
+            {
+                var arr = new object[] { 2, box, null };
+                accessor(arr);
+                return ((int)arr[2]);
+            }
+            public void put<T>(int add, T inp)
+            {
+                if (typeof(T) != InType) return;
+                accessor(new object[] { 3, box, add, inp });
+            }
+            public void put(int add, object inp)
+            {
+                if (inp.GetType() != InType) return;
+                accessor(new object[] { 3, box, add, inp });
+            }
+            public void put<T>(Post<T> inp)
+            {
+                if (typeof(T) != InType) return;
+                accessor(new object[] { 4, box, inp });
+            }
+            public bool get<U>(ref Post<U> post)
+            {
+                if (typeof(U) != OutType) return false;
+                bool result = false;
+                var arr = new object[] { 5, box, post, result };
+                accessor(arr);
+                result = (bool)arr[3];
+                post = (Post<U>)arr[2];
+                return result;
+            }
+
+            
+            
+        }
+        #endregion
+
+        private static IndexedSet<WrappedBox> Boxes = new IndexedSet<WrappedBox>();
+
+        public static int RegisterBox<T, U>(MailBox<T, U> mb)
+        {
+            var wb = WrappedBox.Wrap<T, U>(mb);
+            return Boxes.Register(wb);
+        }
+        public static void UnregisterBox( int index ) { Boxes.UnRegister(index); }
+        public static MailBox<T, U> GetBox<T, U>(int Index)
+        {
+            WrappedBox wrapped = null;
+            bool flag = Boxes.TryGetVal(Index, ref wrapped);
+            if (flag) return wrapped.UnWrap<T, U>();
+            return null;
+        }
+
+        public static void CheckMail()
+        {
+            var wrappedBoxes = Boxes.GetVals();
+            foreach (var box in wrappedBoxes)
+            {
+                int len = box.inbox_size();
+                for (int i = 0; i < len; i++)
+                {
+                    box.work();
+                }
+            }
+        }
+    }
+
+    #region expirement-code
+    class Timer
+    {
+        private static POST_OFFICE.MailBox<object,float> mailBox;
+        private static bool started = false;
+        private static int mailBox_addr = 0;
+        private static System.Threading.Thread thread;
+
+        private static int lastTime_int = 0;
+        private static float lastTime = 0f;
+
+        public static void SetUp() {
+            float f(object x)
+            {
+                return Time.deltaTime;
+            }
+            mailBox = new POST_OFFICE.MailBox<object, float>(f);
+            mailBox_addr = POST_OFFICE.RegisterBox<object, float>(mailBox);
+
+            thread = new System.Threading.Thread(RUN);
+
+            thread.Start();
+
+            started = true;
+        }
+
+        private static void ReportTime()
+        {
+            var x = (float)(lastTime * .01f);
+            Debug.Log(x.ToString());
+        }
+        private static void CheckTime()
+        {
+            int x = Mathf.FloorToInt(lastTime);
+            if (x != lastTime_int)
+            {
+                lastTime_int = x;
+                ReportTime();
+            }
+        }
+
+        private static void RUN()
+        {
+            const int cap = 100;
+            while (true)
+            {
+                if (mailBox.inBox_size() < cap) mailBox.put(0, null);
+                if (mailBox.outBox_size() > 0)
+                {
+                    POST_OFFICE.Post<float> post = null;
+                    mailBox.get(ref post);
+                    lastTime += post.Value;
+                    ReportTime();
+                }
+            }
+        }
+
+    }
+    #endregion
 
     void Update()
     {
         // TestClass.TestObj.UPDATE();
-         //InterstitialManager.UPDATE();
+        //InterstitialManager.UPDATE();
+        POST_OFFICE.CheckMail();
     }
 
     private class TestClass0
