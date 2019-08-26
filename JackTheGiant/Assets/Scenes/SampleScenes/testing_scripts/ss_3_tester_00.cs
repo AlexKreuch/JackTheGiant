@@ -462,7 +462,7 @@ public class ss_3_tester_00 : MonoBehaviour
     }
     #endregion
 
-    void Start() { MyAdUtils.setUp(); setupButtons(); Timer.SetUp(); }
+    void Start() { MyAdUtils.setUp(); setupButtons(); Timer.SetUp(); SetTimerCap(); }
     void OnGUI() { showButtons();  }
 
     private class POST_OFFICE
@@ -493,7 +493,14 @@ public class ss_3_tester_00 : MonoBehaviour
             {
                 if (inBox.Count == 0) return;
                 Post<T> inPost = inBox.Dequeue();
-                Post<U> outPost = new Post<U>(inPost.Addr, proccess(inPost.Value));
+                //   Post<U> outPost = new Post<U>(inPost.Addr, proccess(inPost.Value));
+                #region debug_version
+                int address = inPost.Addr;
+                var in_val = inPost.Value;
+                if (proccess == null) Debug.Log("proccess was NULL!!");
+                var out_val = proccess(in_val);
+                Post<U> outPost = new Post<U>(address,out_val);
+                #endregion
                 outBox.Enqueue(outPost);
             }
 
@@ -761,13 +768,98 @@ public class ss_3_tester_00 : MonoBehaviour
         }
     }
 
+    private class MMTU // MMTU := Multi-Thread-Utils
+    {
+        public class NODE
+        {
+            private int status = 0; // 0:=empty ; 1:=not_empty
+            private object data = null;
+
+            #region 'put', 'get' and '_isEmtpy' methods
+            /*
+                result->key : 
+                    -> -1:= msg was empty or null
+                    ->  0:= Node was was not ready
+                    ->  1:= Operations success
+                 */
+            public void put(object[] msg, int[] result)
+            {
+                if (result == null || result.Length == 0) return;
+                if (msg == null || msg.Length == 0) { result[0] = -1; return; }
+                if (status != 0) { result[0] = 0; return; }
+                result[0] = 1; data = msg[0]; status = 1;
+            }
+            public void get(object[] msg, int[] result)
+            {
+                if (result == null || result.Length == 0) return;
+                if (msg == null || msg.Length == 0) { result[0] = -1; return; }
+                if (status != 1) { result[0] = 0; return; }
+                result[0] = 1; msg[0] = data; status = 0;
+            }
+
+            public bool _isEmpty() { return status == 0; }
+            #endregion
+
+            public class Sender
+            {
+                private NODE connection;
+                private object[] obj_box = new object[] { null };
+                private int[] int_box = new int[] { 0 };
+
+                private Sender() { }
+                public Sender(NODE n) { connection = n; }
+
+                public bool boxReady() { return connection._isEmpty(); }
+                public bool send(ref object msg)
+                {
+                    obj_box[0] = msg;
+                    connection.put(obj_box, int_box);
+                    msg = obj_box[0];
+                    return int_box[0] == 1;
+                }
+            }
+
+            public class Receiver
+            {
+                private NODE connection;
+                private object[] obj_box = new object[] { null };
+                private int[] int_box = new int[] { 0 };
+
+                private Receiver() { }
+                public Receiver(NODE n) { connection = n; }
+
+                public bool hasMsg() { return !connection._isEmpty(); }
+                public bool receive(ref object msg)
+                {
+                    obj_box[0] = msg;
+                    connection.get(obj_box, int_box);
+                    msg = obj_box[0];
+                    return int_box[0] == 1;
+                }
+            }
+
+            public Sender GetSender() { return new Sender(this); }
+            public Receiver GetReceiver() { return new Receiver(this); }
+        }
+    }
+
     #region expirement-code
+    public int cap_val = 100;
+    private void SetTimerCap()
+    {
+        int f() { return cap_val; }
+        Timer.set_cap_access(f);
+    }
     class Timer
     {
         private static POST_OFFICE.MailBox<object,float> mailBox;
         private static bool started = false;
         private static int mailBox_addr = 0;
         private static System.Threading.Thread thread;
+
+        private static System.Func<int> cap_access = null;
+        public static void set_cap_access(System.Func<int> f) { cap_access = f; }
+        private static int GetCap() { return cap_access == null ? 100 : cap_access(); }
 
         private static int lastTime_int = 0;
         private static float lastTime = 0f;
@@ -790,7 +882,8 @@ public class ss_3_tester_00 : MonoBehaviour
         private static void ReportTime()
         {
             var x = (float)(lastTime * .01f);
-            Debug.Log(x.ToString());
+            var msg = x.ToString() + " : " + mailBox.inBox_size().ToString() + ":>" + mailBox.outBox_size().ToString();
+            Debug.Log(msg);
         }
         private static void CheckTime()
         {
@@ -804,10 +897,9 @@ public class ss_3_tester_00 : MonoBehaviour
 
         private static void RUN()
         {
-            const int cap = 100;
             while (true)
             {
-                if (mailBox.inBox_size() < cap) mailBox.put(0, null);
+                if (mailBox.inBox_size() < GetCap()) mailBox.put(0, null);
                 if (mailBox.outBox_size() > 0)
                 {
                     POST_OFFICE.Post<float> post = null;
