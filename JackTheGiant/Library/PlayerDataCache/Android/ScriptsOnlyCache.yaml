@@ -14,7 +14,6 @@ ScriptsOnlyBuild:
     - Fader
     - GameManager
     - GameOverPanel
-    - GoogleMobileAds.Common.MobileAdsEventExecutor
     - HighScoreMenuScript
     - HighScoreTester00
     - Horizontal_Bounds
@@ -30,6 +29,7 @@ ScriptsOnlyBuild:
     - Scene00_tester
     - Scene00_tester00
     - player00_script
+    - tester_00
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
@@ -154,6 +154,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12056}
     - Class: 114
       Script: {instanceID: 12144}
+    - Class: 114
+      Script: {instanceID: 17794}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -1023,6 +1025,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
+  - hash:
+      serializedVersion: 2
+      Hash: 8ce08ba2448f4c58fcbc51d8b5a7af86
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: tester_00
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainMenu00.unity
